@@ -2,3 +2,5 @@ Hello
 It had to be here
 Word
 
+World
+Second insertion Vim
