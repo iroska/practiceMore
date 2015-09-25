@@ -1,0 +1,54 @@
+routes:
+/ start page
+	- signin form
+		* username - input text
+		* password - input password
+		* submit button
+		* checkbox remember me - optional
+		* forgot password link
+		
+	- signup form
+		* first name and lastname - input text
+		* username - input text, facem check sa fie unique
+		* email - input text		validate using regex 
+		* avatar - input file (optional)
+		* password - input password, 
+		* confirm password - input password
+		* submit button "register"
+
+	- start page content
+		lorem ipsum
+		
+/user/signin - POST
+/user/signup - POST
+/user/profile{username} - GET afisheaza view profile, daca este username, atunci arata profilul lui
+/user/profile - POST schimba datele in profile
+
+/ start page logged in user
+
+	- my twits (sau si restwits)
+		* textarea pentru a face un twit
+		* lista cu own twits
+		* mai jos list cu twiturile userilor care le citesc. (optional)
+		
+		
+	- un block cu scrut infor despre mine
+		* avatar (optinal)
+		* first name and lastrname
+		* my twitter @username
+		* links: twits (cu count), link la following(cu count), link la followers(cu count)
+		
+	
+	
+	
+
+
+	
+============================
+models:
+main parent model - Model with CRUD and singleton DB connection
+user model			UserModel inherits ApplicationModel
+twit model			TwitModel inherits ApplicationModel
+avatar model		AvatarModel inherits (optional)
+
+
