@@ -32,7 +32,7 @@ public class UserDaoImplement implements UserDaoInterface {
 	@Override
 	public List<User> getUser() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<User> userList = session.createQuery("from User").list();
+		List<User> userList = session.createQuery("from user").list();
 		for (User user : userList) {
 			logger.info("User List::" + user);
 		}
@@ -48,14 +48,14 @@ public class UserDaoImplement implements UserDaoInterface {
 		}
 		logger.info("Person deleted successfully, person details=" + user);
 	}
-	
+
 	@Override
-    public User getPersonById(int id) {
-        Session session = this.sessionFactory.getCurrentSession();      
-        User user = (User) session.load(User.class, new Integer(id));
-        logger.info("Person loaded successfully, Person details="+user);
-        return user;
-    }
+	public User getPersonById(int id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		User user = (User) session.load(User.class, new Integer(id));
+		logger.info("Person loaded successfully, Person details=" + user);
+		return user;
+	}
 
 	@Override
 	public void updateUser(User user) {

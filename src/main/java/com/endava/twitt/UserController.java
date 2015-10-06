@@ -6,13 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.endava.twitt.models.User;
 import com.endava.twitt.services.UserServicesInterface;
@@ -28,14 +25,14 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@RequestMapping(value="/user", method=RequestMethod.GET)
+	@RequestMapping(value="/showUsers", method=RequestMethod.GET)
 	public String listUsers(Model model){
 		model.addAttribute("user", new User());
 		model.addAttribute("userList", this.userService.getUser());
         return "showUsers";		
 	}
 	
-	@RequestMapping(value = "/user/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/showUsers/add", method = RequestMethod.POST)
     public String addUser(@ModelAttribute("user") User user)
     {
 		 if(user.getId() == 0){
@@ -46,7 +43,7 @@ public class UserController {
 	            this.userService.updateUser(user);
 	        }
 	         
-	        return "redirect:/user";
+	        return "homeLogPage";
     }
 	
 	@RequestMapping("/delete/{userId}")

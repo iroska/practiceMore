@@ -9,9 +9,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Sign Up</title>
 </head>
 <body>
+
+<form:errors path="user.*"/>
+
+<form action="loginSubmissionSuccess" method="post">
+
+<fieldset><legend>New to Endava Twitter? Sign up</legend>
+
+
+<input type="text" name="firstName" value="First name"/><br/>
+<input type="text" name="lastName" value="Last name"/><br/>
+<input type="text" name="userEmail" value="Email"/><br/>
+<input type="password" name="userPassword" value="Password"/><br/>
+<input type="submit" name="submit" value="Sign up for Twitter"/>
+
+</fieldset>
+</form>
+
 
 </body>
 </html>
