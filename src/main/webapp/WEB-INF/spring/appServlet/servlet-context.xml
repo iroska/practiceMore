@@ -87,5 +87,9 @@
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<beans:property name="sessionFactory" 	ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
+	
+	<beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<beans:property name="basename" value="/WEB-INF/views/formMessages"/>
+	</beans:bean>
 
 </beans:beans>
