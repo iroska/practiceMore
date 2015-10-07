@@ -1,4 +1,16 @@
-/*
-html {
-    font-family: GillSans, Calibri, Trebuchet, sans-serif;
-  }*/
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=url],
+input[type=time],
+input[type=date],
+input[type=datetime-local],
+input[type=tel],
+input[type=number],
+input[type=search],
+textarea.materialize-textarea {
+    margin-bottom:0;
+}
+.input-field {
+    margin-top:0;
+}
