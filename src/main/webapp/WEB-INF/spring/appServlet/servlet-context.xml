@@ -40,15 +40,10 @@
         <beans:property name="username" value="root"/>
         <beans:property name="password" value="endava"/>
     </beans:bean>
-
-    <!-- class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" -->
-
-    <!-- class="org.springframework.jdbc.datasource.DriverManagerDataSource" -->
-
     <!-- Hibernate 4 SessionFactory Bean definition -->
     <beans:bean id="hibernate4AnnotatedSessionFactory"
                 class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <beans:property name="dataSource" ref="dataSource"/>
+        <beans:property name="dataSource" ref="dataSource" />
         <beans:property name="annotatedClasses">
             <beans:list>
                 <beans:value>com.endava.twitt.models.User</beans:value>
@@ -63,7 +58,7 @@
                 </beans:prop>
 
                 <beans:prop key="hibernate.show_sql">true</beans:prop>
-                <beans:prop key="hbm2ddl.auto">create</beans:prop>
+
                 <beans:prop key="maxwait">10000</beans:prop>
                 <beans:prop key="maxidle">25</beans:prop>
                 <beans:prop key="minidle">5</beans:prop>
@@ -74,20 +69,25 @@
 
     <beans:bean id="usersDao" class="com.endava.twitt.dao.UserDaoImplement">
         <beans:property name="sessionFactory"
-                        ref="hibernate4AnnotatedSessionFactory"/>
+                        ref="hibernate4AnnotatedSessionFactory" />
     </beans:bean>
 
     <beans:bean id="userService"
                 class="com.endava.twitt.services.UserServicesImplement">
         <beans:property name="userDao" ref="usersDao"></beans:property>
     </beans:bean>
-    <context:component-scan base-package="com.journaldev.spring"/>
+    <context:component-scan base-package="com.journaldev.spring" />
 
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <tx:annotation-driven transaction-manager="transactionManager" />
 
     <beans:bean id="transactionManager"
                 class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+        <beans:property name="sessionFactory" 	ref="hibernate4AnnotatedSessionFactory" />
     </beans:bean>
+
+    <beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <beans:property name="basename" value="/WEB-INF/views/formMessages"/>
+    </beans:bean>
+
 
 </beans:beans>
