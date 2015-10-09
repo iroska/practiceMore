@@ -19,12 +19,29 @@ import com.endava.twitt.models.User;
  */
 @Controller
 public class WebController {
+	
+	/*@RequestMapping("/")
+	public String index1(){
+		return "redirect:/indexstart";
+	}*/
+	
+	@RequestMapping("/")
+	public String index(){
+		return "homeLogPage";
+	}
+	
+	
+	
+	
+	
+	
+	
 
-	@RequestMapping(value="/",method=RequestMethod.GET)
+	@RequestMapping(value="/f",method=RequestMethod.GET)
 	public ModelAndView homeLogPage(@Valid @ModelAttribute("user") User user, BindingResult result) {
 		
 		
-		ModelAndView model = new ModelAndView("homeLogPage");
+		ModelAndView model = new ModelAndView("successfulSubmission");
 		return model;
 		
 	}
