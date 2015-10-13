@@ -98,11 +98,15 @@ pageEncoding="UTF-8"%>
     <form action="delete/">
     Delete <input type="text" name="email" value="email"/>
     <input type="submit" value="delete">
-    </form>
+    </form><br/><br/>
     
-    <form action="users">
+    <form action="users" method="GET">
     Users <input type="submit" value="ListUsers">
-    </form>
+    </form><br/><br/>
+    
+     <form action="tweetsviwe" method="GET">
+    Tweets <input type="submit" value="ListUsers">
+    </form><br/><br/>
     
     <div class="row">
         <div class="divider col s12 m6 l4 offset-l4 offset-m3"></div>
@@ -112,10 +116,10 @@ pageEncoding="UTF-8"%>
             <div class="center promo promo-example">
                 <h5 class="light condensed">Log in</h5>
             </div>
-            <form action="" method="post">
+            <form action="tweetsviwe" method="GET">
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="username" name="username" type="text" class="validate">
+                        <input id="username" name="tweetsViwe" type="text" class="validate">
                         <label for="username">Username</label>
                     </div>
                 </div>

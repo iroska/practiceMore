@@ -32,7 +32,7 @@ public class UserDaoImplement implements UserDaoInterface {
 	@Override
 	public List<User> getUser() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<User> userList = session.createQuery("from user").list();
+		List<User> userList = (List<User>)session.createQuery("from User").list();
 		for (User user : userList) {
 			logger.info("User List::" + user);
 		}

@@ -32,7 +32,7 @@ public class TweetImplement implements TweetInterface {
 	@Override
 	public List<Tweets> getTweets() {
 		Session session = this.sessionFactory.getCurrentSession();		
-		List<Tweets> tweetList = session.createQuery("from tweets").list();
+		List<Tweets> tweetList = (List<Tweets>)session.createQuery("from Tweets").list();
 		for (Tweets tweet : tweetList) {
 			logger.info("User List::" + tweet);
 		}

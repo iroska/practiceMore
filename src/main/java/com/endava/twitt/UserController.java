@@ -25,11 +25,11 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@RequestMapping(value="/showUsers", method=RequestMethod.GET)
+	@RequestMapping(value="/users", method=RequestMethod.GET)
 	public String listUsers(Model model){
 		model.addAttribute("user", new User());
 		model.addAttribute("userList", this.userService.getUser());
-        return "showUsers";		
+        return "users";		
 	}
 	
 	@RequestMapping(value = "/home", method = RequestMethod.POST)

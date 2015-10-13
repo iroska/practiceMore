@@ -14,7 +14,7 @@
 <h1>${user.firstName }</h1>
 
 <form action="tweets" method="GET">
-	<input type="text" name="user" value="ion@rosca.com"/><br/>
+	<input type="text" name="users_email" value="ion@rosca.com"/><br/>
 	<input type="text" name="description" height="100px" width="100" size="140"/>
 	<input type="submit" value="Tweet Message"/>
 </form>

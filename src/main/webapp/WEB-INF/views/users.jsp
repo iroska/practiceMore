@@ -6,23 +6,23 @@
 <%@ page session="false"%>
 <html>
 <head>
-<title>Tweets Page</title>
+<title>Users Page</title>
 </head>
 <body>
 
-	<h3>Tweets List</h3>
-	<c:if test="${!empty tweetList}">
+	<h3>Users List</h3>
+	<c:if test="${!empty userList}">
 		<table class="tg" border="1">
 			<tr>
-				<th width="80">Tweet</th>
-				<th width="120">Published Date</th>
+				<th width="80">First Name</th>
+				<th width="120">Last Name</th>
 				<th width="120">Email</th>
 			</tr>
-			<c:forEach items="${tweetList}" var="tweet">
+			<c:forEach items="${userList}" var="person">
 				<tr>
-					<td>${tweet.description}</td>
-					<td>${tweet.publishedDate}</td>
-					<td>${tweet.user}</td>
+					<td>${person.firstName}</td>
+					<td>${person.lastName}</td>
+					<td><a href="${person.email}"></a></td>
 				</tr>
 			</c:forEach>
 		</table>
