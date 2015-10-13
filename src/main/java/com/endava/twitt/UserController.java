@@ -1,7 +1,5 @@
 package com.endava.twitt;
 
-
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -21,14 +16,7 @@ import com.endava.twitt.services.UserServicesInterface;
 
 @Controller
 public class UserController {
-	
-	@InitBinder
-	public void initBinder(WebDataBinder binder){
 		
-		//binder.setDisallowedFields(new String[] {"firstName"});
-		
-	}
-	
 	private UserServicesInterface userService;
 	
 	@Autowired(required=true)
@@ -44,14 +32,14 @@ public class UserController {
         return "showUsers";		
 	}
 	
-	@RequestMapping(value = "/showUsers/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/home", method = RequestMethod.POST)
     public String addUser(@Valid @ModelAttribute("user") User user, BindingResult result){
 				
 		if (result.hasErrors()){			
 			return "homeLogPage";
 		}
 						
-		 if(user.getId() == 0){
+		 if(user.getEmail() != null){
 	            //new person, add it
 	            this.userService.insertUser(user);
 	        }else{
@@ -59,15 +47,15 @@ public class UserController {
 	            this.userService.updateUser(user);
 	        }
 		
-	        return "successfulSubmission";
+	        return "home";
     }
 	
-	@RequestMapping("/delete/{userId}")
-    public String deleteUser(@PathVariable("userId") Integer userId, Model model)
+	@RequestMapping("/delete")
+    public String deleteUser(@ModelAttribute("email") String userEmail)
     {
-		 model.addAttribute("user", this.userService.getPersonById(userId));
-	        model.addAttribute("userList", this.userService.getUser());
-	        return "showUsers";
+		this.userService.deleteUser(userEmail);
+	       
+	        return "users";
     }
 	
 	

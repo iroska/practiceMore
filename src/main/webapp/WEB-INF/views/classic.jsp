@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
-<%@taglib uri="http://tiles.apache.org/tags-tiles" prefix="spring"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <html>
 <head>
@@ -66,9 +66,9 @@
 	<br />
 	<br />
 
-	<center>
+	
 		<tiles:insertAttribute name="footer" />
-	</center>
+	
 
 </body>
 </html>

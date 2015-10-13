@@ -10,9 +10,9 @@ public interface UserDaoInterface {
 
 	public List<User> getUser();
 
-	public void deleteUser(Integer userId);
+	public void deleteUser(String userEmail);
 	
-	public User getPersonById(int id);
+	public User getUserByName(String name);
 
 	public void updateUser(User user);
 

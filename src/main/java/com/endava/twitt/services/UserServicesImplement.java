@@ -32,15 +32,15 @@ public class UserServicesImplement implements UserServicesInterface {
 
 	@Override
 	@Transactional
-	public void deleteUser(Integer userId) {
-		userDao.deleteUser(userId);
+	public void deleteUser(String userEmail) {
+		userDao.deleteUser(userEmail);
 
 	}
 	
 	@Override
     @Transactional
-    public User getPersonById(int id) {
-        return this.userDao.getPersonById(id);
+    public User getUserByName(String name) {
+        return this.userDao.getUserByName(name);
     }
 
 	@Override

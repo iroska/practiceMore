@@ -2,45 +2,49 @@ package com.endava.twitt.models;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
-public class Item {
+@Table(name="tweets")
+public class Tweets {
 	
 	@Id
 	@GeneratedValue
-	private Integer id;
+	@Column(name="Id_Tweets")
+	private int id;		
 	
-	private String title;
+	@ManyToOne(fetch = FetchType.LAZY)
+	
+	@JoinColumn(name = "Users_Email")	
+	private User user;	
+	
+	@Size(min = 0, max = 140)
+	@Column(name="description")
 	private String description;
+	
+	@Column(name="publishedDate")
 	private Date publishedDate;
 	
-	@ManyToOne
-	@JoinColumn(name="follow_id")
-	private Followers folow;
-	
-	public Followers getFolow() {
-		return folow;
-	}
-	public void setFolow(Followers folow) {
-		this.folow = folow;
-	}
-	public Integer getId() {
+		
+	public int getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
-	public String getTitle() {
-		return title;
+	public User getUser() {
+		return user;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	public String getDescription() {
 		return description;
@@ -54,12 +58,8 @@ public class Item {
 	public void setPublishedDate(Date publishedDate) {
 		this.publishedDate = publishedDate;
 	}
-	public String getLink() {
-		return link;
-	}
-	public void setLink(String link) {
-		this.link = link;
-	}
-	private String link;
-
+	
+	
 }
+	
+	

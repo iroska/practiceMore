@@ -10,7 +10,8 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
 
-	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
@@ -31,6 +32,7 @@
 	<context:component-scan base-package="com.endava.twitt.dao" />
 	<context:component-scan base-package="com.endava.twitt.models" />
 	<context:component-scan base-package="com.endava.twitt.services" />
+	
 
 	<beans:bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -44,8 +46,9 @@
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource" />
 		<beans:property name="annotatedClasses">
-			<beans:list>			
+			<beans:list>
 				<beans:value>com.endava.twitt.models.User</beans:value>
+				<beans:value>com.endava.twitt.models.Tweets</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">
@@ -67,7 +70,8 @@
 	</beans:bean>
 
 	<beans:bean id="usersDao" class="com.endava.twitt.dao.UserDaoImplement">
-		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+		<beans:property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
 
 	<beans:bean id="userService"
@@ -75,6 +79,16 @@
 		<beans:property name="userDao" ref="usersDao"></beans:property>
 	</beans:bean>
 	
+	<beans:bean id="usersTweets" class="com.endava.twitt.dao.TweetImplement">
+		<beans:property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+
+	<beans:bean id="tweetService"
+		class="com.endava.twitt.services.TweetServiceImplement">
+		<beans:property name="tweetDao" ref="usersTweets"></beans:property>
+	</beans:bean>
+
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
@@ -83,9 +97,9 @@
 		<beans:property name="sessionFactory"
 			ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
-	
-	
-	<!-- Error messages  -->
+
+
+	<!-- Error messages -->
 
 	<beans:bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
@@ -95,23 +109,34 @@
 
 
 	<!--Security Configuration -->
-	
-	<!-- <beans:import	resource="classpath:/WEB-INF/spring/appServlet/security-config.xml" /> -->
-	
-	
+
+	<!-- <beans:import resource="classpath:/WEB-INF/spring/appServlet/security-config.xml" 
+		/> -->
+
+
 	<!--Apache Tiles Configuration -->
-	
-	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+
+	<!-- <beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer"> 
+		<beans:property name="definitions" value="/WEB-INF/defs/general.xml"/> </beans:bean> 
+		<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver"> 
+		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesViewResolver" 
+		/> </beans:bean> -->
+
+	<beans:bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer" >
 		<beans:property name="definitions">
 			<beans:list>
-				<beans:value>/WEB-INF/defs/general.xml</beans:value>			
+				<beans:value>/WEB-INF/defs/general.xml</beans:value>
 			</beans:list>
 		</beans:property>
 	</beans:bean>
-	<beans:bean id="viewResolver"
-		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+
+	<beans:bean id="viewResolver"	class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
 	</beans:bean>
+
+	<context:annotation-config />
+
 
 
 

@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -39,6 +39,8 @@ pageEncoding="ISO-8859-1"%>
         </ul>
     </div>
 </nav>
+
+ <form:errors path="tweets.description"/>
 <div class="container">
     <h2 class="center-align light hide-on-small-only">Wellcome To Team 01 Twitter Application</h2>
     <h4 class="center-align light hide-on-med-and-up">Wellcome To Team 01 Twitter Application</h4>
@@ -49,7 +51,7 @@ pageEncoding="ISO-8859-1"%>
                 <h5 class="light condensed">New to Endava Twitter? Sign up</h5>
             </div>
 
-            <form action="showUsers/add" method="post">
+            <form action="home" method="post">
                 <div class="row">
                     <div class="input-field col s6">
                         <input id="first_name" name="firstName" type="text" class="validate">
@@ -69,12 +71,12 @@ pageEncoding="ISO-8859-1"%>
                         <form:errors path="user.email"/>
                     </div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                     <div class="input-field col s12">
                         <input id="avatar" name="avatar" type="text" class="validate">
                         <label for="password">avatar</label>
                     </div>
-                </div>
+                </div> -->
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="password" name="password" type="password" class="validate">
@@ -91,6 +93,17 @@ pageEncoding="ISO-8859-1"%>
             </form>
         </div>
     </div>
+    
+    <br/>
+    <form action="delete/">
+    Delete <input type="text" name="email" value="email"/>
+    <input type="submit" value="delete">
+    </form>
+    
+    <form action="users">
+    Users <input type="submit" value="ListUsers">
+    </form>
+    
     <div class="row">
         <div class="divider col s12 m6 l4 offset-l4 offset-m3"></div>
     </div>
@@ -144,7 +157,7 @@ pageEncoding="ISO-8859-1"%>
     </div>
     <div class="footer-copyright">
         <div class="container">
-            © 2014 Copyright Text
+            Â© 2014 Copyright Text
             <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
         </div>
     </div>

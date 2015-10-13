@@ -40,9 +40,9 @@ public class UserDaoImplement implements UserDaoInterface {
 	}
 
 	@Override
-	public void deleteUser(Integer userId) {
+	public void deleteUser(String userEmail) {
 		Session session = this.sessionFactory.getCurrentSession();
-		User user = (User) session.load(User.class, new Integer(userId));
+		User user = (User) session.load(User.class, new String(userEmail));
 		if (null != user) {
 			session.delete(user);
 		}
@@ -50,9 +50,9 @@ public class UserDaoImplement implements UserDaoInterface {
 	}
 
 	@Override
-	public User getPersonById(int id) {
+	public User getUserByName(String name) {
 		Session session = this.sessionFactory.getCurrentSession();
-		User user = (User) session.load(User.class, new Integer(id));
+		User user = (User) session.get(User.class, new String (name));
 		logger.info("Person loaded successfully, Person details=" + user);
 		return user;
 	}
