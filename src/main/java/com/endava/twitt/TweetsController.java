@@ -30,13 +30,13 @@ public class TweetsController {
 			BindingResult result) {		
 
 		if (result.hasErrors()) {
-			return "home";
+			return "redirect:/login";
 		}
 
 		if (true) {
 			this.tweetService.insertTweets(twee);
 		}
-		return "tweets";
+		return "home";
 	}
 	
 	@RequestMapping(value = "/tweetsviwe", method = RequestMethod.GET)

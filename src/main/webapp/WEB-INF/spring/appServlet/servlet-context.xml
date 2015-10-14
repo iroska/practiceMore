@@ -76,7 +76,7 @@
 
 	<beans:bean id="userService"
 		class="com.endava.twitt.services.UserServicesImplement">
-		<beans:property name="userDao" ref="usersDao"></beans:property>
+		<beans:property name="userDao" ref="usersDao"></beans:property>		
 	</beans:bean>
 	
 	<beans:bean id="usersTweets" class="com.endava.twitt.dao.TweetImplement">
@@ -89,7 +89,10 @@
 		<beans:property name="tweetDao" ref="usersTweets"></beans:property>
 	</beans:bean>
 
-
+	<beans:bean id="uniqueUserValidator" class="com.endava.twitt.annotation.UniqueUserValidator">	
+		<beans:property name="userDao" ref="usersDao"></beans:property>
+	</beans:bean>
+	
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<beans:bean id="transactionManager"

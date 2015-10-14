@@ -30,7 +30,7 @@ public class Tweets {
 	@Column(name="description")
 	private String description;
 	
-	@Column(name="publishedDate")
+	@Column(name="publishedDate", insertable=true)
 	private Date publishedDate;
 	
 		
@@ -56,7 +56,7 @@ public class Tweets {
 		return publishedDate;
 	}
 	public void setPublishedDate(Date publishedDate) {
-		this.publishedDate = publishedDate;
+		this.publishedDate = new Date();
 	}
 	
 	

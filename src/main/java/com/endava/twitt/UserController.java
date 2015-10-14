@@ -32,7 +32,7 @@ public class UserController {
         return "users";		
 	}
 	
-	@RequestMapping(value = "/home", method = RequestMethod.POST)
+	@RequestMapping(value = "/homescxczxczczx", method = RequestMethod.POST)
     public String addUser(@Valid @ModelAttribute("user") User user, BindingResult result){
 				
 		if (result.hasErrors()){			

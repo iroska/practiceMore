@@ -48,4 +48,10 @@ public class UserServicesImplement implements UserServicesInterface {
 	public void updateUser(User user) {
 		userDao.updateUser(user);
 	}
+
+	@Override
+	@Transactional
+	public User loginUser(String userEmail, String password) {		
+		return this.userDao.loginUser(userEmail, password);
+	}
 }

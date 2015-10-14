@@ -25,7 +25,7 @@ public class UserDaoImplement implements UserDaoInterface {
 	@Override
 	public void insertUser(User user) {
 		this.sessionFactory.getCurrentSession().persist(user);
-		logger.info("Person saved successfully, Person Details=" + user);
+		logger.info("Person saved successfully, Person Details=" + user.getEmail());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -34,7 +34,7 @@ public class UserDaoImplement implements UserDaoInterface {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<User> userList = (List<User>)session.createQuery("from User").list();
 		for (User user : userList) {
-			logger.info("User List::" + user);
+			logger.info("User List::" + user.getEmail());
 		}
 		return userList;
 	}
@@ -46,21 +46,37 @@ public class UserDaoImplement implements UserDaoInterface {
 		if (null != user) {
 			session.delete(user);
 		}
-		logger.info("Person deleted successfully, person details=" + user);
+		logger.info("Person deleted successfully, person details=" + user.getEmail());
 	}
 
 	@Override
 	public User getUserByName(String name) {
+		
+		try{
 		Session session = this.sessionFactory.getCurrentSession();
 		User user = (User) session.get(User.class, new String (name));
-		logger.info("Person loaded successfully, Person details=" + user);
+		logger.info("Person loaded successfully, Person details=" + user.getEmail());
 		return user;
+		}
+		catch(NullPointerException e){
+			return null;
+		}
 	}
 
 	@Override
 	public void updateUser(User user) {
 		this.sessionFactory.getCurrentSession().update(user);
-		logger.info("Person updated successfully, Person Details=" + user);
+		logger.info("Person updated successfully, Person Details=" + user.getEmail());
+	}
+
+	@Override
+	public User loginUser(String userEmail, String password) {
+		User user=this.getUserByName(userEmail);
+		if((user!=null) && user.getPassword().equals(password)){
+			logger.info("Person was verified successfully, Person details=" + user.getEmail());
+			return user;				
+		}
+		return null;
 	}
 
 }

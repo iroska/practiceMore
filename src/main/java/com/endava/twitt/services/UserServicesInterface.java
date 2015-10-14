@@ -15,5 +15,7 @@ public interface UserServicesInterface {
 	public User getUserByName(String name);
 
 	public void updateUser(User user);
+	
+	public User loginUser(String userEmail, String password);
 
 }
