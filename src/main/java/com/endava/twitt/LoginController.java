@@ -3,6 +3,7 @@ package com.endava.twitt;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,13 +20,17 @@ public class LoginController {
 	@Autowired
 	private UserServicesInterface userService;
 
+	
+	@Qualifier(value = "userService")
 	public void setUserService(UserServicesInterface userService) {
 		this.userService = userService;
 	}
 
 	@Autowired
 	private TweetServiceInterface tweetService;
-
+	
+	
+	@Qualifier(value = "tweetService")
 	public void setTweetService(TweetServiceInterface tweetService) {
 		this.tweetService = tweetService;
 	}
@@ -39,6 +44,8 @@ public class LoginController {
 	public String verifyLogin(@RequestParam String userEmail,
 			@RequestParam String password, HttpSession session, Model model) {
 
+		
+		
 		User user = userService.loginUser(userEmail, password);
 		User user1 = userService.getUserByName(userEmail);
 		if (user == null) {
@@ -52,6 +59,7 @@ public class LoginController {
 		} 
 
 			session.setAttribute("loadedUser", user);
+						
 			return "redirect:/home";		
 	}
 
@@ -62,7 +70,13 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home() {
+	public String home(HttpSession session, Model model) {
+		
+		session.setAttribute("newloadedUser", session.getAttribute("loadedUser"));
+		
+		
+		model.addAttribute("users", new User());
+		model.addAttribute("userList", this.userService.getUser());
 		return "home";
 	}
 	

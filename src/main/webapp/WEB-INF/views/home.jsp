@@ -13,37 +13,70 @@
 </head>
 <body>
 
-		
-		<p align="right">	Hello ${loadedUser.firstName } ${loadedUser.lastName }! &nbsp;
-			<a href="logout">Sign Out</a></p>		
-					<br />
-					<br />
-					<br />
-					<br />
 
-<h3 align="center">My Tweets</h3>
+	<p align="right">
+		Hello ${loadedUser.firstName } ${loadedUser.lastName }! &nbsp; <a
+			href="logout">Sign Out</a>
+	</p>
+	<br />
+	<br />
+	<br />
+	<br />
 
-<p><font color="green">${descriptionLengthError }</font></p>
-					<form action="tweets" method="GET">
-					
-						<input type="hidden" name="user_email" value="${loadedUser.email }" />
-						<input type="hidden" name="publishedDate" value="new Date()" />
-						<input type="text" name="descript" height="100px" width="100"
-							size="140" />
-						<a href=""><input type="submit" value="Tweet Message" /></a> 
-					</form>
+	<h3 align="center">My Tweets</h3>
 
-					<table border="1" align="center">
-						<c:forEach items="${loadedUser.tweet }" var="tweets">
-							<tr>
-								<td>${tweets.user.firstName } ${tweets.user.lastName }</td>
-								<td>${tweets.description }</td>
-								<td>${tweets.publishedDate }</td>
-							</tr>
-						</c:forEach>
-					</table>
+	<p>
+		<font color="green">${descriptionLengthError }</font>
+	</p>
+	<form action="tweets" method="GET">
 
+		<input type="hidden" name="user_email" value="${loadedUser.email }" />
+		<input type="hidden" name="publishedDate" value="new Date()" /> <input
+			type="text" name="descript" height="100px" width="100" size="140" />
+		<input type="submit" value="Tweet Message" />
+	</form>
+	
+	<%-- <a href="<c:url value='/home'/>" >Get tweet</a> --%>
 	
 
+	<table border="1" align="center">
+		<c:forEach items="${newloadedUser.tweet }" var="tweets">
+			<tr>
+				<td>${tweets.user.firstName }${tweets.user.lastName }</td>
+				<td>${tweets.description }</td>
+				<td>${tweets.publishedDate }</td>				         	
+			</tr>
+		</c:forEach>
+	</table>
+
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	
+	<h3 align="center">Existent Users</h3>
+
+	<c:if test="${!empty userList}">
+		<table class="tg" border="1" align="center">
+			<tr>
+				<th width="80">First Name</th>
+				<th width="120">Last Name</th>
+				<th width="120">Email</th>
+			</tr>
+			<c:forEach items="${userList}" var="person">
+				<tr>
+					<td>${person.firstName}</td>
+					<td>${person.lastName}</td>
+					<td>${person.email}</td>
+					
+				</tr>
+			</c:forEach>
+		</table>
+	</c:if>
+	
+	
+	<br/>	
+	
 </body>
 </html>

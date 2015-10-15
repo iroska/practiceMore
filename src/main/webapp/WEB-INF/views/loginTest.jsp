@@ -62,8 +62,8 @@
 				<form action="login" method="POST">
 					<div class="row">
 						<div class="input-field col s12">
-							<input id="userId" name="userEmail" type="text" placeholder="user name"  class="form-control"> 
-							<label for="username">Username</label>
+							<input id="userId" name="userEmail" type="text" placeholder="email"  class="form-control"> 
+							<label for="email">Email</label>
 						</div>
 					</div>
 					<div class="row">

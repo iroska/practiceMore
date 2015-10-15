@@ -116,7 +116,7 @@
 					<div class="row">
 						<div class="input-field col s12">
 							<input id="userId" name="userEmail" type="text"
-								placeholder="user name" class="form-control"> <label
+								placeholder="email" class="form-control"> <label
 								for="email">Email</label>
 						</div>
 					</div>
