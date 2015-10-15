@@ -22,10 +22,10 @@ public class LoginController {
 	public void setUserService(UserServicesInterface userService) {
 		this.userService = userService;
 	}
-	
+
 	@Autowired
 	private TweetServiceInterface tweetService;
-	
+
 	public void setTweetService(TweetServiceInterface tweetService) {
 		this.tweetService = tweetService;
 	}
@@ -34,35 +34,46 @@ public class LoginController {
 	public String loginShowForm() {
 		return "login";
 	}
-	
-	
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String verifyLogin(@RequestParam String userEmail,
 			@RequestParam String password, HttpSession session, Model model) {
 
 		User user = userService.loginUser(userEmail, password);
+		User user1 = userService.getUserByName(userEmail);
 		if (user == null) {
 			model.addAttribute("loginError", "Wrong email address or password");
 			return "login";
-		}
-		
-		session.setAttribute("loadedUser", user);
+		} else if (user1.getRole().equals("ROLE_ADMIN")) {
 
-		return "redirect:/home";
+			session.setAttribute("loadedUser", user);
+
+			return "redirect:/admin";
+		} 
+
+			session.setAttribute("loadedUser", user);
+			return "redirect:/home";		
 	}
-	
+
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(HttpSession session){
+	public String logout(HttpSession session) {
 		session.removeAttribute("loadedUser");
 		return "login";
 	}
-	
+
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home() {		
+	public String home() {
 		return "home";
 	}
+	
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	public String admin() {
+		return "admin";
+	}
+	
+	@RequestMapping(value = "/loginTest", method = RequestMethod.POST)
+	public String loginTest() {
+		return "loginTest";
+	}
 
-	
-	
 }

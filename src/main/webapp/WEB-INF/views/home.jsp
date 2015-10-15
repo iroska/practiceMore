@@ -13,37 +13,27 @@
 </head>
 <body>
 
-	<form:errors path="tweets.description" />
-	<div class="container">
-		<div style="float: right; margin-top: -30px">
-			<c:choose>
-				<c:when test="${empty loadedUser.firstName }">
-					<a href="users?register"><spring:message
-							code="homePage.RegisterLink" /></a>
-					<a href="login">Login</a>
-				</c:when>
-				<c:otherwise>
-			Hello ${loadedUser.firstName } ${loadedUser.lastName }! &nbsp;
-			<a href="logout">Sign Out</a>
-				</c:otherwise>
-			</c:choose>
-		</div>
 		
-		
-		<br />
+		<p align="right">	Hello ${loadedUser.firstName } ${loadedUser.lastName }! &nbsp;
+			<a href="logout">Sign Out</a></p>		
 					<br />
 					<br />
 					<br />
 					<br />
 
+<h3 align="center">My Tweets</h3>
+
+<p><font color="green">${descriptionLengthError }</font></p>
 					<form action="tweets" method="GET">
-						<input type="hidden" name="${loadedUser.email }" value="${loadedUser.email }" />
-						<input type="text" name="description" height="100px" width="100"
+					
+						<input type="hidden" name="user_email" value="${loadedUser.email }" />
+						<input type="hidden" name="publishedDate" value="new Date()" />
+						<input type="text" name="descript" height="100px" width="100"
 							size="140" />
-						 <input type="submit" value="Tweet Message" />
+						<a href=""><input type="submit" value="Tweet Message" /></a> 
 					</form>
 
-					<table>
+					<table border="1" align="center">
 						<c:forEach items="${loadedUser.tweet }" var="tweets">
 							<tr>
 								<td>${tweets.user.firstName } ${tweets.user.lastName }</td>
@@ -53,7 +43,7 @@
 						</c:forEach>
 					</table>
 
-	</div>
+	
 
 </body>
 </html>

@@ -1,32 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ page session="true"%>
-<html>
-<head>
-<title>Tweets Page</title>
-</head>
-<body>
+<p><font color="green">${descriptionLengthError }</font></p>
+					<form action="tweets" method="GET">
+					
+						<input type="hidden" name="user_email" value="${loadedUser.email }" />
+						<input type="hidden" name="publishedDate" value="new Date()" />
+						<input type="text" name="descript" height="100px" width="100"
+							size="140" />
+						<a href=""><input type="submit" value="Tweet Message" /></a> 
+					</form>
 
-	<h3>Tweets List</h3>
-	<c:if test="${!empty tweetList}">
-		<table class="tg" border="1">
-			<tr>
-				<th width="80">Tweet</th>
-				<th width="120">Published Date</th>
-				<th width="120">Email</th>
-			</tr>
-			<c:forEach items="${tweetList}" var="tweet">
-				<tr>
-					<td>${tweet.description}</td>
-					<td>${tweet.publishedDate}</td>
-					<td>${tweet.user}</td>
-				</tr>
-			</c:forEach>
-		</table>
-	</c:if>
-	
-</body>
-</html>
+					<table border="1" align="center">
+						<c:forEach items="${loadedUser.tweet }" var="tweets">
+							<tr>
+								<td>${tweets.user.firstName } ${tweets.user.lastName }</td>
+								<td>${tweets.description }</td>
+								<td>${tweets.publishedDate }</td>
+							</tr>
+						</c:forEach>
+					</table>

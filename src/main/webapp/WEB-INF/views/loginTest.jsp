@@ -42,119 +42,39 @@
 		</ul>
 	</div>
 	</nav>
-
-	<form:errors path="tweets.description" />
-	<div class="container">
+	<div class="container">	
 		<h2 class="center-align light hide-on-small-only">Wellcome To
 			Team 01 Twitter Application</h2>
 		<h4 class="center-align light hide-on-med-and-up">Wellcome To
 			Team 01 Twitter Application</h4>
 		<div class="divider"></div>
-		<div class="row thin">
-			<div class="col s12 m6 l4 offset-l4 offset-m3 amber lighten-5">
-				<div class="center promo promo-example">
-					<h5 class="light condensed">New to Endava Twitter? Sign up</h5>
-				</div>
-
-				<form action="home" method="post">
-					<div class="row">
-						<div class="input-field col s6">
-							<input id="first_name" name="firstName" type="text"
-								class="validate"> <label for="first_name">First
-								Name</label>
-							<form:errors path="user.firstName" />
-						</div>
-						<div class="input-field col s6">
-							<input id="last_name" name="lastName" type="text"
-								class="validate"> <label for="last_name">Last
-								Name</label>
-							<form:errors path="user.lastName" />
-						</div>
-					</div>
-					<div class="row">
-						<div class="input-field col s12">
-							<input id="email" name="email" type="email" class="validate">
-							<label for="email" data-error="wrong" data-success="">Email</label>
-							<form:errors path="user.email" />
-						</div>
-					</div>
-					<!-- <div class="row">
-                    <div class="input-field col s12">
-                        <input id="avatar" name="avatar" type="text" class="validate">
-                        <label for="password">avatar</label>
-                    </div>
-                </div> -->
-					<div class="row">
-						<div class="input-field col s12">
-							<input id="password" name="password" type="password"
-								class="validate"> <label for="password">Password</label>
-							<form:errors path="user.password" />
-						</div>
-					</div>
-					<div class="row light condensed center-align">
-						<button class="btn waves-effect waves-ligh cyan lighten-3t"
-							type="submit" name="submit">
-							Sign up for Twitter <i class="material-icons right">send</i>
-						</button>
-					</div>
-				</form>
-			</div>
-		</div>
-
-		<br />
-		<form action="delete/">
-			Delete <input type="text" name="email" value="email" /> <input
-				type="submit" value="delete">
-		</form>
-		<br />
-		<br />
-		<br />
-
-		<form action="tweets" method="POST">
-			<input type="text" name="userEmail" /><br />			
-			<input type="submit" value="Get User" />
-		</form>
-		<br />
-		<br />
-
-		<form action="users" method="GET">
-			Users <input type="submit" value="ListUsers">
-		</form>
-		<br />
-		<br />
-
-		<form action="tweetsviwe" method="GET">
-			Tweets <input type="submit" value="ListUsers">
-		</form>
-		<br />
-		<br />
-
 		<div class="row">
 			<div class="divider col s12 m6 l4 offset-l4 offset-m3"></div>
 		</div>
 		<div class="row thin">
 			<div class="col s12 m6 l4 offset-l4 offset-m3 lime lighten-5">
+			<h5 align="center"><font color="green">${successfulRegistration }</font></h5>
+			<h5 align="center"><font color="red">${loginError }</font></h5>
 				<div class="center promo promo-example">
 					<h5 class="light condensed">Log in</h5>
 				</div>
-				<form action="tweetsviwe" method="GET">
+				
+				<form action="login" method="POST">
 					<div class="row">
 						<div class="input-field col s12">
-							<input id="username" name="tweetsViwe" type="text"
-								class="validate"> <label for="username">Username</label>
+							<input id="userId" name="userEmail" type="text" placeholder="user name"  class="form-control"> 
+							<label for="username">Username</label>
 						</div>
 					</div>
 					<div class="row">
 						<div class="input-field col s12">
-							<input id="password" name="password" type="password"
-								class="validate"> <label for="password">Password</label>
-							<form:errors path="user.password" />
+							<input id="password" name="password" type="password" placeholder="password" 
+							 class="form-control"> <label for="password">Password</label>						
 						</div>
 					</div>
 					<div class="row light condensed center-align">
-						<button class="btn waves-effect waves-ligh cyan lighten-3t"
-							type="submit" name="submit">
-							Log in <i class="material-icons done">done</i>
+						<button class="form-control" id="loginButton"
+							type="submit" name="submit">Log in <i class="material-icons done"></i>
 						</button>
 					</div>
 				</form>
