@@ -24,6 +24,8 @@ pageEncoding="UTF-8"%>
 
 <%@include file="partial/nav.jsp" %>
 
+<div class="container">
+    <div class="row">
 
 	<h3>Users List</h3>
 	<c:if test="${!empty userList}">
@@ -42,6 +44,8 @@ pageEncoding="UTF-8"%>
 			</c:forEach>
 		</table>
 	</c:if>
+        </div>
+    </div>
 
 <%@include file="partial/footer.jsp" %>
 

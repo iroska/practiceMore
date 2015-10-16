@@ -1,6 +1,14 @@
 .endava-orange {
     background-color: #f38f1d !important;
 }
+#mobile-logo {
+width: 50%;
+    float: right;
+    margin-top: .3em;
+}
+footer.page-footer {
+    padding-top:0;
+}
 
 input[type=text],
 input[type=password],

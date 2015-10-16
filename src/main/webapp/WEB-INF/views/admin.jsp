@@ -24,6 +24,9 @@ pageEncoding="UTF-8"%>
 
 <%@include file="partial/nav.jsp" %>
 
+<div class="container">
+	<div class="row">
+
 <h1 align="center">Admin Page</h1>
 
 
@@ -60,7 +63,8 @@ Hello ${loadedUser.role } ${loadedUser.firstName } ${loadedUser.lastName }! &nbs
 		</form>
 		<br />
 		<br />
-
+	</div>
+</div>
 <%@include file="partial/footer.jsp" %>
 
 

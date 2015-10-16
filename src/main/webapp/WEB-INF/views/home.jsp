@@ -24,6 +24,8 @@ pageEncoding="UTF-8"%>
 
 <%@include file="partial/nav.jsp" %>
 
+<div class="container">
+	<div class="row">
 
 	<p align="right">
 		Hello ${loadedUser.firstName } ${loadedUser.lastName }! &nbsp; <a
@@ -42,9 +44,18 @@ pageEncoding="UTF-8"%>
 	<form action="tweets" method="GET">
 
 		<input type="hidden" name="user_email" value="${loadedUser.email }" />
-		<input type="hidden" name="publishedDate" value="new Date()" /> <input
-			type="text" name="descript" height="100px" width="100" size="140" />
-		<input type="submit" value="Tweet Message" />
+		<input type="hidden" name="publishedDate" value="new Date()" />
+		<!--<input type="text" name="descript" height="100px" width="100" size="140" />-->
+		<div class="input-field col s12">
+			<textarea id="descript" class="materialize-textarea" name="descript"></textarea>
+			<label for="descript">Tweet here</label>
+		</div>
+		<div class="row light condensed left-align">
+			<button class="btn waves-effect waves-ligh cyan lighten-3t" id="tweetMessage" type="submit"
+					name="submit">
+				Tweet Message <i class="material-icons done">done</i>
+			</button>
+		</div>
 	</form>
 	
 	<%-- <a href="<c:url value='/home'/>" >Get tweet</a> --%>
@@ -88,7 +99,8 @@ pageEncoding="UTF-8"%>
 	
 	
 	<br/>
-
+	</div>
+</div>
 <%@include file="partial/footer.jsp" %>
 
 
@@ -98,6 +110,8 @@ pageEncoding="UTF-8"%>
 <script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
 <script type="text/javascript" src="<c:url value="/resources/scripts/scripts.js" />"></script>
+
+
 
 </body>
 </html>
