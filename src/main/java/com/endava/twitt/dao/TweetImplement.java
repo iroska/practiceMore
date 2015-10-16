@@ -22,14 +22,12 @@ public class TweetImplement implements TweetInterface {
 		this.sessionFactory = sessionFactory;
 	}
 
-	@Override
 	public void insertTweets(Tweets tweet) {
 		this.sessionFactory.getCurrentSession().persist(tweet);
 		logger.info("Tweet saved successfully, Tweet Details=" + tweet);
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<Tweets> getTweets() {
 		Session session = this.sessionFactory.getCurrentSession();		
 		List<Tweets> tweetList = (List<Tweets>)session.createQuery("from Tweets").list();
