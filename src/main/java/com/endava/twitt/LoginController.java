@@ -59,6 +59,7 @@ public class LoginController {
 		} 
 
 			session.setAttribute("loadedUser", user);
+			session.setAttribute("listUsers", user);
 						
 			return "redirect:/home";		
 	}
@@ -72,7 +73,8 @@ public class LoginController {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(HttpSession session, Model model) {
 		
-		session.setAttribute("newloadedUser", session.getAttribute("loadedUser"));
+		session.setAttribute("newloadedUser", session.getAttribute("loadedUser"));		
+		
 		
 		
 		model.addAttribute("users", new User());

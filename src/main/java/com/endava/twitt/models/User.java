@@ -31,15 +31,12 @@ public class User {
 	
 	
 	@OneToMany(targetEntity=Tweets.class, mappedBy="user", fetch=FetchType.EAGER)	
-	private List<Tweets> tweet;
-	
-	
+	private List<Tweets> tweet;	
 
 	@Id
 	@Size(min = 4, max = 254)
 	@Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
-	@Column(name = "Email")
-	//@UniqueUser(message="User allready exists!")
+	@Column(name = "Email")	
 	private String email;
 	@NotEmpty
 	@Size(min = 8, max = 25)
