@@ -88,10 +88,6 @@
 		class="com.endava.twitt.services.TweetServiceImplement">
 		<beans:property name="tweetDao" ref="usersTweets"></beans:property>
 	</beans:bean>
-
-	<beans:bean id="uniqueUserValidator" class="com.endava.twitt.annotation.UniqueUserValidator">	
-		<beans:property name="userDao" ref="usersDao"></beans:property>
-	</beans:bean>
 	
 	<tx:annotation-driven transaction-manager="transactionManager" />
 

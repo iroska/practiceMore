@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="true"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -28,23 +28,21 @@
 	<p>
 		<font color="green">${descriptionLengthError }</font>
 	</p>
-	<form action="tweets" method="GET">
-
+	
+		
+	<form action="tweets" method="POST">
 		<input type="hidden" name="user_email" value="${loadedUser.email }" />
 		<input type="hidden" name="publishedDate" value="new Date()" /> <input
 			type="text" name="descript" height="100px" width="100" size="140" />
 		<input type="submit" value="Tweet Message" />
-	</form>
-	
-	<%-- <a href="<c:url value='/home'/>" >Get tweet</a> --%>
-	
+	</form>	
 
 	<table border="1" align="center">
 		<c:forEach items="${newloadedUser.tweet }" var="tweets">
 			<tr>
-				<td>${tweets.user.firstName }${tweets.user.lastName }</td>
+				<td>${tweets.user.firstName } ${tweets.user.lastName }</td>
 				<td>${tweets.description }</td>
-				<td>${tweets.publishedDate }</td>				         	
+				<td>${tweets.publishedDate }</td>
 			</tr>
 		</c:forEach>
 	</table>
@@ -54,7 +52,7 @@
 	<br />
 	<br />
 	<br />
-	
+
 	<h3 align="center">Existent Users</h3>
 
 	<c:if test="${!empty userList}">
@@ -69,14 +67,14 @@
 					<td>${person.firstName}</td>
 					<td>${person.lastName}</td>
 					<td>${person.email}</td>
-					
+
 				</tr>
 			</c:forEach>
 		</table>
 	</c:if>
-	
-	
-	<br/>	
-	
+
+
+	<br />
+
 </body>
 </html>
