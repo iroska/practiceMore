@@ -5,19 +5,16 @@ pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <!--Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css"
           media="screen,projection"/>
     <link rel="stylesheet" href="<c:url value=" resources
-    /css/styles.css" />"
-    media="screen, projection" />
+    /css/styles.css" />" media="screen, projection" />
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -30,7 +27,7 @@ pageEncoding="UTF-8"%>
             <img src="resources/img/logo.png" alt="Twitter">
         </a>
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i
-            class="material-icons">menu</i></a>
+                class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
             <li><a href="sass.html">Sass</a></li>
             <li><a href="badges.html">Components</a></li>
@@ -89,8 +86,8 @@ pageEncoding="UTF-8"%>
             </div> -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="password" name="password" type="password"
-                               class="validate"> <label for="password">Password</label>
+                        <input id="password" name="password" type="password" class="validate" />
+                        <label for="password">Password</label>
                         <form:errors path="user.password"/>
                     </div>
                 </div>
@@ -120,20 +117,18 @@ pageEncoding="UTF-8"%>
             <form action="login" method="POST">
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="userId" name="userEmail" type="text"
-                               placeholder="email" class="form-control"> <label
-                            for="email">Email</label>
+                        <input id="userId" name="userEmail" type="text"/>
+                        <label for="email">Email</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="password" name="password" type="password"
-                               placeholder="password" class="form-control"> <label
-                            for="password">Password</label>
+                        <input id="login-password" name="password" type="password"/>
+                        <label for="login-password">Password</label>
                     </div>
                 </div>
                 <div class="row light condensed center-align">
-                    <button class="form-control" id="loginButton" type="submit"
+                    <button class="btn waves-effect waves-ligh cyan lighten-3t" id="loginButton" type="submit"
                             name="submit">
                         Log in <i class="material-icons done">done</i>
                     </button>
@@ -173,13 +168,11 @@ pageEncoding="UTF-8"%>
 
 
 <!--Import jQuery before materialize.js-->
-<script type="text/javascript"
-        src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <!-- Compiled and minified JavaScript -->
-<script
-        src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
 <script type="text/javascript"
-        src="<c:url value="
-/resources/css/styles.css" />"></script>
+        src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+<script type="text/javascript" src="<c:url value="
+/resources/scripts/scripts.js" />"></script>
 </body>
 </html>
