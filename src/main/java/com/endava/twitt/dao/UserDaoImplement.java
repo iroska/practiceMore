@@ -13,70 +13,63 @@ import com.endava.twitt.models.User;
 @Repository
 public class UserDaoImplement implements UserDaoInterface {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(UserDaoImplement.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(UserDaoImplement.class);
 
-	private SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
-	@Override
-	public void insertUser(User user) {
-		this.sessionFactory.getCurrentSession().persist(user);
-		logger.info("Person saved successfully, Person Details=" + user.getEmail());
-	}
+    public void insertUser(User user) {
+        this.sessionFactory.getCurrentSession().persist(user);
+        logger.info("Person saved successfully, Person Details=" + user.getEmail());
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<User> getUser() {
-		Session session = this.sessionFactory.getCurrentSession();
-		List<User> userList = (List<User>)session.createQuery("from User").list();
-		for (User user : userList) {
-			logger.info("User List::" + user.getEmail());
-		}
-		return userList;
-	}
+    @SuppressWarnings("unchecked")
+    public List<User> getUser() {
+        Session session = this.sessionFactory.getCurrentSession();
+        List<User> userList = (List<User>) session.createQuery("from User").list();
+        for (User user : userList) {
+            logger.info("User List::" + user.getEmail());
+        }
+        return userList;
+    }
 
-	@Override
-	public void deleteUser(String userEmail) {
-		Session session = this.sessionFactory.getCurrentSession();
-		User user = (User) session.load(User.class, new String(userEmail));
-		if (null != user) {
-			session.delete(user);
-		}
-		logger.info("Person deleted successfully, person details=" + user.getEmail());
-	}
+    public void deleteUser(String userEmail) {
+        Session session = this.sessionFactory.getCurrentSession();
+        User user = (User) session.load(User.class, new String(userEmail));
+        if (null != user) {
+            session.delete(user);
+        }
+        logger.info("Person deleted successfully, person details=" + user.getEmail());
+    }
 
-	@Override
-	public User getUserByName(String name) {
-		
-		try{
-		Session session = this.sessionFactory.getCurrentSession();
-		User user = (User) session.get(User.class, new String (name));
-		logger.info("Person loaded successfully, Person details=" + user.getEmail());
-		return user;
-		}
-		catch(NullPointerException e){
-			return null;
-		}
-	}
+    public User getUserByName(String name) {
 
-	@Override
-	public void updateUser(User user) {
-		this.sessionFactory.getCurrentSession().update(user);
-		logger.info("Person updated successfully, Person Details=" + user.getEmail());
-	}
+        try {
+            Session session = this.sessionFactory.getCurrentSession();
+            User user = (User) session.get(User.class, new String(name));
+            logger.info("Person loaded successfully, Person details=" + user.getEmail());
+            return user;
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
 
-	@Override
-	public User loginUser(String userEmail, String password) {
-		User user=this.getUserByName(userEmail);
-		if((user!=null) && user.getPassword().equals(password)){
-			logger.info("Person was verified successfully, Person details=" + user.getEmail());
-			return user;				
-		}
-		return null;
-	}
+    public void updateUser(User user) {
+        this.sessionFactory.getCurrentSession().update(user);
+        logger.info("Person updated successfully, Person Details=" + user.getEmail());
+    }
+
+    public User loginUser(String userEmail, String password) {
+        User user = this.getUserByName(userEmail);
+        if ((user != null) && user.getPassword().equals(password)) {
+            logger.info("Person was verified successfully, Person details=" + user.getEmail());
+            return user;
+        }
+        return null;
+    }
 
 }

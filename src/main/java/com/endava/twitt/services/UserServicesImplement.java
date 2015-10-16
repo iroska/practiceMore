@@ -17,39 +17,33 @@ public class UserServicesImplement implements UserServicesInterface {
 		this.userDao = userDao;
 	}
 	
-	@Override
 	@Transactional
 	public void insertUser(User user) {
 		userDao.insertUser(user);
 	}	
 
-	@Override
 	@Transactional
 	public List<User> getUser() {
 		return userDao.getUser();
 		
 	}
 
-	@Override
 	@Transactional
 	public void deleteUser(String userEmail) {
 		userDao.deleteUser(userEmail);
 
 	}
 	
-	@Override
     @Transactional
     public User getUserByName(String name) {
         return this.userDao.getUserByName(name);
     }
 
-	@Override
 	@Transactional
 	public void updateUser(User user) {
 		userDao.updateUser(user);
 	}
 
-	@Override
 	@Transactional
 	public User loginUser(String userEmail, String password) {		
 		return this.userDao.loginUser(userEmail, password);
