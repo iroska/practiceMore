@@ -53,7 +53,7 @@ Hello ${loadedUser.role } ${loadedUser.firstName } ${loadedUser.lastName }! &nbs
 		<br />
 
 		<form action="users" method="GET">
-			Users <input type="submit" value="ListUsers">
+			List All Users <input type="submit" value="List All Users">
 		</form>
 		<br />
 		<br />

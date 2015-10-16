@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import com.endava.twitt.services.TweetServiceInterface;
 import com.endava.twitt.services.UserServicesInterface;
 
 @Controller
+@Scope("session")
 public class TweetsController {
 
 	private TweetServiceInterface tweetService;
@@ -64,11 +66,10 @@ public class TweetsController {
 		tweets.setDescription(descript);
 		tweets.setPublishedDate(new Date());
 		
+		session.setAttribute("sessionUser", user);
+		
 		this.tweetService.insertTweets(tweets);
-		
-		this.tweetService.getTweets();
-		
-		
+						
 		return "redirect:/home";
 	}
 

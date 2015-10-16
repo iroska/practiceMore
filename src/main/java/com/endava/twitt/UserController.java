@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,7 @@ import com.endava.twitt.models.User;
 import com.endava.twitt.services.UserServicesInterface;
 
 @Controller
+@Scope("session")
 public class UserController {
 
 	private UserServicesInterface userService;
@@ -58,7 +60,7 @@ public class UserController {
 	public String deleteUser(@ModelAttribute("email") String userEmail) {
 		this.userService.deleteUser(userEmail);
 
-		return "users";
+		return "admin";
 	}
 
 }

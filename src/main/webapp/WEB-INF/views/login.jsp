@@ -87,9 +87,7 @@ pageEncoding="UTF-8"%>
     </div>
     <div class="row">
         <div class="col s12 m6 l4 offset-l4 offset-m3 lime lighten-5">
-            <h5 align="center">
-                <font color="red">${loginError }</font>
-            </h5>
+            <p align="center"><font color="red">${loginError }</font></p>
 
             <div class="center promo promo-example">
                 <h5 class="light condensed">Log in</h5>
