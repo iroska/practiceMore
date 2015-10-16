@@ -2,23 +2,30 @@ package com.endava.twitt.dao;
 
 import com.endava.twitt.models.User;
 import com.endava.twitt.services.UserServicesImplement;
-import com.endava.twitt.services.UserServicesInterface;
 import org.junit.*;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertTrue;
 
 /**
  * Created by ibalanici on 16/10/2015.
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"/spring/appServlet/servlet-context-test.xml"})
 public class UserDaoImplementTest {
-    public static UserDaoInterface userDao;
-    public static User user;
+    @Autowired
+    private UserDaoImplement userDao;
+//    @Autowired
+    private User user;
 
 
     @Before
     public void setUp() {
-        userDao = new UserDaoImplement();
         user = new User();
         user.setFirstName("Igor-1");
         user.setLastName("Balanici-1");
@@ -30,11 +37,6 @@ public class UserDaoImplementTest {
     @After
     public void tearDown() {
 
-    }
-
-    @Test
-    public void testFirst() {
-        assertTrue(true);
     }
 
     @Test
