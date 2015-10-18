@@ -108,7 +108,7 @@
 	<!--Security Configuration -->
 	
 	
-	<!-- <beans:import resource="classpath:/WEB-INF/spring/appServlet/security-config.xml"/> -->
+	<!-- <beans:import resource="C:/Users/Acer AO725/workspaceEE2/TweetEndavaProject/src/main/webapp/WEB-INF/spring/security-config.xml"/> -->
 
 	<!--Apache Tiles Configuration -->
 

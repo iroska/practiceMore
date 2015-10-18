@@ -9,5 +9,7 @@ public interface TweetServiceInterface {
 	public void insertTweets(Tweets tweet);
 
 	public List<Tweets> getTweets();
+	
+	public List<Tweets> getTweetsByUser(String userEmail);
 
 }

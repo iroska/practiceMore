@@ -2,6 +2,7 @@ package com.endava.twitt.models;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,11 +27,11 @@ public class User {
 	@Column(name = "LastName")
 	private String lastName;	
 	
-	@Column(name = "Role",unique=true, insertable=false)	
+	@Column(name = "Role", insertable=false)	
 	private String role;
 	
 	
-	@OneToMany(targetEntity=Tweets.class, mappedBy="user", fetch=FetchType.EAGER)	
+	@OneToMany(targetEntity=Tweets.class, mappedBy="user", fetch=FetchType.EAGER, cascade=CascadeType.ALL)	
 	private List<Tweets> tweet;	
 
 	@Id

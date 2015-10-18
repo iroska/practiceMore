@@ -26,7 +26,7 @@
 </head>
 <body>
 
-	<%@include file="partial/nav.jsp"%>
+	<%@include file="partial/navHome.jsp"%>
 
 	<div class="container">
 		<div class="row">
@@ -46,19 +46,21 @@
 
 			<form action="tweets" method="POST">
 				<input type="hidden" name="user_email" value="${loadedUser.email }" />
-				<input type="hidden" name="publishedDate"
-					value="new Date(date.getTime())" />
+				<input type="hidden" name="publishedDate"value="new Date()"/>
 				<!--<input type="text" name="descript" height="100px" width="100" size="140" />-->
 				<div class="input-field col s12">
+					
 					<textarea id="descript" class="materialize-textarea"
 						name="descript"></textarea>
 					<label for="descript">Tweet here</label>
 				</div>
 				<div class="row light condensed left-align">
+				<a href="home">
 					<button class="btn waves-effect waves-ligh cyan lighten-3t"
 						id="tweetMessage" type="submit" name="submit">
 						Tweet Message <i class="material-icons done">done</i>
 					</button>
+				</a>
 				</div>
 			</form>
 
@@ -74,6 +76,7 @@
 								<td>${tweets.user.firstName }${tweets.user.lastName }</td>
 								<td>${tweets.description }</td>
 								<td>${tweets.publishedDate }</td>
+								
 							</tr>
 						</c:forEach>
 					</c:when>
@@ -101,7 +104,7 @@
 
 			</table>
 
-			<br /> <br /> <br /> <br /> <br />
+		<%-- 	<br /> <br /> <br /> <br /> <br />
 
 			<h3 align="center">Existent Users</h3>
 
@@ -122,7 +125,7 @@
 					</c:forEach>
 				</table>
 			</c:if>
-
+ --%>
 
 			<br />
 		</div>

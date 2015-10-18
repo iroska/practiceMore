@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.endava.twitt.models.Tweets;
 import com.endava.twitt.models.User;
@@ -32,7 +34,7 @@ public class TweetsController {
 	
 	@Autowired
 	private UserServicesInterface userService;
-
+	@Qualifier(value = "userService")
 	public void setUserService(UserServicesInterface userService) {
 		this.userService = userService;
 	}
@@ -59,16 +61,18 @@ public class TweetsController {
 			return "/home";
 		}
 		
-		User user = userService.getUserByName(user_email);
 		
+		User user1 = userService.getUserByName(user_email);
 		Tweets tweets=new Tweets();		
-		tweets.setUser(user);
+		tweets.setUser(user1);
 		tweets.setDescription(descript);
 		tweets.setPublishedDate(new Date());
+		this.tweetService.insertTweets(tweets);
 		
+		User user = userService.getUserByName(user_email);
 		session.setAttribute("sessionUser", user);
 		
-		this.tweetService.insertTweets(tweets);
+		
 						
 		return "redirect:/home";
 	}
@@ -77,7 +81,30 @@ public class TweetsController {
 	public String viweTweet(Model model) {
 		model.addAttribute("tweet", new Tweets());
 		model.addAttribute("tweetList", this.tweetService.getTweets());
-		return "tweets";
+		return "alltweets";
 	}
+	
+	@RequestMapping(value = "/userstweet", method = RequestMethod.GET)
+	public ModelAndView viweTweetOfUser(HttpSession session, @RequestParam String userEmail) {
+		
+		
+		
+		if(session.getAttribute("loadedUser")==null){
+			ModelAndView model= new ModelAndView("redirect:/login");
+			return model;
+		}
+		
+		
+		ModelAndView model= new ModelAndView("personTweets");
+		User user = userService.getUserByName(userEmail);
+		//model.addAttribute("user", new User());
+	//	model.addObject("specialUser2", "gfdfgdgfddg"+userEmail);
+		model.addObject("users", new User());
+		model.addObject("specialUser", user);		
+		return model;
+	}
+	
+	
+
 
 }

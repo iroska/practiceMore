@@ -2,6 +2,7 @@ package com.endava.twitt.models;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,7 +33,7 @@ public class Tweets {
 	@Column(name = "Id_Tweets")
 	private int id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.REFRESH)
 	@JoinColumn(name = "Users_Email")
 	private User user;
 
@@ -40,7 +41,7 @@ public class Tweets {
 	@Column(name = "description")
 	private String description;
 
-	@Column(name = "publishedDate", insertable = true)
+	@Column(name = "publishedDate", unique=true, insertable = true)
 	private Date publishedDate;
 
 	public int getId() {

@@ -1,5 +1,6 @@
 package com.endava.twitt;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,11 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	public String listUsers(Model model) {
+	public String listUsers(HttpSession session, Model model) {
+		if(session.getAttribute("loadedUser")==null){
+			return "login";
+		}
+		
 		model.addAttribute("user", new User());
 		model.addAttribute("userList", this.userService.getUser());
 		return "users";
