@@ -42,8 +42,10 @@ public class UserServicesTest {
         userService.insertUser(user);
         assertEquals(userService.getUserByName("igor.balanicii@gmail.com").getEmail(), user.getEmail());
 
-        user.setFirstName("Vasea");
-        userService.updateUser(user);
+        User user1 = userService.getUserByName("doi");
+        user1.setFirstName("Vasea");
+        userService.updateUser(user1);
+
         assertEquals(userService.getUserByName("igor.balanicii@gmail.com").getFirstName(), user.getFirstName());
 
         userService.deleteUser("igor.balanicii@gmail.com");
