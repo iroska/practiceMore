@@ -22,7 +22,7 @@ public class WebController {
 			return "login";
 		}
 		
-		return "home";			
+		return "redirect:/home";			
 	}
 	
 	

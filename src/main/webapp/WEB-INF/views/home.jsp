@@ -68,64 +68,40 @@
 
 
 			<table border="1" align="center">
-
 				<c:choose>
 					<c:when test="${empty existingUser}">
 						<c:forEach items="${loadedUser.tweet }" var="tweets">
 							<tr>
-								<td>${tweets.user.firstName }${tweets.user.lastName }</td>
+								<td>${tweets.user.firstName } ${tweets.user.lastName }</td>
 								<td>${tweets.description }</td>
-								<td>${tweets.publishedDate }</td>
-								
+								<td>${tweets.publishedDate }</td>	
+								<td><form action="editmytweet" method="GET">
+									<input type="hidden" name="userToEdit" value="${loadedUser.email }"/>
+									<input type="hidden" name="idTweetToEdit" value="${tweets.id }"/>
+									<input type="hidden" name="textToEdit" value="${tweets.description }"/>
+									<input type="submit" value="EDIT Tweet"/>
+								</form></td>
 							</tr>
 						</c:forEach>
 					</c:when>
-
 					<c:otherwise>
 						<c:forEach items="${existingUser.tweet }" var="tweets">
 							<tr>
 								<td>${tweets.user.firstName }${tweets.user.lastName }</td>
 								<td>${tweets.description }</td>
-								<td>${tweets.publishedDate }</td>
+								<td>${tweets.publishedDate }</td>	
+								<td><form action="editmytweet" method="GET">
+									<input type="hidden" name="userToEdit" value="${loadedUser.email }"/>
+									<input type="hidden" name="idTweetToEdit" value="${tweets.id }"/>
+									<input type="hidden" name="textToEdit" value="${tweets.description }"/>
+									<input type="submit" value="EDIT Tweet"/>
+								</form></td>
 							</tr>
 						</c:forEach>
 
 					</c:otherwise>
-				</c:choose>
-
-				<%-- <c:forEach items="${existingUser.tweet }" var="tweets">
-					<tr>
-						<td>${tweets.user.firstName }${tweets.user.lastName }</td>
-						<td>${tweets.description }</td>
-						<td>${tweets.publishedDate }</td>
-					</tr>
-				</c:forEach> --%>
-
-
-			</table>
-
-		<%-- 	<br /> <br /> <br /> <br /> <br />
-
-			<h3 align="center">Existent Users</h3>
-
-			<c:if test="${!empty userList}">
-				<table class="tg" border="1" align="center">
-					<tr>
-						<th width="80">First Name</th>
-						<th width="120">Last Name</th>
-						<th width="120">Email</th>
-					</tr>
-					<c:forEach items="${userList}" var="person">
-						<tr>
-							<td>${person.firstName}</td>
-							<td>${person.lastName}</td>
-							<td>${person.email}</td>
-
-						</tr>
-					</c:forEach>
-				</table>
-			</c:if>
- --%>
+				</c:choose>				
+			</table>		
 
 			<br />
 		</div>

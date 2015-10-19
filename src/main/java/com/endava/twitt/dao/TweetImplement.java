@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.endava.twitt.models.Tweets;
-import com.endava.twitt.models.User;
 
 @Repository
 public class TweetImplement implements TweetInterface {
@@ -46,6 +45,11 @@ public class TweetImplement implements TweetInterface {
 			logger.info(userEmail +" Tweet List:" + tweet);
 		}
 		return tweetList;		
-	}    
+	} 
+	
+	 public void updateTweet(Tweets tweet) {
+	        this.sessionFactory.getCurrentSession().update(tweet);
+	        logger.info("Tweet updated successfully, Tweet Details=" + tweet.getDescription());
+	    }	
 
 }

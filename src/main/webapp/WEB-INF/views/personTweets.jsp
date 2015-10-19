@@ -37,29 +37,22 @@
 			</p>
 			<br /> <br /> <br /> <br />
 
-			<h3 align="center">${specialUser.firstName } ${specialUser.firstName } Tweets</h3>
-
-			
-			
-
-			
-
+			<h3 align="center">${specialUser.firstName }'sTweets</h3>
 
 			<table border="1" align="center">
 
-				
-						<c:forEach items="${specialUser.tweet }" var="tweets">
-							<tr>								
-								<td>${tweets.description } </td>
-								<td>${tweets.publishedDate } </td>
-								
-							</tr>
-						</c:forEach>
-					
+				<c:forEach items="${specialUser.tweet }" var="tweets">
+					<tr>
+						<td>${tweets.description }</td>
+						<td>${tweets.publishedDate }</td>
+
+					</tr>
+				</c:forEach>
+
 
 			</table>
 
-		<%-- 	<br /> <br /> <br /> <br /> <br />
+			<%-- 	<br /> <br /> <br /> <br /> <br />
 
 			<h3 align="center">Existent Users</h3>
 

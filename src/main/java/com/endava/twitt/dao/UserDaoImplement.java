@@ -54,6 +54,7 @@ public class UserDaoImplement implements UserDaoInterface {
             logger.info("Person loaded successfully, Person details=" + user.getEmail());
             return user;
         } catch (NullPointerException e) {
+        	logger.info("Person wasn't loaded with provided name =" + name);
             return null;
         }
     }
@@ -69,7 +70,8 @@ public class UserDaoImplement implements UserDaoInterface {
             logger.info("Person was verified successfully, Person details=" + user.getEmail());
             return user;
         }
+        logger.info("Login Validation filed with person's emaul=" + userEmail);
         return null;
     }
-
+  
 }

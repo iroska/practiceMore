@@ -35,4 +35,11 @@ public class TweetServiceImplement implements TweetServiceInterface {
 		return tweetDao.getTweetsByUser(userEmail);
 	}
 
+	@Override
+	@Transactional
+	public void updateTweet(Tweets tweet) {
+		tweetDao.updateTweet(tweet);
+		
+	}
+
 }

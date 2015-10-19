@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,8 +58,7 @@ public class TweetsController {
 			model.addAttribute("descriptionLengthError", "You can write no more than 140 characters please try again!");
 			
 			return "/home";
-		}
-		
+		}		
 		
 		User user1 = userService.getUserByName(user_email);
 		Tweets tweets=new Tweets();		
@@ -70,15 +68,18 @@ public class TweetsController {
 		this.tweetService.insertTweets(tweets);
 		
 		User user = userService.getUserByName(user_email);
-		session.setAttribute("sessionUser", user);
-		
-		
+		session.setAttribute("sessionUser", user);		
 						
 		return "redirect:/home";
 	}
 
 	@RequestMapping(value = "/tweetsviwe", method = RequestMethod.GET)
-	public String viweTweet(Model model) {
+	public String viweTweet(HttpSession session,Model model) {
+		
+		if(session.getAttribute("loadedUser")==null){
+			return "login";
+		}
+		
 		model.addAttribute("tweet", new Tweets());
 		model.addAttribute("tweetList", this.tweetService.getTweets());
 		return "alltweets";
@@ -86,25 +87,51 @@ public class TweetsController {
 	
 	@RequestMapping(value = "/userstweet", method = RequestMethod.GET)
 	public ModelAndView viweTweetOfUser(HttpSession session, @RequestParam String userEmail) {
-		
-		
-		
+				
 		if(session.getAttribute("loadedUser")==null){
 			ModelAndView model= new ModelAndView("redirect:/login");
 			return model;
-		}
-		
+		}		
 		
 		ModelAndView model= new ModelAndView("personTweets");
 		User user = userService.getUserByName(userEmail);
-		//model.addAttribute("user", new User());
-	//	model.addObject("specialUser2", "gfdfgdgfddg"+userEmail);
+		
 		model.addObject("users", new User());
 		model.addObject("specialUser", user);		
 		return model;
 	}
 	
+	@RequestMapping(value = "/editmytweet", method = RequestMethod.GET)
+	public String editTweet(Model model, HttpSession session, @RequestParam String textToEdit, @RequestParam Integer idTweetToEdit) {
+		
+		if(session.getAttribute("loadedUser")==null){
+			return "login";
+		}	
+				
+		model.addAttribute("editedTweet",textToEdit );
+		model.addAttribute("idEditedTweet",idTweetToEdit );
+		return "editMyTweet";
+	}
 	
-
-
+	
+	@RequestMapping(value = "/saveUpdatedTweet", method = RequestMethod.POST)
+	public String saveEditedTweet(Model model, HttpSession session,@RequestParam Integer idTweet, @RequestParam String updatedTweet,@RequestParam String userToEdit) {
+		
+		if(session.getAttribute("loadedUser")==null){
+			return "login";
+		}			
+		
+		User user1 = userService.getUserByName(userToEdit);
+		Tweets tweets=new Tweets();	
+		tweets.setId(idTweet);
+		tweets.setUser(user1);
+		tweets.setDescription(updatedTweet);
+		tweets.setPublishedDate(new Date());
+		this.tweetService.updateTweet(tweets);
+		
+		User user = userService.getUserByName(userToEdit);
+		session.setAttribute("sessionUser", user);		
+						
+		return "redirect:/home";
+	}
 }

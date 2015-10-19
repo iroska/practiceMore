@@ -21,7 +21,7 @@
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Users page</title>
+<title>Edit Tweet page</title>
 </head>
 <body>
 
@@ -34,27 +34,13 @@
 					href="logout">Sign Out</a>
 			</p><br/>
 
-			<h3>Users List</h3>
-			<c:if test="${!empty userList}">
-				<table class="tg" border="1">
-					<tr>
-						<th width="80">First Name</th>
-						<th width="120">Last Name</th>
-						<th width="120">Email</th>
-					</tr>
-					<c:forEach items="${userList}" var="person">
-						<tr>
-							<td>${person.firstName}</td>
-							<td>${person.lastName}</td>
-							<td>${person.email}</td>
-							<td><form action="userstweet" method="get">
-							<input type="hidden" name="userEmail"  value="${person.email}"/>	
-							<input type="submit" value="View ${person.firstName}'s tweets "/>					
-							</form></td>							
-						</tr>
-					</c:forEach>
-				</table>
-			</c:if>
+			<h3>Edit Tweet</h3>
+			<form action="saveUpdatedTweet" method="POST">
+			<input type="hidden" name="userToEdit" value="${loadedUser.email}"/>
+			<input type="hidden" name="idTweet" value="${idEditedTweet }"/>
+			<input type="text" name="updatedTweet" value="${editedTweet}"/>
+			<input type="submit" value="Save Changes"/>						
+			</form>
 		</div>
 	</div>
 

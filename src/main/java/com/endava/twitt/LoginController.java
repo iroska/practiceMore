@@ -64,7 +64,7 @@ public class LoginController {
 		} 
 
 			session.setAttribute("loadedUser", user);
-			session.setAttribute("listUsers", user);
+			//session.setAttribute("listUsers", user);
 						
 			return "redirect:/home";		
 	}

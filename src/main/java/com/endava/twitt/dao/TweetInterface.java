@@ -11,5 +11,7 @@ public interface TweetInterface {
 	public List<Tweets> getTweets();
 	
 	public List<Tweets> getTweetsByUser(String userEmail);
+	
+	public void updateTweet(Tweets tweet);	
 
 }
