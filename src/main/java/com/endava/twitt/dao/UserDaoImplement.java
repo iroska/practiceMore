@@ -38,10 +38,12 @@ public class UserDaoImplement implements UserDaoInterface {
     }
 
     public void deleteUser(String userEmail) {
-        Session session = this.sessionFactory.getCurrentSession();
-        User user = (User) session.load(User.class, new String(userEmail));
+//        Session session = this.sessionFactory.getCurrentSession();
+//        User user = (User) session.get(User.class, new String(userEmail));
+        User user = getUserByName(userEmail);
         if (null != user) {
-            session.delete(user);
+            sessionFactory.getCurrentSession().delete(user);
+//            session.delete(user);
         }
         logger.info("Person deleted successfully, person details=" + user.getEmail());
     }

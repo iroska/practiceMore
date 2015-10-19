@@ -108,22 +108,6 @@
 	
 	<!-- <beans:import resource="C:/Users/Acer AO725/workspaceEE2/TweetEndavaProject/src/main/webapp/WEB-INF/spring/security-config.xml"/> -->
 
-	<!--Apache Tiles Configuration -->
-
-	<!-- <beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer"> 
-		<beans:property name="definitions" value="/WEB-INF/defs/general.xml"/> </beans:bean> 
-		<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver"> 
-		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesViewResolver" 
-		/> </beans:bean> -->
-
-	<!-- <beans:bean id="tilesConfigurer"
-		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer" >
-		<beans:property name="definitions">
-			<beans:list>
-				<beans:value>/WEB-INF/defs/general.xml</beans:value>
-			</beans:list>
-		</beans:property>
-	</beans:bean> -->
 
 	<beans:bean id="viewResolver"	class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
