@@ -113,7 +113,24 @@
         <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
     </beans:bean>
 
+    <!--<beans:import resource="file:/spring/test/test-user.xml" />-->
+    <!--<beans:import resource="file:/spring/test/test-tweet.xml" />-->
+
+
     <context:annotation-config/>
+
+    <beans:bean name="testUser" class="com.endava.twitt.models.User" >
+        <beans:property name="firstName" value="Test FirstName" />
+        <beans:property name="lastName" value="Test LastName" />
+        <beans:property name="role" value="ROLE_USER" />
+        <beans:property name="email" value="test@test.com" />
+        <beans:property name="password" value="qweqweqwe" />
+    </beans:bean>
+
+    <beans:bean name="testTweet" class="com.endava.twitt.models.Tweets">
+        <!--<beans:property name="user" ref="testUser" />-->
+        <beans:property name="description" value="test Tweet Description value here" />
+    </beans:bean>
 
 
 </beans:beans>

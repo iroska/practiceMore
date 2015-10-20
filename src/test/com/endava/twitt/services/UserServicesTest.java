@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -29,27 +30,22 @@ public class UserServicesTest {
     @Before
     public void setUp() {
         userService = (UserServicesInterface) applicationContext.getBean("userService");
-        user = new User();
-        user.setFirstName("Igor-1");
-        user.setLastName("Balanici-1");
-        user.setEmail("igor.balanicii@gmail.com");
-        user.setPassword("11111111");
-        user.setRole("ROLE_USER");
+        user = (User) applicationContext.getBean("testUser");
     }
 
     @Test
     public void crudUserServicesTest() {
         userService.insertUser(user);
-        assertEquals(userService.getUserByName("igor.balanicii@gmail.com").getEmail(), user.getEmail());
+        assertEquals(userService.getUserByName("test@test.com").getEmail(), user.getEmail());
 
-        User user1 = userService.getUserByName("doi");
+        User user1 = userService.getUserByName("test@test.com");
         user1.setFirstName("Vasea");
         userService.updateUser(user1);
 
-        assertEquals(userService.getUserByName("igor.balanicii@gmail.com").getFirstName(), user.getFirstName());
+        assertEquals(userService.getUserByName("test@test.com").getFirstName(), user1.getFirstName());
 
-        userService.deleteUser("igor.balanicii@gmail.com");
-        assertNull(userService.getUserByName("igor.balanicii@gmail.com"));
+        userService.deleteUser("test@test.com");
+        assertNull(userService.getUserByName("test@test.com"));
 
     }
 
