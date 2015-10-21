@@ -1,45 +1,40 @@
 package com.endava.twitt.services;
 
-import java.util.List;
-
+import com.endava.twitt.dao.TweetInterface;
+import com.endava.twitt.models.Tweets;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.endava.twitt.dao.TweetInterface;
-import com.endava.twitt.models.Tweets;
+import java.util.List;
 
 @Service
 public class TweetServiceImplement implements TweetServiceInterface {
-	
-	private TweetInterface tweetDao;
 
-	public void setTweetDao(TweetInterface tweetDao) {
-		this.tweetDao = tweetDao;
-	}
+    private TweetInterface tweetDao;
 
-	@Override
-	@Transactional
-	public void insertTweets(Tweets tweet) {
-		tweetDao.insertTweets(tweet);
-	}
+    public void setTweetDao(TweetInterface tweetDao) {
+        this.tweetDao = tweetDao;
+    }
 
-	@Override
-	@Transactional
-	public List<Tweets> getTweets() {		
-		return tweetDao.getTweets();
-	}
+    @Transactional
+    public void insertTweets(Tweets tweet) {
+        tweetDao.insertTweets(tweet);
+    }
 
-	@Override
-	@Transactional
-	public List<Tweets> getTweetsByUser(String userEmail) {
-		return tweetDao.getTweetsByUser(userEmail);
-	}
+    @Transactional
+    public List<Tweets> getTweets() {
+        return tweetDao.getTweets();
+    }
 
-	@Override
-	@Transactional
-	public void updateTweet(Tweets tweet) {
-		tweetDao.updateTweet(tweet);
-		
-	}
+    @Transactional
+    public List<Tweets> getTweetsByUser(String userEmail) {
+        return tweetDao.getTweetsByUser(userEmail);
+    }
+
+    @Transactional
+    public void updateTweet(Tweets tweet) {
+        tweetDao.updateTweet(tweet);
+
+    }
 
 }
