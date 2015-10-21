@@ -211,23 +211,12 @@ public class LoginController {
 						+ (Integer) session.getAttribute("firstRow") + " "
 						+ (Integer) session.getAttribute("rowCount"));
 			} 
-			
-			/*else if (sizeTweetsList <= rowcount) {
-
-				rowcount = sizeTweetsList;
-				session.setAttribute("firstRow", firstrow);
-				session.setAttribute("rowCount", rowcount);
-				System.out.println("Size = " + sizeTweetsList + " In Next 6 = "
-						+ (Integer) session.getAttribute("firstRow") + " "
-						+ (Integer) session.getAttribute("rowCount"));
-			}*/
-
 		}
 
 		if (page.equals("Previous")) {
 			Integer sizeTweetsList = (Integer) session
 					.getAttribute("sizeUserTweets");
-			if (sizeTweetsList % 5 != 0 && (firstrow >= 5)) {
+			if (sizeTweetsList % 5 != 0 && (firstrow >= 5 && (rowcount%5!=0))) {
 				Integer lastTweets = sizeTweetsList % 5;
 				firstrow -= 5;
 				rowcount -= lastTweets;
@@ -237,7 +226,27 @@ public class LoginController {
 						+ (Integer) session.getAttribute("firstRow") + " "
 						+ (Integer) session.getAttribute("rowCount"));
 
-			} else if (sizeTweetsList % 5 != 0 && (firstrow < 5)) {
+			} else if (sizeTweetsList % 5 != 0 && (firstrow >= 5 && (rowcount%5==0))) {
+				
+				firstrow -= 5;
+				rowcount -= 5;
+				session.setAttribute("firstRow", firstrow);
+				session.setAttribute("rowCount", rowcount);
+				System.out.println("In Previous 1_2 = "
+						+ (Integer) session.getAttribute("firstRow") + " "
+						+ (Integer) session.getAttribute("rowCount"));
+
+			} else if (sizeTweetsList % 5 != 0 && (firstrow < 5 && sizeTweetsList>=5)) {
+				
+				firstrow = 0;
+				rowcount = 5;
+				session.setAttribute("firstRow", firstrow);
+				session.setAttribute("rowCount", rowcount);
+				System.out.println("In Previous 1_3 = "
+						+ (Integer) session.getAttribute("firstRow") + " "
+						+ (Integer) session.getAttribute("rowCount"));
+
+			}   else if (sizeTweetsList % 5 != 0 && (firstrow < 5 && rowcount<5 )) {
 				Integer lastTweets = sizeTweetsList % 5;
 				firstrow = 0;
 				rowcount = lastTweets;
@@ -286,7 +295,8 @@ public class LoginController {
 	public String logout(HttpSession session) {
 		session.removeAttribute("loadedUser");
 		session.removeAttribute("newloadedUser");
-		session.removeAttribute("existingUser");	
+		session.removeAttribute("existingUser");		
+		logger.info("urer logout succesfully");
 		return "login";
 	}
 

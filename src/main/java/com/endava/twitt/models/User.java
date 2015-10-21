@@ -19,10 +19,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "users")
 public class User {
 
-	public User() {
-
-	}
-	
+		
 	@Size(min = 2, max = 254, message = " tow to 254")
 	@Column(name = "FirstName")
 	private String firstName;
@@ -47,10 +44,6 @@ public class User {
 	@Size(min = 8, max = 25)
 	@Column(name = "Password")
 	private String password;
-
-	public User(Integer firstRow, Integer rowCount) {
-
-	}
 
 	/*----------------------------------------------------*/
 

@@ -62,6 +62,27 @@ public class TweetsController {
 		
 		if(descript.length()>140){
 			model.addAttribute("descriptionLengthError", "You can write no more than 140 characters please try again!");
+			User user = userService.getUserByName(user_email);
+			List<Tweets> allUsersTweets=user.getTweet();		
+			Integer listSize = allUsersTweets.size();
+			Integer firstrow = 0;
+			Integer rowcount = 0;		
+			if (listSize == 0) {
+				firstrow = 0;
+				rowcount = 0;
+				session.setAttribute("firstRow", firstrow);
+				session.setAttribute("rowCount", rowcount);
+			} else if (listSize > 0 && listSize < 5) {
+				firstrow = 0;
+				rowcount = listSize;
+				session.setAttribute("firstRow", firstrow);
+				session.setAttribute("rowCount", rowcount);
+			} else if (listSize >= 5) {
+				firstrow = 0;
+				rowcount = 5;
+				session.setAttribute("firstRow", firstrow);
+				session.setAttribute("rowCount", rowcount);
+			}			
 			
 			return "/home";
 		}		
@@ -97,17 +118,11 @@ public class TweetsController {
 			session.setAttribute("rowCount", rowcount);
 		}
 
-		//session.setAttribute("sizeUserTweets", listSize);
 		
-		/*Integer firstrow2 = (Integer) session.getAttribute("firstRow");
-		Integer rowcount2 = (Integer) session.getAttribute("rowCount");*/
 		System.out.println("Size = "+listSize +"In TweetControler = "
 				+ (Integer) session.getAttribute("firstRow") + " "
 				+ (Integer) session.getAttribute("rowCount"));
-	//	List<Tweets> userSubTweets = allUsersTweets.subList(firstrow, rowcount);
 		
-	//	session.setAttribute("userTweetsSublist", userSubTweets);
-	//	session.setAttribute("sessionUser", userSubTweets);			
 						
 		return "redirect:/home";
 	}
@@ -134,6 +149,28 @@ public class TweetsController {
 		
 		ModelAndView model= new ModelAndView("personTweets");
 		User user = userService.getUserByName(userEmail);
+		List<Tweets> allUsersTweets=user.getTweet();		
+		Integer listSize = allUsersTweets.size();
+		model.addObject("numberOfUsersTweets", listSize);
+		/*Integer firstrow = 0;
+		Integer rowcount = 0;		
+		if (listSize == 0) {
+			firstrow = 0;
+			rowcount = 0;
+			session.setAttribute("firstRow", firstrow);
+			session.setAttribute("rowCount", rowcount);
+		} else if (listSize > 0 && listSize < 5) {
+			firstrow = 0;
+			rowcount = listSize;
+			session.setAttribute("firstRow", firstrow);
+			session.setAttribute("rowCount", rowcount);
+		} else if (listSize >= 5) {
+			firstrow = 0;
+			rowcount = 5;
+			session.setAttribute("firstRow", firstrow);
+			session.setAttribute("rowCount", rowcount);
+		}		*/
+		
 		
 		model.addObject("users", new User());
 		model.addObject("specialUser", user);		
@@ -191,15 +228,7 @@ public class TweetsController {
 			rowcount = 5;
 			session.setAttribute("firstRow", firstrow);
 			session.setAttribute("rowCount", rowcount);
-		}
-		
-		/*List<Tweets> allUsersTweets=user.getTweet();
-		if(allUsersTweets!=null){
-		List<Tweets> userSubTweets=allUsersTweets.subList(firstrow,rowcount);
-		session.setAttribute("sessionUser", userSubTweets);		
-		} else{
-			logger.info("Tweet Controller Class. Tweet list is not loaded!");
-		}		*/
+		}		
 						
 		return "redirect:/home";
 	}
@@ -243,12 +272,7 @@ public class TweetsController {
 		
 		System.out.println("Size = "+listSize +"In delete Tweet = "
 				+ (Integer) session.getAttribute("firstRow") + " "
-				+ (Integer) session.getAttribute("rowCount"));
-		//List<Tweets> userSubTweets = allUsersTweets.subList(firstrow, rowcount);
-		
-		//session.setAttribute("userTweetsSublist", userSubTweets);
-		//session.setAttribute("sessionUser", userSubTweets);	
-		//session.setAttribute("sessionUser", user);		
+				+ (Integer) session.getAttribute("rowCount"));				
 						
 		return "redirect:/home";
 	}

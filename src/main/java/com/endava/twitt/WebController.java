@@ -29,7 +29,7 @@ public class WebController {
 			return "redirect:/login";
 		}
 		logger.info("Try to connect to home URL WebController class.");
-		return "redirect:/home";			
+		return "home";			
 	}
 	
 	

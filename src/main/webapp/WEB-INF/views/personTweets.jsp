@@ -38,6 +38,9 @@
 			<br /> <br /> <br /> <br />
 
 			<h3 align="center">${specialUser.firstName }'sTweets</h3>
+			<h5 align="center">
+				<font color="">${specialUser.firstName } posted -${numberOfUsersTweets }- tweets.</font><br />
+			</h5>
 
 			<table border="1" align="center">
 

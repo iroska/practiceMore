@@ -9,7 +9,7 @@
         <ul class="right hide-on-med-and-down">
             <li><a href="home" >MyTweets</a></li>
             <li><a href="users">Tweet Members</a></li>
-            <li><a href="#">My Profile</a></li>
+            <li><a href="editUserProfile">My Profile</a></li>
             <li><a href="#">Followers</a></li>
         </ul>
         <a href="#!" class="brand-logo hide-on-large-only right">

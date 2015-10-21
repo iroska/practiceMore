@@ -40,7 +40,7 @@
 			<h3 align="center">My Tweets</h3>
 
 			<p>
-				<font color="green">${descriptionLengthError }</font>
+				<font color="red">${descriptionLengthError }</font>
 			</p>
 
 
@@ -62,8 +62,11 @@
 						</button>
 					</a>
 				</div>
-			</form>
 
+			</form>
+			<h5 align="center">
+				<font color="">You posted -${sizeUserTweets }- tweets.</font><br />
+			</h5>
 			<%-- <a href="<c:url value='/home'/>" >Get tweet</a> --%>
 
 
@@ -72,7 +75,7 @@
 					<c:when test="${empty existingUser}">
 						<c:forEach items="${userTweetsSublist }" var="tweets">
 							<tr>
-								<td>${loadedUser.firstName } ${loadedUser.lastName }</td>			
+								<td>${loadedUser.firstName }${loadedUser.lastName }</td>
 								<td>${tweets.description }</td>
 								<td>${tweets.publishedDate }</td>
 								<td><form action="editmytweet" method="GET">
@@ -97,7 +100,7 @@
 					<c:otherwise>
 						<c:forEach items="${existingUser }" var="tweets">
 							<tr>
-								<td>${loadedUser.firstName } ${loadedUser.lastName }</td>
+								<td>${loadedUser.firstName }${loadedUser.lastName }</td>
 								<td>${tweets.description }</td>
 								<td>${tweets.publishedDate }</td>
 
@@ -122,15 +125,24 @@
 
 					</c:otherwise>
 				</c:choose>
-			</table><br/>
+			</table>
+			<br />
 
-			<form action="paginateTweets" method="GET">
-				<input type="hidden" name="firstrow" value="${firstRow}"/> 
-				<input type="hidden" name="rowcount" value="${rowCount}"/> 
-				<input type="hidden" name="user_email" value="${loadedUser.email }"/>
-				<input type="submit" name="page" value="Previous"/>
-				<input type="submit" name="page" value="Next"/> 				
-			</form>
+			<table>
+				<tr>
+					<td><form action="paginateTweets" method="GET">
+							<input type="hidden" name="firstrow" value="${firstRow}" /> <input
+								type="hidden" name="rowcount" value="${rowCount}" /> <input
+								type="hidden" name="user_email" value="${loadedUser.email }" />
+							<input type="submit" name="page" value="Previous" /> <input
+								type="submit" name="page" value="Next" />
+						</form></td>
+					<td align="right"></td>
+					<td align="right">Tweets from ${firstRow+1} to ${rowCount}</td>					
+				</tr>
+			</table>
+
+
 
 
 			<br />

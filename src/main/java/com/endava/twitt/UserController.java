@@ -72,5 +72,36 @@ public class UserController {
 
 		return "admin";
 	}
+	
+	@RequestMapping("/editUserProfile")
+	public String editUserProfile(@ModelAttribute("email") String userEmail) {
+		
+		//User user=userService.getUserByName(userEmail);
+		//this.userService.updateUser(user);
+
+		return "userProfileEdit";
+	}
+	
+	@RequestMapping("/changeProfile")
+	public String changeUserProfile(@Valid @ModelAttribute("user") User user,
+			BindingResult result, Model model) {
+
+		if (result.hasErrors()) {
+			return "redirect:/editUserProfile";
+		}
+
+		if ((userService.getUserByName(user.getEmail()) == null)) {			
+			this.userService.updateUser(user);
+		} else {
+			model.addAttribute("userAlreadyExists",
+					"<center>User already exists.<br/> Try another email address</center>");
+
+			return "login";
+		}
+
+		model.addAttribute("successfulRegistration", "<center>Congratualtions.<br/> You changed your Profile Succesfully!</center>");
+		return "editUserProfile";
+	}
+	
 
 }
