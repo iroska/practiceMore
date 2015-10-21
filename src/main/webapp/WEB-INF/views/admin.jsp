@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ page session="true"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -7,73 +8,129 @@ pageEncoding="UTF-8"%>
 
 <html>
 <head>
-	<!--Import Google Icon Font-->
-	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<!-- Compiled and minified CSS -->
-	<link rel="stylesheet"
-		  href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css"
-		  media="screen,projection"/>
-	<link rel="stylesheet" href="<c:url value=" resources
-	/css/styles.css" />" media="screen, projection" />
-	<!--Let browser know website is optimized for mobile-->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>HomeLogPage</title>
+<!--Import Google Icon Font-->
+<link href="http://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css"
+	media="screen,projection" />
+<link rel="stylesheet"
+	href="<c:url value=" resources
+	/css/styles.css" />"
+	media="screen, projection" />
+<!--Let browser know website is optimized for mobile-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>HomeLogPage</title>
 </head>
 <body>
 
-<%@include file="partial/nav.jsp" %>
+	<%@include file="partial/navAdmin.jsp"%>
 
-<div class="container">
-	<div class="row">
+	<div class="container">
+		<div class="row">
 
-<h1 align="center">Admin Page</h1>
+			<p align="right">
+				Hello ${loadedUser.firstName } ${loadedUser.lastName }! &nbsp;<br/>ROLE: Admin <a
+					href="logout">Sign Out</a>
+			</p>
+			<br /> <br /> <br /> <br />
+
+			<h3 align="center">My Tweets</h3>
+
+			<p>
+				<font color="green">${descriptionLengthError }</font>
+			</p>
 
 
-Hello ${loadedUser.role } ${loadedUser.firstName } ${loadedUser.lastName }! &nbsp;
-			<a href="logout">Sign Out</a>		
-					<br />
-					<br />
-					<br />
-					<br />
-<br />
-		<form action="delete/">
-			Delete <input type="text" name="email" value="email" /> <input
-				type="submit" value="delete">
-		</form>
-		<br />
-		<br />
-		<br />
+			<form action="tweets" method="POST">
+				<input type="hidden" name="user_email" value="${loadedUser.email }" />
+				<input type="hidden" name="publishedDate"value="new Date()"/>
+				<!--<input type="text" name="descript" height="100px" width="100" size="140" />-->
+				<div class="input-field col s12">
+					
+					<textarea id="descript" class="materialize-textarea"
+						name="descript"></textarea>
+					<label for="descript">Tweet here</label>
+				</div>
+				<div class="row light condensed left-align">
+				<a href="home">
+					<button class="btn waves-effect waves-ligh cyan lighten-3t"
+						id="tweetMessage" type="submit" name="submit">
+						Tweet Message <i class="material-icons done">done</i>
+					</button>
+				</a>
+				</div>
+			</form>
 
-		<form action="tweets" method="POST">
-			<input type="text" name="userEmail" /><br />			
-			<input type="submit" value="Get User" />
-		</form>
-		<br />
-		<br />
+			<%-- <a href="<c:url value='/home'/>" >Get tweet</a> --%>
 
-		<form action="users" method="GET">
-			List All Users <input type="submit" value="List All Users">
-		</form>
-		<br />
-		<br />
 
-		<form action="tweetsviwe" method="GET">
-			Tweets <input type="submit" value="ListUsers">
-		</form>
-		<br />
-		<br />
+			<table border="1" align="center">
+				<c:choose>
+					<c:when test="${empty existingUser}">
+						<c:forEach items="${loadedUser.tweet }" var="tweets">
+							<tr>
+								<td>${tweets.user.firstName } ${tweets.user.lastName }</td>
+								<td>${tweets.description }</td>
+								<td>${tweets.publishedDate }</td>	
+								<td><form action="editmytweet" method="GET">
+									<input type="hidden" name="userToEdit" value="${loadedUser.email }"/>
+									<input type="hidden" name="idTweetToEdit" value="${tweets.id }"/>
+									<input type="hidden" name="textToEdit" value="${tweets.description }"/>
+									<input type="submit" value="EDIT Tweet"/>
+								</form></td>
+								<td><form action="deletemytweet" method="GET">
+									<input type="hidden" name="userToDelete" value="${loadedUser.email }"/>
+									<input type="hidden" name="idTweetToDelete" value="${tweets.id }"/>
+									<input type="hidden" name="textTodelete" value="${tweets.description }"/>
+									<input type="submit" value="Delete Tweet"/>
+								</form></td>								
+							</tr>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${existingUser.tweet }" var="tweets">
+							<tr>
+								<td>${tweets.user.firstName } ${tweets.user.lastName }</td>
+								<td>${tweets.description }</td>
+								<td>${tweets.publishedDate }</td>	
+								<td><form action="editmytweet" method="GET">
+									<input type="hidden" name="userToEdit" value="${loadedUser.email }"/>
+									<input type="hidden" name="idTweetToEdit" value="${tweets.id }"/>
+									<input type="hidden" name="textToEdit" value="${tweets.description }"/>
+									<input type="submit" value="EDIT Tweet"/>
+								</form></td>
+								<td><form action="deletemytweet" method="POST">
+									<input type="hidden" name="userToDelete" value="${loadedUser.email }"/>
+									<input type="hidden" name="idTweetToDelete" value="${tweets.id }"/>
+									<input type="hidden" name="textTodelete" value="${tweets.description }"/>
+									<input type="submit" value="Delete Tweet"/>
+								</form></td>
+							</tr>
+						</c:forEach>
+
+					</c:otherwise>
+				</c:choose>				
+			</table>		
+
+			<br />
+		</div>
 	</div>
-</div>
-<%@include file="partial/footer.jsp" %>
+	<%@include file="partial/footer.jsp"%>
 
 
-<!--Import jQuery before materialize.js-->
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<!-- Compiled and minified JavaScript -->
-<script type="text/javascript"
+	<!--Import jQuery before materialize.js-->
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<!-- Compiled and minified JavaScript -->
+	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
-<script type="text/javascript" src="<c:url value="/resources/scripts/scripts.js" />"></script>
+	<script type="text/javascript"
+		src="<c:url value="/resources/scripts/scripts.js" />"></script>
+
+
 
 </body>
 </html>

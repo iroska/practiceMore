@@ -3,6 +3,8 @@ package com.endava.twitt;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
@@ -19,6 +21,9 @@ import com.endava.twitt.services.UserServicesInterface;
 @Controller
 @Scope("session")
 public class UserController {
+	
+	private static final Logger logger = LoggerFactory
+			.getLogger(UserController.class);
 
 	private UserServicesInterface userService;
 
@@ -31,7 +36,7 @@ public class UserController {
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String listUsers(HttpSession session, Model model) {
 		if(session.getAttribute("loadedUser")==null){
-			return "login";
+			return "redirect:/login";
 		}
 		
 		model.addAttribute("user", new User());
@@ -44,7 +49,7 @@ public class UserController {
 			BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
-			return "login";
+			return "redirect:/login";
 		}
 
 		if ((userService.getUserByName(user.getEmail()) == null)) {

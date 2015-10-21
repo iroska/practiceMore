@@ -42,4 +42,10 @@ public class TweetServiceImplement implements TweetServiceInterface {
 		
 	}
 
+	@Override
+	@Transactional
+	public void deleteUser(Tweets tweet) {
+		tweetDao.deleteUser(tweet);		
+	}	
+
 }

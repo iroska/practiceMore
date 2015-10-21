@@ -46,21 +46,21 @@
 
 			<form action="tweets" method="POST">
 				<input type="hidden" name="user_email" value="${loadedUser.email }" />
-				<input type="hidden" name="publishedDate"value="new Date()"/>
+				<input type="hidden" name="publishedDate" value="new Date()" />
 				<!--<input type="text" name="descript" height="100px" width="100" size="140" />-->
 				<div class="input-field col s12">
-					
+
 					<textarea id="descript" class="materialize-textarea"
 						name="descript"></textarea>
 					<label for="descript">Tweet here</label>
 				</div>
 				<div class="row light condensed left-align">
-				<a href="home">
-					<button class="btn waves-effect waves-ligh cyan lighten-3t"
-						id="tweetMessage" type="submit" name="submit">
-						Tweet Message <i class="material-icons done">done</i>
-					</button>
-				</a>
+					<a href="home">
+						<button class="btn waves-effect waves-ligh cyan lighten-3t"
+							id="tweetMessage" type="submit" name="submit">
+							Tweet Message <i class="material-icons done">done</i>
+						</button>
+					</a>
 				</div>
 			</form>
 
@@ -70,38 +70,68 @@
 			<table border="1" align="center">
 				<c:choose>
 					<c:when test="${empty existingUser}">
-						<c:forEach items="${loadedUser.tweet }" var="tweets">
+						<c:forEach items="${userTweetsSublist }" var="tweets">
 							<tr>
-								<td>${tweets.user.firstName } ${tweets.user.lastName }</td>
+								<td>${loadedUser.firstName } ${loadedUser.lastName }</td>			
 								<td>${tweets.description }</td>
-								<td>${tweets.publishedDate }</td>	
+								<td>${tweets.publishedDate }</td>
 								<td><form action="editmytweet" method="GET">
-									<input type="hidden" name="userToEdit" value="${loadedUser.email }"/>
-									<input type="hidden" name="idTweetToEdit" value="${tweets.id }"/>
-									<input type="hidden" name="textToEdit" value="${tweets.description }"/>
-									<input type="submit" value="EDIT Tweet"/>
-								</form></td>
+										<input type="hidden" name="userToEdit"
+											value="${loadedUser.email }" /> <input type="hidden"
+											name="idTweetToEdit" value="${tweets.id }" /> <input
+											type="hidden" name="textToEdit"
+											value="${tweets.description }" /> <input type="submit"
+											value="EDIT Tweet" />
+									</form></td>
+								<td><form action="deletemytweet" method="GET">
+										<input type="hidden" name="userToDelete"
+											value="${loadedUser.email }" /> <input type="hidden"
+											name="idTweetToDelete" value="${tweets.id }" /> <input
+											type="hidden" name="textTodelete"
+											value="${tweets.description }" /> <input type="submit"
+											value="Delete Tweet" />
+									</form></td>
 							</tr>
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
-						<c:forEach items="${existingUser.tweet }" var="tweets">
+						<c:forEach items="${existingUser }" var="tweets">
 							<tr>
-								<td>${tweets.user.firstName }${tweets.user.lastName }</td>
+								<td>${loadedUser.firstName } ${loadedUser.lastName }</td>
 								<td>${tweets.description }</td>
-								<td>${tweets.publishedDate }</td>	
+								<td>${tweets.publishedDate }</td>
+
 								<td><form action="editmytweet" method="GET">
-									<input type="hidden" name="userToEdit" value="${loadedUser.email }"/>
-									<input type="hidden" name="idTweetToEdit" value="${tweets.id }"/>
-									<input type="hidden" name="textToEdit" value="${tweets.description }"/>
-									<input type="submit" value="EDIT Tweet"/>
-								</form></td>
+										<input type="hidden" name="userToEdit"
+											value="${loadedUser.email }" /> <input type="hidden"
+											name="idTweetToEdit" value="${tweets.id }" /> <input
+											type="hidden" name="textToEdit"
+											value="${tweets.description }" /> <input type="submit"
+											value="EDIT Tweet" />
+									</form></td>
+								<td><form action="deletemytweet" method="GET">
+										<input type="hidden" name="userToDelete"
+											value="${loadedUser.email }" /> <input type="hidden"
+											name="idTweetToDelete" value="${tweets.id }" /> <input
+											type="hidden" name="textTodelete"
+											value="${tweets.description }" /> <input type="submit"
+											value="Delete Tweet" />
+									</form></td>
 							</tr>
 						</c:forEach>
 
 					</c:otherwise>
-				</c:choose>				
-			</table>		
+				</c:choose>
+			</table><br/>
+
+			<form action="paginateTweets" method="GET">
+				<input type="hidden" name="firstrow" value="${firstRow}"/> 
+				<input type="hidden" name="rowcount" value="${rowCount}"/> 
+				<input type="hidden" name="user_email" value="${loadedUser.email }"/>
+				<input type="submit" name="page" value="Previous"/>
+				<input type="submit" name="page" value="Next"/> 				
+			</form>
+
 
 			<br />
 		</div>

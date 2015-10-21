@@ -2,6 +2,7 @@ package com.endava.twitt.services;
 
 import java.util.List;
 
+import com.endava.twitt.models.Tweets;
 import com.endava.twitt.models.User;
 
 public interface UserServicesInterface {

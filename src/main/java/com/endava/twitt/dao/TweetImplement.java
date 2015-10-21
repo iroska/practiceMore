@@ -19,7 +19,14 @@ public class TweetImplement implements TweetInterface {
 	private SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
+		logger.info("Try to connect to database TweetImplement class.");
 		this.sessionFactory = sessionFactory;
+		
+		if(this.sessionFactory==null){
+			logger.info("Cnnection to database failed. TweetImplement class.");
+		}else{
+			logger.info("Succesfull connection to database done in TweetImplement class.");
+		}
 	}
 
 	public void insertTweets(Tweets tweet) {
@@ -29,6 +36,7 @@ public class TweetImplement implements TweetInterface {
 
 	@SuppressWarnings("unchecked")
 	public List<Tweets> getTweets() {
+		
 		Session session = this.sessionFactory.getCurrentSession();		
 		List<Tweets> tweetList = (List<Tweets>)session.createQuery("from Tweets").list();
 		for (Tweets tweet : tweetList) {
@@ -36,7 +44,7 @@ public class TweetImplement implements TweetInterface {
 		}
 		return tweetList;		
 	}
-	
+		
 	@SuppressWarnings("unchecked")
 	public List<Tweets> getTweetsByUser(String userEmail) {
 		Session session = this.sessionFactory.getCurrentSession();		
@@ -50,6 +58,29 @@ public class TweetImplement implements TweetInterface {
 	 public void updateTweet(Tweets tweet) {
 	        this.sessionFactory.getCurrentSession().update(tweet);
 	        logger.info("Tweet updated successfully, Tweet Details=" + tweet.getDescription());
-	    }	
+	    }
+
+	@Override
+	public void deleteUser(Tweets tweet) {
+		  this.sessionFactory.getCurrentSession().delete(tweet);
+	        logger.info("Tweet deleted successfully, Tweet Details=" + tweet.getDescription());	    		
+	}
+	
+	
+	/*private static final String SQL_SUBLIST = "from"
+		    + " Tweets ORDER BY publishedDate DESC LIMIT %d OFFSET %d";
+		
+	@SuppressWarnings("unchecked")
+	public List<Tweets> getPaginatedTweets(int firstrow, int rowcount) {
+		String sql = String.format(SQL_SUBLIST, firstrow, rowcount);		
+		Session session = this.sessionFactory.getCurrentSession();		
+		List<Tweets> tweetList = (List<Tweets>)session.createQuery(sql).list();
+		for (Tweets tweet : tweetList) {
+			logger.info("Paginating tweet list :" + tweet);
+		}
+		return tweetList;		
+	}
+	*/
+	
 
 }

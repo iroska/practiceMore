@@ -1,9 +1,12 @@
 package com.endava.twitt;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
@@ -22,6 +25,9 @@ import com.endava.twitt.services.UserServicesInterface;
 @Controller
 @Scope("session")
 public class TweetsController {
+	
+	private static final Logger logger = LoggerFactory
+			.getLogger(TweetsController.class);
 
 	private TweetServiceInterface tweetService;
 
@@ -67,8 +73,41 @@ public class TweetsController {
 		tweets.setPublishedDate(new Date());
 		this.tweetService.insertTweets(tweets);
 		
+		System.out.println("In tweets view = "+(Integer)session.getAttribute("firstRow")+" "+(Integer)session.getAttribute("rowCount"));
+		
 		User user = userService.getUserByName(user_email);
-		session.setAttribute("sessionUser", user);		
+		List<Tweets> allUsersTweets=user.getTweet();		
+		Integer listSize = allUsersTweets.size();
+		Integer firstrow = 0;
+		Integer rowcount = 0;		
+		if (listSize == 0) {
+			firstrow = 0;
+			rowcount = 0;
+			session.setAttribute("firstRow", firstrow);
+			session.setAttribute("rowCount", rowcount);
+		} else if (listSize > 0 && listSize < 5) {
+			firstrow = 0;
+			rowcount = listSize;
+			session.setAttribute("firstRow", firstrow);
+			session.setAttribute("rowCount", rowcount);
+		} else if (listSize >= 5) {
+			firstrow = 0;
+			rowcount = 5;
+			session.setAttribute("firstRow", firstrow);
+			session.setAttribute("rowCount", rowcount);
+		}
+
+		//session.setAttribute("sizeUserTweets", listSize);
+		
+		/*Integer firstrow2 = (Integer) session.getAttribute("firstRow");
+		Integer rowcount2 = (Integer) session.getAttribute("rowCount");*/
+		System.out.println("Size = "+listSize +"In TweetControler = "
+				+ (Integer) session.getAttribute("firstRow") + " "
+				+ (Integer) session.getAttribute("rowCount"));
+	//	List<Tweets> userSubTweets = allUsersTweets.subList(firstrow, rowcount);
+		
+	//	session.setAttribute("userTweetsSublist", userSubTweets);
+	//	session.setAttribute("sessionUser", userSubTweets);			
 						
 		return "redirect:/home";
 	}
@@ -77,7 +116,7 @@ public class TweetsController {
 	public String viweTweet(HttpSession session,Model model) {
 		
 		if(session.getAttribute("loadedUser")==null){
-			return "login";
+			return "redirect:/login";
 		}
 		
 		model.addAttribute("tweet", new Tweets());
@@ -105,7 +144,7 @@ public class TweetsController {
 	public String editTweet(Model model, HttpSession session, @RequestParam String textToEdit, @RequestParam Integer idTweetToEdit) {
 		
 		if(session.getAttribute("loadedUser")==null){
-			return "login";
+			return "redirect:/login";
 		}	
 				
 		model.addAttribute("editedTweet",textToEdit );
@@ -118,7 +157,7 @@ public class TweetsController {
 	public String saveEditedTweet(Model model, HttpSession session,@RequestParam Integer idTweet, @RequestParam String updatedTweet,@RequestParam String userToEdit) {
 		
 		if(session.getAttribute("loadedUser")==null){
-			return "login";
+			return "redirect:/login";
 		}			
 		
 		User user1 = userService.getUserByName(userToEdit);
@@ -128,9 +167,88 @@ public class TweetsController {
 		tweets.setDescription(updatedTweet);
 		tweets.setPublishedDate(new Date());
 		this.tweetService.updateTweet(tweets);
+				
+			
+		System.out.println("In saveUpdatedTweet = "+(Integer)session.getAttribute("firstRow")+" "+(Integer)session.getAttribute("rowCount"));
 		
-		User user = userService.getUserByName(userToEdit);
-		session.setAttribute("sessionUser", user);		
+		User user = userService.getUserByName(userToEdit);	
+		List<Tweets> allUsersTweets=user.getTweet();		
+		Integer listSize = allUsersTweets.size();
+		Integer firstrow = 0;
+		Integer rowcount = 0;		
+		if (listSize == 0) {
+			firstrow = 0;
+			rowcount = 0;
+			session.setAttribute("firstRow", firstrow);
+			session.setAttribute("rowCount", rowcount);
+		} else if (listSize > 0 && listSize < 5) {
+			firstrow = 0;
+			rowcount = listSize;
+			session.setAttribute("firstRow", firstrow);
+			session.setAttribute("rowCount", rowcount);
+		} else if (listSize >= 5) {
+			firstrow = 0;
+			rowcount = 5;
+			session.setAttribute("firstRow", firstrow);
+			session.setAttribute("rowCount", rowcount);
+		}
+		
+		/*List<Tweets> allUsersTweets=user.getTweet();
+		if(allUsersTweets!=null){
+		List<Tweets> userSubTweets=allUsersTweets.subList(firstrow,rowcount);
+		session.setAttribute("sessionUser", userSubTweets);		
+		} else{
+			logger.info("Tweet Controller Class. Tweet list is not loaded!");
+		}		*/
+						
+		return "redirect:/home";
+	}
+	
+	@RequestMapping(value = "/deletemytweet", method = RequestMethod.GET)
+	public String deleteMyTweet(Model model, HttpSession session, @RequestParam Integer idTweetToDelete, @RequestParam String textTodelete,@RequestParam String userToDelete) {
+		
+		if(session.getAttribute("loadedUser")==null){
+			return "redirect:/login";
+		}			
+		
+		User user1 = userService.getUserByName(userToDelete);
+		Tweets tweets=new Tweets();	
+		tweets.setId(idTweetToDelete);
+		tweets.setUser(user1);
+		tweets.setDescription(textTodelete);
+		tweets.setPublishedDate(new Date());
+		this.tweetService.deleteUser(tweets);
+		
+		User user = userService.getUserByName(userToDelete);
+		List<Tweets> allUsersTweets=user.getTweet();		
+		Integer listSize = allUsersTweets.size();
+		Integer firstrow = 0;
+		Integer rowcount = 0;		
+		if (listSize == 0) {
+			firstrow = 0;
+			rowcount = 0;
+			session.setAttribute("firstRow", firstrow);
+			session.setAttribute("rowCount", rowcount);
+		} else if (listSize > 0 && listSize < 5) {
+			firstrow = 0;
+			rowcount = listSize;
+			session.setAttribute("firstRow", firstrow);
+			session.setAttribute("rowCount", rowcount);
+		} else if (listSize >= 5) {
+			firstrow = 0;
+			rowcount = 5;
+			session.setAttribute("firstRow", firstrow);
+			session.setAttribute("rowCount", rowcount);
+		}
+		
+		System.out.println("Size = "+listSize +"In delete Tweet = "
+				+ (Integer) session.getAttribute("firstRow") + " "
+				+ (Integer) session.getAttribute("rowCount"));
+		//List<Tweets> userSubTweets = allUsersTweets.subList(firstrow, rowcount);
+		
+		//session.setAttribute("userTweetsSublist", userSubTweets);
+		//session.setAttribute("sessionUser", userSubTweets);	
+		//session.setAttribute("sessionUser", user);		
 						
 		return "redirect:/home";
 	}

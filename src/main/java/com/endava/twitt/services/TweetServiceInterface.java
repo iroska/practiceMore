@@ -13,5 +13,7 @@ public interface TweetServiceInterface {
 	public List<Tweets> getTweetsByUser(String userEmail);
 	
 	public void updateTweet(Tweets tweet);	
+	
+	public void deleteUser(Tweets tweet);	
 
 }

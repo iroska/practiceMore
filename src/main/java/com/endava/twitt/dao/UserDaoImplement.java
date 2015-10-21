@@ -2,6 +2,10 @@ package com.endava.twitt.dao;
 
 import java.util.List;
 
+
+
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -19,18 +23,28 @@ public class UserDaoImplement implements UserDaoInterface {
     private SessionFactory sessionFactory;
 
     public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    	logger.info("Try to connect to database UserDaoImplement class.");
+		this.sessionFactory = sessionFactory;
+		
+		if(this.sessionFactory==null){
+			logger.info("Cnnection to database failed. UserDaoImplement class.");
+		}else{
+			logger.info("Succesfull connection to database done in UserDaoImplement class.");
+		}
     }
 
     public void insertUser(User user) {
         this.sessionFactory.getCurrentSession().persist(user);
         logger.info("Person saved successfully, Person Details=" + user.getEmail());
     }
-
+    
     @SuppressWarnings("unchecked")
     public List<User> getUser() {
         Session session = this.sessionFactory.getCurrentSession();
-        List<User> userList = (List<User>) session.createQuery("from User").list();
+        Query query= session.createQuery("from User");
+        query.setFirstResult(0);
+        query.setMaxResults(5);        
+        List<User> userList = (List<User>)query.list();
         for (User user : userList) {
             logger.info("User List::" + user.getEmail());
         }
@@ -72,7 +86,7 @@ public class UserDaoImplement implements UserDaoInterface {
             logger.info("Person was verified successfully, Person details=" + user.getEmail());
             return user;
         }
-        logger.info("Login Validation filed with person's emaul=" + userEmail);
+        logger.info("Login Validation filed with person's email=" + userEmail);
         return null;
     }
   
