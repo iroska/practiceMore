@@ -33,7 +33,7 @@
 
 			<p align="right">
 				Hello ${loadedUser.firstName } ${loadedUser.lastName }! &nbsp; <a
-					href="logout">Sign Out</a>
+					href="logout">Log Out</a>
 			</p>
 			<br /> <br /> <br /> <br />
 
@@ -65,11 +65,9 @@
 
 			</form>
 			<h5 align="center">
-				<font color="">You posted -${sizeUserTweets }- tweets.</font><br />
+				<font color="#0080FF">TWEETS <br>- ${sizeUserTweets } -</font><br />
 			</h5>
-			<%-- <a href="<c:url value='/home'/>" >Get tweet</a> --%>
-
-
+			
 			<table border="1" align="center">
 				<c:choose>
 					<c:when test="${empty existingUser}">

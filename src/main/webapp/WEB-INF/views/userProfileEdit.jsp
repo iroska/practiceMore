@@ -28,14 +28,41 @@
 
 	<%@include file="partial/navHome.jsp"%>
 
-	<div class="container">
-		<div class="row">
 
+<div class="container">
+		<div class="row">
 			<p align="right">
 				Hello ${loadedUser.firstName } ${loadedUser.lastName }! &nbsp; <a
-					href="logout">Sign Out</a>
-			</p>
-			<br /> <br /> <br /> <br />
+					href="logout">Log Out</a>
+			</p><br/>
+			<h5 align="center">
+				<font color="green">${successfulRegistration }</font>
+				<font color="red">${userAlreadyExists }</font>
+			</h5><br/>
+			<h3>Your actual profile data are:</h3><br/>
+
+			<!-- <h3>Update Your Profile</h3> -->
+			<form action="changeProfile" method="POST">			
+			<input type="hidden" name="role" value="ROLE_USER"/>
+			First Name:<input type="text" name="firstName" value="${loadedUser.firstName }"/><br>
+			<font color="red"><form:errors path="user.firstName"/></font><br/>
+			Last Name:<input type="text" name="lastName" value="${loadedUser.lastName }"/><br>
+			<font color="red"><form:errors path="user.lastName"/></font><br/>
+			<input type="hidden" name="email" value="${loadedUser.email}"/><br>			
+			Password:<input type="password" name="password" value="${loadedUser.password}"/><br>
+			<font color="red"><form:errors path="user.password"/></font><br/>
+			
+			<input type="submit" value="Update My Profile"/>						
+			</form>
+		</div>
+	</div>
+
+
+
+	<%-- <div class="container">
+		<div class="row">
+
+			
 
 			<h3 align="center">Change your ${loadedUser.firstName }</h3>
 
@@ -51,9 +78,7 @@
 			<br> <br /> <br />
 
 
-			<h5 align="center">
-				<font color="green">${successfulRegistration }</font>
-			</h5>
+			
 
 			<div class="row">
 				<div class="col s12 m6 l4 offset-l4 offset-m3 amber lighten-5">
@@ -120,7 +145,7 @@
 
 			<br />
 		</div>
-	</div>
+	</div> --%>
 	<%@include file="partial/footer.jsp"%>
 
 

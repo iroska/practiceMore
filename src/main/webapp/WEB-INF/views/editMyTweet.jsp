@@ -31,7 +31,7 @@
 		<div class="row">
 			<p align="right">
 				Hello ${loadedUser.firstName } ${loadedUser.lastName }! &nbsp; <a
-					href="logout">Sign Out</a>
+					href="logout">Log Out</a>
 			</p><br/>
 
 			<h3>Edit Tweet</h3>

@@ -44,20 +44,20 @@ pageEncoding="UTF-8"%>
                         <input id="first_name" name="firstName" type="text"
                                class="validate"> <label for="first_name">First
                         Name</label>
-                        <form:errors path="user.firstName"/>
+                       <font color="red"><form:errors path="user.firstName"/></font>
                     </div>
                     <div class="input-field col s6">
                         <input id="last_name" name="lastName" type="text"
                                class="validate"> <label for="last_name">Last
                         Name</label>
-                        <form:errors path="user.lastName"/>
+                       <font color="red"><form:errors path="user.lastName"/></font>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="email" name="email" type="email" class="validate">
                         <label for="email" data-error="wrong" data-success="">Email</label>
-                        <form:errors path="user.email"/>
+                        <font color="red"><form:errors path="user.email"/></font>
                     </div>
                 </div>
                 <!-- <div class="row">
@@ -70,7 +70,7 @@ pageEncoding="UTF-8"%>
                     <div class="input-field col s12">
                         <input id="password" name="password" type="password" class="validate" />
                         <label for="password">Password</label>
-                        <form:errors path="user.password"/>
+                        <font color="red"><form:errors path="user.password"/></font>
                     </div>
                 </div>
                 <div class="row light condensed center-align">

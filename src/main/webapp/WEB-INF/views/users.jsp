@@ -31,10 +31,10 @@
 		<div class="row">
 			<p align="right">
 				Hello ${loadedUser.firstName } ${loadedUser.lastName }! &nbsp; <a
-					href="logout">Sign Out</a>
+					href="logout">Log Out</a>
 			</p><br/>
 
-			<h3>Users List</h3>
+			<h3>TWITTER Users</h3>
 			<c:if test="${!empty userList}">
 				<table class="tg" border="1">
 					<tr>
@@ -50,6 +50,14 @@
 							<td><form action="userstweet" method="get">
 							<input type="hidden" name="userEmail"  value="${person.email}"/>	
 							<input type="submit" value="View ${person.firstName}'s tweets "/>					
+							</form></td>	
+							<td><form action="#" method="get">
+							<input type="hidden" name="userEmail"  value="${person.email}"/>	
+							<input type="submit" value="FOLLOW "/>					
+							</form></td>	
+							<td><form action="#" method="get">
+							<input type="hidden" name="userEmail"  value="${person.email}"/>	
+							<input type="submit" value="UNFOLLOW"/>					
 							</form></td>							
 						</tr>
 					</c:forEach>

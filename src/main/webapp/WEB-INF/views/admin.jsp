@@ -33,7 +33,7 @@
 
 			<p align="right">
 				Hello ${loadedUser.firstName } ${loadedUser.lastName }! &nbsp;<br/>ROLE: Admin <a
-					href="logout">Sign Out</a>
+					href="logout">Log Out</a>
 			</p>
 			<br /> <br /> <br /> <br />
 

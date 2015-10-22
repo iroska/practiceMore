@@ -1,5 +1,7 @@
 package com.endava.twitt;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -41,6 +43,7 @@ public class UserController {
 		
 		model.addAttribute("user", new User());
 		model.addAttribute("userList", this.userService.getUser());
+			
 		return "users";
 	}
 
@@ -49,7 +52,7 @@ public class UserController {
 			BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
-			return "redirect:/login";
+			return "login";
 		}
 
 		if ((userService.getUserByName(user.getEmail()) == null)) {
@@ -84,23 +87,31 @@ public class UserController {
 	
 	@RequestMapping("/changeProfile")
 	public String changeUserProfile(@Valid @ModelAttribute("user") User user,
-			BindingResult result, Model model) {
-
+			BindingResult result,HttpSession session, Model model) {
+		if(session.getAttribute("loadedUser")==null){
+			return "redirect:/login";
+		}
+		
+		
 		if (result.hasErrors()) {
-			return "redirect:/editUserProfile";
+			System.out.println("ERROR to change profile");
+			return "userProfileEdit";
 		}
 
-		if ((userService.getUserByName(user.getEmail()) == null)) {			
+		if ((userService.getUserByName(user.getEmail()) != null)) {			
 			this.userService.updateUser(user);
+			logger.info("User "+user.getEmail()+" updated his profile on:" +new Date());
 		} else {
 			model.addAttribute("userAlreadyExists",
 					"<center>User already exists.<br/> Try another email address</center>");
 
-			return "login";
+			return "userProfileEdit";
 		}
+		
+		session.setAttribute("loadedUser", user);
 
 		model.addAttribute("successfulRegistration", "<center>Congratualtions.<br/> You changed your Profile Succesfully!</center>");
-		return "editUserProfile";
+		return "userProfileEdit";
 	}
 	
 
