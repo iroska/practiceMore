@@ -26,9 +26,9 @@ public class WebController {
 		
 		if(session.getAttribute("loadedUser")==null){
 			logger.info("Session false redirecting to login URL WebController class.");
-			return "redirect:/login";
+			return "login";
 		}
-		logger.info("Try to connect to home URL WebController class.");
+		logger.info("Connecting to home URL WebController class.");
 		return "redirect:/home";			
 	}
 	

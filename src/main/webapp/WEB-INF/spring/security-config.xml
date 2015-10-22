@@ -7,9 +7,9 @@
 		http://www.springframework.org/schema/security/spring-security.xsd">
 
 
-	<http auto-config="true" use-expressions="false">
-		<!-- <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/**" access="" /> -->
+<!-- 	<http auto-config="true" use-expressions="false">
+		<intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/**" access="" />
 		<intercept-url pattern="/users**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/users/**" access="hasRole('ROLE_ADMIN')" /> 
 		<intercept-url pattern="/home**" access="hasRole('ROLE_USER')"/>
@@ -34,6 +34,6 @@
 			</authentication-provider>
 			
 	</authentication-manager>
-
+ -->
 
 </beans:beans>

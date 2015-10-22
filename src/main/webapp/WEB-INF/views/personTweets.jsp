@@ -33,15 +33,18 @@
 
 			<p align="right">
 				Hello ${loadedUser.firstName } ${loadedUser.lastName }! &nbsp; <a
-					href="logout">Sign Out</a>
+					href="logout">Log Out</a>
 			</p>
 			<br /> <br /> <br /> <br />
 
-			<h3 align="center">${specialUser.firstName }'sTweets</h3>
+			<h3 align="center">${specialUser.firstName }'s TWEETS</h3>
+			<h5 align="center">
+				<font color="#0080FF">-  ${numberOfUsersTweetsUser }  - </font><br />
+			</h5>
 
 			<table border="1" align="center">
 
-				<c:forEach items="${specialUser.tweet }" var="tweets">
+				<c:forEach items="${userTweetsSublistUser }" var="tweets">
 					<tr>
 						<td>${tweets.description }</td>
 						<td>${tweets.publishedDate }</td>
@@ -52,29 +55,19 @@
 
 			</table>
 
-			<%-- 	<br /> <br /> <br /> <br /> <br />
-
-			<h3 align="center">Existent Users</h3>
-
-			<c:if test="${!empty userList}">
-				<table class="tg" border="1" align="center">
-					<tr>
-						<th width="80">First Name</th>
-						<th width="120">Last Name</th>
-						<th width="120">Email</th>
-					</tr>
-					<c:forEach items="${userList}" var="person">
-						<tr>
-							<td>${person.firstName}</td>
-							<td>${person.lastName}</td>
-							<td>${person.email}</td>
-
-						</tr>
-					</c:forEach>
-				</table>
-			</c:if>
- --%>
-
+			<table>
+				<tr>
+					<td><form action="paginateTweetsUser" method="GET">
+							<input type="hidden" name="firstrowUser" value="${firstRowUser}" /> <input
+								type="hidden" name="rowcountUser" value="${rowCountUser}" /> <input
+								type="hidden" name="user_email" value="${specialUser.email }" />
+							<input type="submit" name="pageUser" value="Previous" /> <input
+								type="submit" name="pageUser" value="Next" />
+						</form></td>
+					<td align="right"></td>
+					<td align="right">Tweets from ${firstRowUser+1} to ${rowCountUser}</td>					
+				</tr>
+			</table>
 			<br />
 		</div>
 	</div>

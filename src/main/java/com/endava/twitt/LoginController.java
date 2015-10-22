@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.endava.twitt.models.GlobalVariables;
 import com.endava.twitt.models.Tweets;
 import com.endava.twitt.models.User;
 import com.endava.twitt.services.TweetServiceInterface;
@@ -67,7 +68,8 @@ public class LoginController {
 			session.setAttribute("loadedUser", user);
 			return "redirect:/admin";
 		}
-
+		Integer numberOfTweetsOnPage=new GlobalVariables().tweetsOnPage;
+		
 		Integer firstrow = 0;
 		Integer rowcount = 0;
 		List<Tweets> allUsersTweets = user1.getTweet();
@@ -77,14 +79,14 @@ public class LoginController {
 			rowcount = 0;
 			session.setAttribute("firstRow", firstrow);
 			session.setAttribute("rowCount", rowcount);
-		} else if (listSize > 0 && listSize < 5) {
+		} else if (listSize > 0 && listSize < numberOfTweetsOnPage) {
 			firstrow = 0;
 			rowcount = listSize;
 			session.setAttribute("firstRow", firstrow);
 			session.setAttribute("rowCount", rowcount);
-		} else if (listSize >= 5) {
+		} else if (listSize >= numberOfTweetsOnPage) {
 			firstrow = 0;
-			rowcount = 5;
+			rowcount = numberOfTweetsOnPage;
 			session.setAttribute("firstRow", firstrow);
 			session.setAttribute("rowCount", rowcount);
 		}
@@ -134,16 +136,18 @@ public class LoginController {
 		if (session.getAttribute("loadedUser") == null) {
 			return "redirect:/login";
 		}
+		
+		Integer numberOfTweetsOnPage=new GlobalVariables().tweetsOnPage;
 
 		if (page.equals("Next")) {
 			Integer sizeTweetsList = (Integer) session
 					.getAttribute("sizeUserTweets");
-			if ((sizeTweetsList % 5 == 0 && rowcount >= 5)) {
-				firstrow += 5;
-				rowcount += 5;
+			if ((sizeTweetsList % numberOfTweetsOnPage == 0 && rowcount >= numberOfTweetsOnPage)) {
+				firstrow += numberOfTweetsOnPage;
+				rowcount += numberOfTweetsOnPage;
 								
 				if (rowcount > sizeTweetsList) {
-					firstrow -= 5;
+					firstrow -= numberOfTweetsOnPage;
 					rowcount = sizeTweetsList;
 					session.setAttribute("firstRow", firstrow);
 					session.setAttribute("rowCount", rowcount);
@@ -160,21 +164,21 @@ public class LoginController {
 							+ (Integer) session.getAttribute("rowCount"));
 				}
 
-			} else if (sizeTweetsList % 5 == 0 && (rowcount < 5)) {
+			} else if (sizeTweetsList % numberOfTweetsOnPage == 0 && (rowcount < numberOfTweetsOnPage)) {
 				
 				System.out.println("Size = " + sizeTweetsList + " In Next 2 = "
 						+ (Integer) session.getAttribute("firstRow") + " "
 						+ (Integer) session.getAttribute("rowCount"));
 				return "redirect:/home";
 
-			} else if ((sizeTweetsList % 5 != 0 && rowcount >= 5)
-					&& (sizeTweetsList - rowcount) < 5) {
-				Integer lastTweets = sizeTweetsList % 5;
-				firstrow += 5;
+			} else if ((sizeTweetsList % numberOfTweetsOnPage != 0 && rowcount >= numberOfTweetsOnPage)
+					&& (sizeTweetsList - rowcount) < numberOfTweetsOnPage) {
+				Integer lastTweets = sizeTweetsList % numberOfTweetsOnPage;
+				firstrow += numberOfTweetsOnPage;
 				rowcount += lastTweets;
 
 				if (rowcount > sizeTweetsList) {
-					firstrow -= 5;
+					firstrow -= numberOfTweetsOnPage;
 					rowcount = sizeTweetsList;
 					session.setAttribute("firstRow", firstrow);
 					session.setAttribute("rowCount", rowcount);
@@ -191,18 +195,18 @@ public class LoginController {
 							+ (Integer) session.getAttribute("rowCount"));
 				}
 
-			} else if (sizeTweetsList % 5 != 0 && rowcount >= 5
-					&& (sizeTweetsList - rowcount) > 5) {
-				firstrow += 5;
-				rowcount += 5;
+			} else if (sizeTweetsList % numberOfTweetsOnPage != 0 && rowcount >= numberOfTweetsOnPage
+					&& (sizeTweetsList - rowcount) > numberOfTweetsOnPage) {
+				firstrow += numberOfTweetsOnPage;
+				rowcount += numberOfTweetsOnPage;
 				session.setAttribute("firstRow", firstrow);
 				session.setAttribute("rowCount", rowcount);
 				System.out.println("Size = " + sizeTweetsList + " In Next 4 = "
 						+ (Integer) session.getAttribute("firstRow") + " "
 						+ (Integer) session.getAttribute("rowCount"));
 
-			} else if (sizeTweetsList % 5 != 0 && (rowcount < 5)) {
-				Integer lastTweets = sizeTweetsList % 5;
+			} else if (sizeTweetsList % numberOfTweetsOnPage != 0 && (rowcount < numberOfTweetsOnPage)) {
+				Integer lastTweets = sizeTweetsList % numberOfTweetsOnPage;
 				firstrow = 0;
 				rowcount = lastTweets;
 				session.setAttribute("firstRow", firstrow);
@@ -211,25 +215,14 @@ public class LoginController {
 						+ (Integer) session.getAttribute("firstRow") + " "
 						+ (Integer) session.getAttribute("rowCount"));
 			} 
-			
-			/*else if (sizeTweetsList <= rowcount) {
-
-				rowcount = sizeTweetsList;
-				session.setAttribute("firstRow", firstrow);
-				session.setAttribute("rowCount", rowcount);
-				System.out.println("Size = " + sizeTweetsList + " In Next 6 = "
-						+ (Integer) session.getAttribute("firstRow") + " "
-						+ (Integer) session.getAttribute("rowCount"));
-			}*/
-
 		}
 
 		if (page.equals("Previous")) {
 			Integer sizeTweetsList = (Integer) session
 					.getAttribute("sizeUserTweets");
-			if (sizeTweetsList % 5 != 0 && (firstrow >= 5)) {
-				Integer lastTweets = sizeTweetsList % 5;
-				firstrow -= 5;
+			if (sizeTweetsList % numberOfTweetsOnPage != 0 && (firstrow >= numberOfTweetsOnPage && (rowcount%numberOfTweetsOnPage!=0))) {
+				Integer lastTweets = sizeTweetsList % numberOfTweetsOnPage;
+				firstrow -= numberOfTweetsOnPage;
 				rowcount -= lastTweets;
 				session.setAttribute("firstRow", firstrow);
 				session.setAttribute("rowCount", rowcount);
@@ -237,8 +230,28 @@ public class LoginController {
 						+ (Integer) session.getAttribute("firstRow") + " "
 						+ (Integer) session.getAttribute("rowCount"));
 
-			} else if (sizeTweetsList % 5 != 0 && (firstrow < 5)) {
-				Integer lastTweets = sizeTweetsList % 5;
+			} else if (sizeTweetsList % numberOfTweetsOnPage != 0 && (firstrow >= numberOfTweetsOnPage && (rowcount%numberOfTweetsOnPage==0))) {
+				
+				firstrow -= numberOfTweetsOnPage;
+				rowcount -= numberOfTweetsOnPage;
+				session.setAttribute("firstRow", firstrow);
+				session.setAttribute("rowCount", rowcount);
+				System.out.println("In Previous 1_2 = "
+						+ (Integer) session.getAttribute("firstRow") + " "
+						+ (Integer) session.getAttribute("rowCount"));
+
+			} else if (sizeTweetsList % numberOfTweetsOnPage != 0 && (firstrow < numberOfTweetsOnPage && sizeTweetsList>=numberOfTweetsOnPage)) {
+				
+				firstrow = 0;
+				rowcount = numberOfTweetsOnPage;
+				session.setAttribute("firstRow", firstrow);
+				session.setAttribute("rowCount", rowcount);
+				System.out.println("In Previous 1_3 = "
+						+ (Integer) session.getAttribute("firstRow") + " "
+						+ (Integer) session.getAttribute("rowCount"));
+
+			}   else if (sizeTweetsList % numberOfTweetsOnPage != 0 && (firstrow < numberOfTweetsOnPage && rowcount<numberOfTweetsOnPage )) {
+				Integer lastTweets = sizeTweetsList % numberOfTweetsOnPage;
 				firstrow = 0;
 				rowcount = lastTweets;
 				session.setAttribute("firstRow", firstrow);
@@ -247,18 +260,18 @@ public class LoginController {
 						+ (Integer) session.getAttribute("firstRow") + " "
 						+ (Integer) session.getAttribute("rowCount"));
 
-			} else if ((firstrow >= 5 && rowcount > 5)
-					&& sizeTweetsList % 5 == 0) {
-				firstrow -= 5;
-				rowcount -= 5;
+			} else if ((firstrow >= numberOfTweetsOnPage && rowcount > numberOfTweetsOnPage)
+					&& sizeTweetsList % numberOfTweetsOnPage == 0) {
+				firstrow -= numberOfTweetsOnPage;
+				rowcount -= numberOfTweetsOnPage;
 				session.setAttribute("firstRow", firstrow);
 				session.setAttribute("rowCount", rowcount);
 				System.out.println("In Previous 3 = "
 						+ (Integer) session.getAttribute("firstRow") + " "
 						+ (Integer) session.getAttribute("rowCount"));
-			} else if ((firstrow < 5 && sizeTweetsList < 5)
-					&& sizeTweetsList % 5 == 0) {
-				Integer lastTweets = sizeTweetsList % 5;
+			} else if ((firstrow < numberOfTweetsOnPage && sizeTweetsList < numberOfTweetsOnPage)
+					&& sizeTweetsList % numberOfTweetsOnPage == 0) {
+				Integer lastTweets = sizeTweetsList % numberOfTweetsOnPage;
 				firstrow = 0;
 				rowcount = lastTweets;
 				session.setAttribute("firstRow", firstrow);
@@ -286,7 +299,13 @@ public class LoginController {
 	public String logout(HttpSession session) {
 		session.removeAttribute("loadedUser");
 		session.removeAttribute("newloadedUser");
-		session.removeAttribute("existingUser");	
+		session.removeAttribute("existingUser");
+		session.removeAttribute("firstRow");
+		session.removeAttribute("rowCount");
+		session.removeAttribute("specialUser");
+		session.removeAttribute("firstRowUser");
+		session.removeAttribute("rowCountUser");
+		logger.info("urer logout succesfully");
 		return "login";
 	}
 

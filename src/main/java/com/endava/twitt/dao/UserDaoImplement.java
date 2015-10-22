@@ -75,7 +75,7 @@ public class UserDaoImplement implements UserDaoInterface {
         }
     }
 
-    public void updateUser(User user) {
+    public void updateUser(User user) {    	 
         this.sessionFactory.getCurrentSession().update(user);
         logger.info("Person updated successfully, Person Details=" + user.getEmail());
     }
