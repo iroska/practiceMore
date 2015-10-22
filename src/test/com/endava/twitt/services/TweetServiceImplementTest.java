@@ -52,7 +52,7 @@ public class TweetServiceImplementTest {
         tweet = (Tweets) applicationContext.getBean("testTweet");
         assertNotNull(tweet);
         log.debug("Get testTweet");
-        user = userServicesInterface.getUserByName("igor.balanici@gmail.com");
+        user = userServicesInterface.getUserByName("constantin@golan.com");
         assertNotNull(user);
         log.debug("Loaded user: " + user.getEmail());
         tweet.setUser(user);
@@ -72,7 +72,7 @@ public class TweetServiceImplementTest {
 
     @Test
     public void testGetTweetsByUser() throws Exception {
-        User user = userServicesInterface.getUserByName("igor.balanici@gmail.com");
+        User user = userServicesInterface.getUserByName("constantin@golan.com");
         assertNotNull(user);
         List<Tweets> tweetsList = tweetServiceInterface.getTweetsByUser(user.getEmail());
         assertNotNull(tweetsList);
@@ -81,7 +81,7 @@ public class TweetServiceImplementTest {
 
     @Test
     public void testUpdateTweet() throws Exception {
-        User user = userServicesInterface.getUserByName("igor.balanici@gmail.com");
+        User user = userServicesInterface.getUserByName("constantin@golan.com");
         assertNotNull(user);
         /*not ok, but i need at least 1 tweet in DB to test updateTweet*/
         tweet = (Tweets) applicationContext.getBean("testTweet");

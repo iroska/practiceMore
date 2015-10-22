@@ -41,7 +41,7 @@ public class User {
 	@Column(name = "Email")
 	private String email;
 	@NotEmpty
-	@Size(min = 8, max = 25, message="")
+	@Size(min = 8, max = 25)
 	@Column(name = "Password")
 	private String password;
 

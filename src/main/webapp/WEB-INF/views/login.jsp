@@ -68,9 +68,9 @@ pageEncoding="UTF-8"%>
             </div> -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="password" name="password" type="password" class="validate" />
+                        <input id="password" name="password" type="password" class="" />
                         <label for="password">Password</label>
-                        <font color="red"><form:errors path="user.password"/></font>
+                        <font color="red"><form:errors path="user.password"  /></font>
                     </div>
                 </div>
                 <div class="row light condensed center-align">

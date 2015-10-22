@@ -73,7 +73,7 @@
 					<c:when test="${empty existingUser}">
 						<c:forEach items="${userTweetsSublist }" var="tweets">
 							<tr>
-								<td>${loadedUser.firstName }${loadedUser.lastName }</td>
+								<td>${loadedUser.firstName } ${loadedUser.lastName }</td>
 								<td>${tweets.description }</td>
 								<td>${tweets.publishedDate }</td>
 								<td><form action="editmytweet" method="GET">
@@ -98,7 +98,7 @@
 					<c:otherwise>
 						<c:forEach items="${existingUser }" var="tweets">
 							<tr>
-								<td>${loadedUser.firstName }${loadedUser.lastName }</td>
+								<td>${loadedUser.firstName } ${loadedUser.lastName }</td>
 								<td>${tweets.description }</td>
 								<td>${tweets.publishedDate }</td>
 
