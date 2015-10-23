@@ -56,7 +56,6 @@ public class UserController {
 		}
 
 		if ((userService.getUserByName(user.getEmail()) == null)) {
-			// new person, add it
 			this.userService.insertUser(user);
 		} else {
 			model.addAttribute("userAlreadyExists",

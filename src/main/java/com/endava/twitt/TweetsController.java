@@ -216,12 +216,8 @@ public class TweetsController {
 		List<Tweets> userSubTweetsUser = allUsersTweets.subList(firstrowUser, rowcountUser);
 		session.setAttribute("userTweetsSublistUser", userSubTweetsUser);	
 		
-		
-		
 		return "personTweets";
-	}
-
-	
+	}	
 
 	@RequestMapping(value = "/editmytweet", method = RequestMethod.GET)
 	public String editTweet(Model model, HttpSession session,
@@ -377,6 +373,7 @@ public class TweetsController {
 						+ " In Next 2 = "
 						+ (Integer) session.getAttribute("firstRowUser") + " "
 						+ (Integer) session.getAttribute("rowCountUser"));
+				
 				return "redirect:/personTweets";
 
 			} else if ((sizeTweetsListUser % numberOfTweetsOnPageUser != 0 && rowcountUser >= numberOfTweetsOnPageUser)

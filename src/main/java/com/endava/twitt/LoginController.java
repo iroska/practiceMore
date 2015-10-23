@@ -286,7 +286,17 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public String admin() {
+	public String admin(HttpSession session, Model model) {
+		
+		if(session.getAttribute("loadedUser")==null){
+			return "redirect:/login";
+		}
+		
+		model.addAttribute("user", new User());
+		model.addAttribute("userList", this.userService.getUser());
+			
+		
+		
 		return "admin";
 	}
 
@@ -305,6 +315,12 @@ public class LoginController {
 		session.removeAttribute("specialUser");
 		session.removeAttribute("firstRowUser");
 		session.removeAttribute("rowCountUser");
+		session.removeAttribute("sizeUserTweetsUser");		
+		session.removeAttribute("specialUser");
+		session.removeAttribute("userID");
+		session.removeAttribute("currentUserData");
+		session.removeAttribute("currentUser");
+		session.removeAttribute("sessionUser");
 		logger.info("urer logout succesfully");
 		return "login";
 	}

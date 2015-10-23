@@ -48,16 +48,19 @@
 							<td>${person.lastName}</td>
 							<td>${person.email}</td>
 							<td><form action="userstweet_admin" method="get">
+							<input type="hidden" name="sessionUser"  value="${loadedUser.email}"/>
 							<input type="hidden" name="userEmail"  value="${person.email}"/>	
-							<input type="submit" value="View tweets "/>					
+							<input type="submit" value="View ${person.firstName}'s tweets "/>					
 							</form></td>	
-							<%-- <td><form action="#" method="get">
+							<td><form action="#" method="get">
+							<input type="hidden" name="sessionUser"  value="${loadedUser.email}"/>
 							<input type="hidden" name="userEmail"  value="${person.email}"/>	
-							<input type="submit" value="Edit "/>					
-							</form></td>	 --%>
-							<td><form action="delite_user" method="get">
+							<input type="submit" value="FOLLOW "/>					
+							</form></td>	
+							<td><form action="#" method="get">
+							<input type="hidden" name="sessionUser"  value="${loadedUser.email}"/>
 							<input type="hidden" name="userEmail"  value="${person.email}"/>	
-							<input type="submit" value="Delite"/>					
+							<input type="submit" value="UNFOLLOW"/>					
 							</form></td>							
 						</tr>
 					</c:forEach>

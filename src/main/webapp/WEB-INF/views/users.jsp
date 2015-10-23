@@ -49,7 +49,7 @@
 							<td>${person.email}</td>
 							<td><form action="userstweet" method="get">
 							<input type="hidden" name="userEmail"  value="${person.email}"/>	
-							<input type="submit" value="View ${person.firstName}'s tweets "/>					
+							<input type="submit" value="View tweets "/>					
 							</form></td>	
 							<td><form action="#" method="get">
 							<input type="hidden" name="userEmail"  value="${person.email}"/>	
