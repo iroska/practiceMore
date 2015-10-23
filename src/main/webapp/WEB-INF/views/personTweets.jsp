@@ -37,18 +37,20 @@
 			</p>
 			<br /> <br /> <br /> <br />
 
-			<h3 align="center">${specialUser.firstName }'s TWEETS</h3>
+			<h3 align="center">${specialUser.firstName }'sTWEETS</h3>
 			<h5 align="center">
-				<font color="#0080FF">-  ${numberOfUsersTweetsUser }  - </font><br />
+				<font color="#0080FF">- ${numberOfUsersTweetsUser } - </font><br />
 			</h5>
 
 			<table border="1" align="center">
-
+				<th width="120">User</th>
+				<th width="120">Description</th>
+				<th width="120">Published Date</th>
 				<c:forEach items="${userTweetsSublistUser }" var="tweets">
 					<tr>
+						<td>${specialUser.firstName } ${specialUser.lastName }</td>
 						<td>${tweets.description }</td>
 						<td>${tweets.publishedDate }</td>
-
 					</tr>
 				</c:forEach>
 
@@ -58,14 +60,16 @@
 			<table>
 				<tr>
 					<td><form action="paginateTweetsUser" method="GET">
-							<input type="hidden" name="firstrowUser" value="${firstRowUser}" /> <input
-								type="hidden" name="rowcountUser" value="${rowCountUser}" /> <input
-								type="hidden" name="user_email" value="${specialUser.email }" />
-							<input type="submit" name="pageUser" value="Previous" /> <input
-								type="submit" name="pageUser" value="Next" />
+							<input type="hidden" name="firstrowUser" value="${firstRowUser}" />
+							<input type="hidden" name="rowcountUser" value="${rowCountUser}" />
+							<input type="hidden" name="user_email"
+								value="${specialUser.email }" /> <input type="submit"
+								name="pageUser" value="Previous" /> <input type="submit"
+								name="pageUser" value="Next" />
 						</form></td>
 					<td align="right"></td>
-					<td align="right">Tweets from ${firstRowUser+1} to ${rowCountUser}</td>					
+					<td align="right">Tweets from ${firstRowUser+1} to
+						${rowCountUser}</td>
 				</tr>
 			</table>
 			<br />

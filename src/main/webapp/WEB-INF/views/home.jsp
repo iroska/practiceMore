@@ -68,17 +68,19 @@
 				<font color="#0080FF">TWEETS <br>- ${sizeUserTweets } -
 				</font><br />
 			</h5>
-
+			<c:set var="counts" value="0" scope="session" />
 			<table border="1" align="center">
 				<tr>
+					
 					<th width="120">User</th>
 					<th width="120">Description</th>
 					<th width="120">Published Date</th>
 				</tr>
 				<c:choose>
 					<c:when test="${empty existingUser}">
-						<c:forEach items="${userTweetsSublist }" var="tweets">
+						<c:forEach items="${userTweetsSublist }" var="tweets">							
 							<tr>
+								
 								<td>${loadedUser.firstName }${loadedUser.lastName }</td>
 								<td>${tweets.description }</td>
 								<td>${tweets.publishedDate }</td>
@@ -102,8 +104,9 @@
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
-						<c:forEach items="${existingUser }" var="tweets">
+						<c:forEach items="${existingUser }" var="tweets">							
 							<tr>
+								
 								<td>${loadedUser.firstName }${loadedUser.lastName }</td>
 								<td>${tweets.description }</td>
 								<td>${tweets.publishedDate }</td>
