@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 @Table(name = "tweets")
 public class Tweets {
 
-	public Tweets() {
+	/*public Tweets() {
 
 	}
 
@@ -26,7 +26,7 @@ public class Tweets {
 		this.user=user;
 		this.description=description;
 		this.publishedDate=new Date();
-	}
+	}*/
 
 	@Id
 	@GeneratedValue
@@ -41,7 +41,7 @@ public class Tweets {
 	@Column(name = "description")
 	private String description;
 
-	@Column(name = "publishedDate", unique=true, insertable = true)
+	@Column(name = "publishedDate", unique=false, insertable = true)
 	private Date publishedDate;
 
 	public int getId() {

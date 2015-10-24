@@ -48,6 +48,7 @@
             <beans:list>
                 <beans:value>com.endava.twitt.models.User</beans:value>
                 <beans:value>com.endava.twitt.models.Tweets</beans:value>
+                <beans:value>com.endava.twitt.models.Follow</beans:value>
             </beans:list>
         </beans:property>
         <beans:property name="hibernateProperties">
@@ -86,6 +87,16 @@
                 class="com.endava.twitt.services.TweetServiceImplement">
         <beans:property name="tweetDao" ref="usersTweets"></beans:property>
     </beans:bean>
+    
+    <beans:bean id="usersFollow" class="com.endava.twitt.dao.FollowDaoImplement">
+        <beans:property name="sessionFactory"
+                        ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+
+    <beans:bean id="followService"
+                class="com.endava.twitt.services.FollowServiceImplement">
+        <beans:property name="followDaoInterface" ref="usersFollow"></beans:property>
+    </beans:bean>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
@@ -101,17 +112,7 @@
                 class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <beans:property name="basename" value="/WEB-INF/views/formMessages"/>
     </beans:bean>
-
-    <!--Security Configuration -->
-
-
-    <!-- <beans:import resource="C:/Users/Acer AO725/workspaceEE2/TweetEndavaProject/src/main/webapp/WEB-INF/spring/security-config.xml"/> -->
-
-
-  <!--   <beans:bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-        <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
-    </beans:bean> -->
-
+  
     <context:annotation-config/>
 
 </beans:beans>

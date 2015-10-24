@@ -10,6 +10,16 @@
 		</layout>
 	</appender>
 	
+	
+	<appender name="FILE" class="org.apache.log4j.rolling.RollingFileAppender">
+		
+			<param name="INFO" value="/src/main/resources/loggingInfo.log"/>
+				
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
+		</layout>
+	</appender>
+	
 	<!-- Application Loggers -->
 	<logger name="com.endava.twitt">
 		<level value="info" />
@@ -34,8 +44,10 @@
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="warn" />
+		<!-- <priority value="warn" /> -->
+		<level value="info"/>
 		<appender-ref ref="console" />
+		<appender-ref ref="FILE" />
 	</root>
 	
 </log4j:configuration>

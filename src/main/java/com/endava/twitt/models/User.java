@@ -19,7 +19,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "users")
 public class User {
 
-		
 	@Size(min = 1, max = 254)
 	@Column(name = "FirstName")
 	private String firstName;
@@ -35,6 +34,11 @@ public class User {
 	@OrderBy("publishedDate DESC")
 	private List<Tweets> tweet;
 
+	@OneToMany(targetEntity = Follow.class, mappedBy = "userFollowed", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	//@OrderBy("publishedDate DESC")
+	private List<Follow> followed;
+
+	
 	@Id
 	@Size(min = 4, max = 254)
 	@Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
@@ -46,15 +50,23 @@ public class User {
 	private String password;
 
 	/*----------------------------------------------------*/
+	
+	public List<Follow> getFollowed() {
+		return followed;
+	}
+
+	public void setFollowed(List<Follow> followed) {
+		this.followed = followed;
+	}
 
 	public List<Tweets> getTweet() {
 		return tweet;
-	}	
+	}
 
 	public void setTweet(List<Tweets> tweet) {
 		this.tweet = tweet;
 	}
-	
+
 	public String getRole() {
 		return role;
 	}

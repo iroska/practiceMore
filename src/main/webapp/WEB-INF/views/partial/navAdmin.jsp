@@ -17,7 +17,7 @@
 			</a>
 			<ul class="side-nav" id="mobile-demo">
 				<!-- <li><a href="admin">MyTweets</a></li> -->
-				<!-- <li><a href="users">Tweet Members</a></li> -->
+				<li><a href="admin">Tweet Members</a></li>
 				<!-- <li><a href="adminEdit">Edit Profile</a></li>
 				<li><a href="#">Followers</a></li>
 				<li><a href="usersAdmin">Admin Users</a></li> -->

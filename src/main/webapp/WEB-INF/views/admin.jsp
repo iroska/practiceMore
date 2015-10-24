@@ -57,7 +57,7 @@
 							</form></td>	 --%>
 							<td><form action="delite_user" method="get">
 							<input type="hidden" name="userEmail"  value="${person.email}"/>	
-							<input type="submit" value="Delite"/>					
+							<input type="submit" value="Delite User From Database"/>					
 							</form></td>							
 						</tr>
 					</c:forEach>

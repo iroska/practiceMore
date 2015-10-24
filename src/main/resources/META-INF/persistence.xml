@@ -4,5 +4,6 @@
 	<persistence-unit name="TwitterEndavaProject">
 		<class>com.endava.twitt.models.User</class>
 		<class>com.endava.twitt.models.Tweets</class>
+		<class>com.endava.twitt.models.Follow</class>
 	</persistence-unit>
 </persistence>

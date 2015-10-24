@@ -10,7 +10,7 @@
             <li><a href="home" >MyTweets</a></li>
             <li><a href="users">Tweet Members</a></li>
             <li><a href="editUserProfile">Edit Profile</a></li>
-           <!--  <li><a href="#">Followers</a></li> -->
+            <li><a href="follow">Followers</a></li>
         </ul>
         <a href="#!" class="brand-logo hide-on-large-only right">
             <img id="mobile-logo" src="resources/img/logo.png" alt="Twitter">
@@ -19,7 +19,7 @@
            <li><a href="home" >MyTweets</a></li>
             <li><a href="users">Tweet Members</a></li>
             <li><a href="editUserProfile">Edit Profile</a></li>
-           <!--  <li><a href="#">Followers</a></li> -->
+            <li><a href="follow">Followers</a></li>
         </ul>
     </div>
     </div>

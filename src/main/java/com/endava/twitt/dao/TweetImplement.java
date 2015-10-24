@@ -66,21 +66,4 @@ public class TweetImplement implements TweetInterface {
 	        logger.info("Tweet deleted successfully, Tweet Details=" + tweet.getDescription());	    		
 	}
 	
-	
-	/*private static final String SQL_SUBLIST = "from"
-		    + " Tweets ORDER BY publishedDate DESC LIMIT %d OFFSET %d";
-		
-	@SuppressWarnings("unchecked")
-	public List<Tweets> getPaginatedTweets(int firstrow, int rowcount) {
-		String sql = String.format(SQL_SUBLIST, firstrow, rowcount);		
-		Session session = this.sessionFactory.getCurrentSession();		
-		List<Tweets> tweetList = (List<Tweets>)session.createQuery(sql).list();
-		for (Tweets tweet : tweetList) {
-			logger.info("Paginating tweet list :" + tweet);
-		}
-		return tweetList;		
-	}
-	*/
-	
-
 }

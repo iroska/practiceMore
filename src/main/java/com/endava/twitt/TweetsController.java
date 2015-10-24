@@ -155,7 +155,7 @@ public class TweetsController {
 		
 		session.removeAttribute("sizeUserTweetsUser");		
 		session.removeAttribute("specialUser");
-		session.removeAttribute("userID");
+		session.removeAttribute("userIdTweets");
 
 		ModelAndView model = new ModelAndView("personTweets");
 
@@ -189,7 +189,7 @@ public class TweetsController {
 
 		session.setAttribute("sizeUserTweetsUser", listSize);		
 		session.setAttribute("specialUser", user);
-		session.setAttribute("userID", user.getEmail());
+		session.setAttribute("userIdTweets", user.getEmail());
 
 		return model;
 	}
@@ -203,7 +203,7 @@ public class TweetsController {
 		}
 		
 		User user1 = userService.getUserByName((String) session
-				.getAttribute("userID"));
+				.getAttribute("userIdTweets"));
 		List<Tweets> allUsersTweets = user1.getTweet();
 		Integer listSize = allUsersTweets.size();				
 		session.setAttribute("sizeUserTweetsUser", listSize);
@@ -352,7 +352,7 @@ public class TweetsController {
 					session.setAttribute("firstRowUser", firstrowUser);
 					session.setAttribute("rowCountUser", rowcountUser);
 					System.out.println("Size = " + sizeTweetsListUser
-							+ " In Next 1 = "
+							+ " In Next 1 paginateTweetsUser = "
 							+ (Integer) session.getAttribute("firstRowUser")
 							+ " "
 							+ (Integer) session.getAttribute("rowCountUser"));
@@ -360,7 +360,7 @@ public class TweetsController {
 					session.setAttribute("firstRowUser", firstrowUser);
 					session.setAttribute("rowCountUser", rowcountUser);
 					System.out.println("Size = " + sizeTweetsListUser
-							+ " In Next 1 ELSE = "
+							+ " In Next 1 ELSE paginateTweetsUser = "
 							+ (Integer) session.getAttribute("firstRowUser")
 							+ " "
 							+ (Integer) session.getAttribute("rowCountUser"));
@@ -370,7 +370,7 @@ public class TweetsController {
 					&& (rowcountUser < numberOfTweetsOnPageUser)) {
 
 				System.out.println("Size = " + sizeTweetsListUser
-						+ " In Next 2 = "
+						+ " In Next 2 paginateTweetsUser= "
 						+ (Integer) session.getAttribute("firstRowUser") + " "
 						+ (Integer) session.getAttribute("rowCountUser"));
 				
@@ -389,7 +389,7 @@ public class TweetsController {
 					session.setAttribute("firstRowUser", firstrowUser);
 					session.setAttribute("rowCountUser", rowcountUser);
 					System.out.println("Size = " + sizeTweetsListUser
-							+ " In Next 3 = "
+							+ " In Next 3 paginateTweetsUser= "
 							+ (Integer) session.getAttribute("firstRowUser")
 							+ " "
 							+ (Integer) session.getAttribute("rowCountUser"));
@@ -397,7 +397,7 @@ public class TweetsController {
 					session.setAttribute("firstRowUser", firstrowUser);
 					session.setAttribute("rowCountUser", rowcountUser);
 					System.out.println("Size = " + sizeTweetsListUser
-							+ " In Next 3 ELSE = "
+							+ " In Next 3 ELSE paginateTweetsUser = "
 							+ (Integer) session.getAttribute("firstRowUser")
 							+ " "
 							+ (Integer) session.getAttribute("rowCountUser"));
@@ -411,7 +411,7 @@ public class TweetsController {
 				session.setAttribute("firstRowUser", firstrowUser);
 				session.setAttribute("rowCountUser", rowcountUser);
 				System.out.println("Size = " + sizeTweetsListUser
-						+ " In Next 4 = "
+						+ " In Next 4 paginateTweetsUser= "
 						+ (Integer) session.getAttribute("firstRowUser") + " "
 						+ (Integer) session.getAttribute("rowCountUser"));
 
@@ -424,7 +424,7 @@ public class TweetsController {
 				session.setAttribute("firstRowUser", firstrowUser);
 				session.setAttribute("rowCountUser", rowcountUser);
 				System.out.println("Size = " + sizeTweetsListUser
-						+ " In Next 5 = "
+						+ " In Next 5 paginateTweetsUser= "
 						+ (Integer) session.getAttribute("firstRowUser") + " "
 						+ (Integer) session.getAttribute("rowCountUser"));
 			}
@@ -441,7 +441,7 @@ public class TweetsController {
 				rowcountUser -= lastTweets;
 				session.setAttribute("firstRowUser", firstrowUser);
 				session.setAttribute("rowCountUser", rowcountUser);
-				System.out.println("In Previous 1 = "
+				System.out.println("In Previous 1 paginateTweetsUser= "
 						+ (Integer) session.getAttribute("firstRowUser") + " "
 						+ (Integer) session.getAttribute("rowCountUser"));
 
@@ -453,7 +453,7 @@ public class TweetsController {
 				rowcountUser -= numberOfTweetsOnPageUser;
 				session.setAttribute("firstRowUser", firstrowUser);
 				session.setAttribute("rowCountUser", rowcountUser);
-				System.out.println("In Previous 1_2 = "
+				System.out.println("In Previous 1_2 paginateTweetsUser= "
 						+ (Integer) session.getAttribute("firstRowUser") + " "
 						+ (Integer) session.getAttribute("rowCountUser"));
 
@@ -464,7 +464,7 @@ public class TweetsController {
 				rowcountUser = numberOfTweetsOnPageUser;
 				session.setAttribute("firstRowUser", firstrowUser);
 				session.setAttribute("rowCountUser", rowcountUser);
-				System.out.println("In Previous 1_3 = "
+				System.out.println("In Previous 1_3 paginateTweetsUser= "
 						+ (Integer) session.getAttribute("firstRowUser") + " "
 						+ (Integer) session.getAttribute("rowCountUser"));
 
@@ -475,7 +475,7 @@ public class TweetsController {
 				rowcountUser = lastTweets;
 				session.setAttribute("firstRowUser", firstrowUser);
 				session.setAttribute("rowCountUser", rowcountUser);
-				System.out.println("In Previous 2 = "
+				System.out.println("In Previous 2 paginateTweetsUser= "
 						+ (Integer) session.getAttribute("firstRowUser") + " "
 						+ (Integer) session.getAttribute("rowCountUser"));
 
@@ -485,7 +485,7 @@ public class TweetsController {
 				rowcountUser -= numberOfTweetsOnPageUser;
 				session.setAttribute("firstRowUser", firstrowUser);
 				session.setAttribute("rowCountUser", rowcountUser);
-				System.out.println("In Previous 3 = "
+				System.out.println("In Previous 3 paginateTweetsUser= "
 						+ (Integer) session.getAttribute("firstRowUser") + " "
 						+ (Integer) session.getAttribute("rowCountUser"));
 			} else if ((firstrowUser < numberOfTweetsOnPageUser && sizeTweetsList < numberOfTweetsOnPageUser)
@@ -495,11 +495,12 @@ public class TweetsController {
 				rowcountUser = lastTweets;
 				session.setAttribute("firstRowUser", firstrowUser);
 				session.setAttribute("rowCountUser", rowcountUser);
-				System.out.println("In Previous 4 = "
+				System.out.println("In Previous 4 paginateTweetsUser= "
 						+ (Integer) session.getAttribute("firstRowUser") + " "
 						+ (Integer) session.getAttribute("rowCountUser"));
 			}
 		}
+		session.removeAttribute("sizeUserTweetsUser");
 
 		return "redirect:/personTweets";
 	}

@@ -66,6 +66,7 @@ public class LoginController {
 			return "login";
 		} else if (user1.getRole().equals("ROLE_ADMIN")) {
 			session.setAttribute("loadedUser", user);
+			session.setAttribute("loadedAdmin", user);
 			return "redirect:/admin";
 		}
 		Integer numberOfTweetsOnPage=new GlobalVariables().tweetsOnPage;
@@ -93,7 +94,7 @@ public class LoginController {
 
 		session.setAttribute("loadedUser", user);
 		session.setAttribute("userID", user.getEmail());
-
+		
 		return "redirect:/home";
 	}
 
@@ -110,6 +111,7 @@ public class LoginController {
 		
 		User user1 = userService.getUserByName((String) session
 				.getAttribute("userID"));
+		System.out.println("In home user name="+user1.getFirstName());
 		List<Tweets> allUsersTweets = user1.getTweet();
 		Integer listSize = allUsersTweets.size();				
 		session.setAttribute("sizeUserTweets", listSize);
