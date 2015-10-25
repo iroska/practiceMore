@@ -41,9 +41,7 @@ public class UserDaoImplement implements UserDaoInterface {
     @SuppressWarnings("unchecked")
     public List<User> getUser() {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query= session.createQuery("from User");
-        query.setFirstResult(0);
-        query.setMaxResults(5);        
+        Query query= session.createQuery("from User");              
         List<User> userList = (List<User>)query.list();
         for (User user : userList) {
             logger.info("User List::" + user.getEmail());

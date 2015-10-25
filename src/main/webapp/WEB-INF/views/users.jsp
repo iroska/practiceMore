@@ -51,14 +51,11 @@
 							<input type="hidden" name="userEmail"  value="${person.email}"/>	
 							<input type="submit" value="View tweets "/>					
 							</form></td>	
-							<td><form action="#" method="get">
-							<input type="hidden" name="userEmail"  value="${person.email}"/>	
+							<td><form action="follow" method="get">
+							<input type="hidden" name="user_email"  value="${loadedUser.email}"/>
+							<input type="hidden" name="followedUser"  value="${person.email}"/>	
 							<input type="submit" value="FOLLOW "/>					
-							</form></td>	
-							<td><form action="#" method="get">
-							<input type="hidden" name="userEmail"  value="${person.email}"/>	
-							<input type="submit" value="UNFOLLOW"/>					
-							</form></td>							
+							</form></td>																			
 						</tr>
 					</c:forEach>
 				</table>

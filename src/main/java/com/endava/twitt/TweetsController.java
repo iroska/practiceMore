@@ -68,6 +68,7 @@ public class TweetsController {
 			User user = userService.getUserByName(user_email);
 			List<Tweets> allUsersTweets = user.getTweet();
 			Integer listSize = allUsersTweets.size();
+			System.out.println("in tweet post size= "+listSize);
 			Integer numberOfTweetsOnPage = new GlobalVariables().tweetsOnPage;
 			Integer firstrow = 0;
 			Integer rowcount = 0;

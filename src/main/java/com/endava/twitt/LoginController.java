@@ -75,6 +75,7 @@ public class LoginController {
 		Integer rowcount = 0;
 		List<Tweets> allUsersTweets = user1.getTweet();
 		Integer listSize = allUsersTweets.size();
+		System.out.println("in login size= "+listSize);
 		if (listSize == 0) {
 			firstrow = 0;
 			rowcount = 0;
@@ -113,7 +114,8 @@ public class LoginController {
 				.getAttribute("userID"));
 		System.out.println("In home user name="+user1.getFirstName());
 		List<Tweets> allUsersTweets = user1.getTweet();
-		Integer listSize = allUsersTweets.size();				
+		Integer listSize = allUsersTweets.size();
+		System.out.println("in home size= "+listSize);
 		session.setAttribute("sizeUserTweets", listSize);
 		
 		Integer firstrow = (Integer) session.getAttribute("firstRow");
@@ -124,8 +126,6 @@ public class LoginController {
 		List<Tweets> userSubTweets = allUsersTweets.subList(firstrow, rowcount);
 		session.setAttribute("userTweetsSublist", userSubTweets);	
 		
-		
-
 		return "home";
 	}
 
@@ -323,6 +323,7 @@ public class LoginController {
 		session.removeAttribute("currentUserData");
 		session.removeAttribute("currentUser");
 		session.removeAttribute("sessionUser");
+		session.removeAttribute("followedUsers");
 		logger.info("urer logout succesfully");
 		return "login";
 	}
