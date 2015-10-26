@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
@@ -36,9 +35,7 @@ public class User {
 	@OrderBy("publishedDate DESC")
 	private List<Tweets> tweet;
 
-	//@ManyToMany(targetEntity = Follow.class, mappedBy = "userFollowed", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@ManyToMany(mappedBy = "userFollowed", cascade = CascadeType.ALL)
-	//@OrderBy("publishedDate DESC")
+	@OneToMany(targetEntity = Follow.class, mappedBy = "userFollowed", fetch = FetchType.EAGER, cascade = CascadeType.ALL)	
 	private Set<Follow> followed;
 
 	

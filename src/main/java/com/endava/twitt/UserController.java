@@ -38,8 +38,6 @@ public class UserController {
 	private FollowServiceInterface followService;
 	
 	
-	
-	
 	public static Logger getLogger() {
 		return logger;
 	}
@@ -159,7 +157,7 @@ public class UserController {
 		
 		Follow follow=new Follow();		
 		follow.setFollowedUser(followedUser);
-		follow.setUserFollowed(listFollowOfUser);
+		follow.setUserFollowed(user);
 		followService.insertFollow(follow);
 		
 		User user1 = userService.getUserByName(user_email);
@@ -201,7 +199,7 @@ public class UserController {
 			return "redirect:/login";
 		}
 		User user=userService.getUserByName((String)session.getAttribute("userID"));		
-		List<Follow> listFollowed=user.getFollowed();		
+		Set<Follow> listFollowed=user.getFollowed();		
 		System.out.println("list Size of followed users=========================== "+listFollowed.size());
 		session.setAttribute("followedUsers", listFollowed);		
 		

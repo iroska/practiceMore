@@ -1,6 +1,5 @@
 package com.endava.twitt.dao;
 
-import java.util.List;
 import java.util.Set;
 
 import com.endava.twitt.models.Follow;
