@@ -21,20 +21,19 @@ public class FollowServiceImplement implements FollowServiceInterface {
 	@Override
 	@Transactional
 	public void insertFollow(Follow follow) {
-		followDaoInterface.insertFollow(follow);
-		
+		followDaoInterface.insertFollow(follow);		
 	}
 
 	@Override
 	@Transactional
-	public Set<Follow> getFollows() {
+	public List<Follow> getFollows() {
 		
 		return followDaoInterface.getFollows();
 	}
 
 	@Override
 	@Transactional
-	public Set<Follow> getFollowByUser(String userEmail) {		
+	public List<Follow> getFollowByUser(String userEmail) {		
 		return followDaoInterface.getFollowByUser(userEmail);
 	}
 

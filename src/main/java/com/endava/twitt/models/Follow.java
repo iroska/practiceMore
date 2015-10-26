@@ -1,13 +1,9 @@
 package com.endava.twitt.models;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
@@ -21,15 +17,17 @@ public class Follow {
 	@OrderBy("id_follow DESC")
 	private int id;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-	@JoinColumn(name = "User_Follow")
-	private User userFollowed;
+	//@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	//@ManyToOne(fetch = FetchType.EAGER)
+	//@JoinColumn(name = "User_Follow")
+	@Column (name = "User_Follow")	
+	private String userFollowed;
 
-	public User getUserFollowed() {
+	public String getUserFollowed() {
 		return userFollowed;
 	}
 
-	public void setUserFollowed(User userFollowed) {
+	public void setUserFollowed(String userFollowed) {
 		this.userFollowed = userFollowed;
 	}
 
@@ -42,10 +40,7 @@ public class Follow {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	
-
+	}	
 	
 	public String getFollowedUser() {
 		return followedUser;

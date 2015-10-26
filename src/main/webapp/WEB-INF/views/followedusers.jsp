@@ -46,7 +46,7 @@
 					<c:forEach items="${followedUsers}" var="listFollowedUsers">
 						<tr>
 							<td>${loadedUser.firstName } ${loadedUser.lastName }</td>
-							<td>${listFollowedUsers.userFollowed.email}</td>
+							<td>${listFollowedUsers.userFollowed}</td>
 							<td>${listFollowedUsers.followedUser}</td>
 							<td>${listFollowedUsers.id}</td>
 							

@@ -1,7 +1,6 @@
 package com.endava.twitt.models;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,13 +29,14 @@ public class User {
 
 	@Column(name = "Role", insertable = false)
 	private String role;
-
+	
+	
 	@OneToMany(targetEntity = Tweets.class, mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@OrderBy("publishedDate DESC")
 	private List<Tweets> tweet;
 
-	@OneToMany(targetEntity = Follow.class, mappedBy = "userFollowed", fetch = FetchType.EAGER, cascade = CascadeType.ALL)	
-	private Set<Follow> followed;
+	/*@OneToMany(targetEntity = Follow.class, mappedBy = "userFollowed", fetch = FetchType.EAGER, cascade = CascadeType.ALL)	
+	private Set<Follow> followed;*/
 
 	
 	@Id
@@ -51,13 +51,13 @@ public class User {
 
 	/*----------------------------------------------------*/
 	
-	public Set<Follow> getFollowed() {
+	/*public Set<Follow> getFollowed() {
 		return followed;
 	}
 
 	public void setFollowed(Set<Follow> followed) {
 		this.followed = followed;
-	}
+	}*/
 
 	public List<Tweets> getTweet() {
 		return tweet;

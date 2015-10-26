@@ -9,9 +9,9 @@ public interface FollowServiceInterface {
 
 	public void insertFollow(Follow follow);
 
-	public Set<Follow> getFollows();
+	public List<Follow> getFollows();
 
-	public Set<Follow> getFollowByUser(String userEmail);
+	public List<Follow> getFollowByUser(String userEmail);
 
 	public void deleteUserFollow(Follow follow);
 }

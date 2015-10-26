@@ -37,9 +37,9 @@ public class FollowDaoImplement implements FollowDaoInterface  {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Set<Follow> getFollows() {
+	public List<Follow> getFollows() {
 		Session session = this.sessionFactory.getCurrentSession();		
-		Set<Follow> followList = (Set<Follow>)session.createQuery("from Follow").list();
+		List<Follow> followList = (List<Follow>)session.createQuery("from Follow").list();
 		for (Follow follow : followList) {
 			logger.info("All Users Follow List:" + follow);
 		}
@@ -47,9 +47,9 @@ public class FollowDaoImplement implements FollowDaoInterface  {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Set<Follow> getFollowByUser(String userEmail) {
+	public List<Follow> getFollowByUser(String userEmail) {
 		Session session = this.sessionFactory.getCurrentSession();		
-		Set<Follow> followList = (Set<Follow>)session.createQuery("from Follow where Users_Email='"+userEmail+"'").list();
+		List<Follow> followList = (List<Follow>)session.createQuery("from Follow where User_Follow='"+userEmail+"'").list();
 		for (Follow follow : followList) {
 			logger.info(userEmail +" Follow List:" + follow);
 		}

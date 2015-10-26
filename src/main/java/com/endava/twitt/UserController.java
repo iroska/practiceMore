@@ -144,33 +144,28 @@ public class UserController {
 		if(session.getAttribute("loadedUser")==null){
 			return "redirect:/login";
 		}
+				
+		User user= userService.getUserByName((String)session.getAttribute("userID"));
+		List<Follow> allUsersFollow = followService.getFollowByUser(user_email);		
 		
-		
-		User user=userService.getUserByName(user_email);
-		Set<Follow> listFollowOfUser=user.getFollowed();
-		for(Follow foll:listFollowOfUser){
+		for(Follow foll:allUsersFollow){
 			if(foll.getFollowedUser().equals(followedUser)){
 				System.out.println("followed exists"+foll.getFollowedUser());
 				return "redirect:/users";
-			}
+			}	
+			
 		}
+		
+		if(user.getEmail().equals(followedUser)){
+			System.out.println("User cant follow isself" +user.getEmail());
+			return "redirect:/users";
+		}	
 		
 		Follow follow=new Follow();		
 		follow.setFollowedUser(followedUser);
-		follow.setUserFollowed(user);
+		follow.setUserFollowed(user_email);
+		
 		followService.insertFollow(follow);
-		
-		User user1 = userService.getUserByName(user_email);
-		Set<Follow> allUsersFollow = user1.getFollowed();
-		Integer listSizeFollow = allUsersFollow.size();
-		System.out.println("ddasdasdasdas     "+listSizeFollow);
-		for(Follow foll:listFollowOfUser){
-			
-				System.out.println("followed user"+foll.getFollowedUser());
-				
-			
-		}
-		
 		return "redirect:/users";
 	}
 	
@@ -183,10 +178,10 @@ public class UserController {
 			return "redirect:/login";
 		}
 		
-		User user1 = userService.getUserByName(userToDelete);
+		//User user1 = userService.getUserByName(userToDelete);
 		Follow follow=new Follow();	
 		follow.setId(idFollowToDelete);
-		follow.setUserFollowed(user1);
+		follow.setUserFollowed(userToDelete);
 		follow.setFollowedUser(followedUser);		
 		this.followService.deleteUserFollow(follow);
 		
@@ -198,9 +193,8 @@ public class UserController {
 		if(session.getAttribute("loadedUser")==null){
 			return "redirect:/login";
 		}
-		User user=userService.getUserByName((String)session.getAttribute("userID"));		
-		Set<Follow> listFollowed=user.getFollowed();		
-		System.out.println("list Size of followed users=========================== "+listFollowed.size());
+	
+		List<Follow> listFollowed=this.followService.getFollowByUser((String)session.getAttribute("userID"));		
 		session.setAttribute("followedUsers", listFollowed);		
 		
 		return "followedusers";
