@@ -1,4 +1,4 @@
-<nav class="endava-orange">
+<nav class="blue lighten-5">
     <div class="container">
     <div class="nav-wrapper">
         <a href="#!" class="brand-logo hide-on-med-and-down">
