@@ -141,7 +141,7 @@ public class UserController {
 		}
 				
 		User user= userService.getUserByName((String)session.getAttribute("userID"));
-		List<Follow> allUsersFollow = followService.getFollowByUser(user_email);		
+		List<Follow> allUsersFollow = followService.getFollowByUser(user_email);
 		
 		for(Follow foll:allUsersFollow){
 			if(foll.getFollowedUser().equals(followedUser)){
