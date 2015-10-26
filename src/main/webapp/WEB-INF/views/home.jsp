@@ -15,10 +15,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css"
 	media="screen,projection" />
-<link rel="stylesheet"
-	href="<c:url value=" resources
-	/css/styles.css" />"
-	media="screen, projection" />
+<link rel="stylesheet" href="<c:url value=" resources/css/styles.css" />" media="screen, projection" />
 	<link rel="icon"
 		  type="image/png"
 		  href="<c:url value=" resources/img/logo.png" />" />
@@ -52,8 +49,7 @@
 				<input type="hidden" name="publishedDate" value="new Date()" />
 				<!--<input type="text" name="descript" height="100px" width="100" size="140" />-->
 				<div class="input-field col s12">
-
-					<textarea id="descript" class="materialize-textarea"
+					<textarea id="descript" class="materialize-textarea tweet-body"
 						name="descript"></textarea>
 					<label for="descript">Tweet here</label>
 				</div>
@@ -73,12 +69,16 @@
 			</h5>
 			<c:set var="counts" value="0" scope="session" />
 			<table border="1" align="center">
+
+				<thead>
 				<tr>
-					
-					<th width="120">User</th>
-					<th width="120">Description</th>
-					<th width="120">Published Date</th>
+					<th width="13%" data-field="id">User</th>
+					<th width="62%" data-field="name">Description</th>
+					<th width="15%" data-field="price">Published Date</th>
+					<th width="5%" ></th>
+					<th width="5%" ></th>
 				</tr>
+				</thead>
 				<c:choose>
 					<c:when test="${empty existingUser}">
 						<c:forEach items="${userTweetsSublist }" var="tweets">							
@@ -92,17 +92,25 @@
 											value="${loadedUser.email }" /> <input type="hidden"
 											name="idTweetToEdit" value="${tweets.id }" /> <input
 											type="hidden" name="textToEdit"
-											value="${tweets.description }" /> <input type="submit"
-											value="EDIT Tweet" />
+											value="${tweets.description }" />
+									<button class="btn waves-effect waves-ligh cyan lighten-3t"
+											id="delete-btn" type="submit" name="page"  value="Delete Tweet">
+										<i class="material-icons">mode_edit</i>
+									</button>
 									</form></td>
-								<td><form action="deletemytweet" method="GET">
+								<td>
+									<form action="deletemytweet" method="GET">
 										<input type="hidden" name="userToDelete"
 											value="${loadedUser.email }" /> <input type="hidden"
 											name="idTweetToDelete" value="${tweets.id }" /> <input
 											type="hidden" name="textTodelete"
-											value="${tweets.description }" /> <input type="submit"
-											value="Delete Tweet" />
-									</form></td>
+											value="${tweets.description }" />
+										<button class="btn waves-effect waves-ligh cyan lighten-3t"
+												id="delete-btn" type="submit" name="page"  value="Delete Tweet">
+											<i class="material-icons delete">delete</i>
+										</button>
+									</form>
+								</td>
 							</tr>
 						</c:forEach>
 					</c:when>
@@ -114,22 +122,33 @@
 								<td>${tweets.description }</td>
 								<td>${tweets.publishedDate }</td>
 
-								<td><form action="editmytweet" method="GET">
+								<td>
+									<form action="editmytweet" method="GET">
 										<input type="hidden" name="userToEdit"
 											value="${loadedUser.email }" /> <input type="hidden"
 											name="idTweetToEdit" value="${tweets.id }" /> <input
 											type="hidden" name="textToEdit"
-											value="${tweets.description }" /> <input type="submit"
-											value="EDIT Tweet" />
-									</form></td>
-								<td><form action="deletemytweet" method="GET">
+											value="${tweets.description }" />
+										<button class="btn waves-effect waves-ligh cyan lighten-3t"
+												id="delete-btn" type="submit" name="page"  value="Delete Tweet">
+											<i class="material-icons">mode_edit</i>
+										</button>
+									</form>
+								</td>
+								<td>
+									<form action="deletemytweet" method="GET">
 										<input type="hidden" name="userToDelete"
 											value="${loadedUser.email }" /> <input type="hidden"
-											name="idTweetToDelete" value="${tweets.id }" /> <input
-											type="hidden" name="textTodelete"
-											value="${tweets.description }" /> <input type="submit"
-											value="Delete Tweet" />
-									</form></td>
+											name="idTweetToDelete" value="${tweets.id }" />
+										<input type="hidden" name="textTodelete"
+											   value="${tweets.description }" />
+
+										<button class="btn waves-effect waves-ligh cyan lighten-3t"
+												id="delete-btn" type="submit" name="page"  value="Delete Tweet">
+											<i class="material-icons">mode_edit</i>
+										</button>
+									</form>
+								</td>
 							</tr>
 						</c:forEach>
 
@@ -139,13 +158,22 @@
 			<br />
 			<table>
 				<tr>
-					<td><form action="paginateTweets" method="GET">
-							<input type="hidden" name="firstrow" value="${firstRow}" /> <input
-								type="hidden" name="rowcount" value="${rowCount}" /> <input
-								type="hidden" name="user_email" value="${loadedUser.email }" />
-							<input type="submit" name="page" value="Previous" /> <input
-								type="submit" name="page" value="Next" />
-						</form></td>
+					<td>
+						<form action="paginateTweets" method="GET">
+							<input type="hidden" name="firstrow" value="${firstRow}"/> <input
+								type="hidden" name="rowcount" value="${rowCount}"/> <input
+								type="hidden" name="user_email" value="${loadedUser.email }"/>
+							<button class="btn waves-effect waves-ligh cyan lighten-3t"
+									id="previous-btn" type="submit" name="page">
+								<i class="material-icons arrow-L">arrow_back</i>
+							</button>
+							<button class="btn waves-effect waves-ligh cyan lighten-3t"
+									id="next-btn" type="submit" name="page">
+								<i class="material-icons arrow-R">arrow_forward</i>
+							</button>
+
+						</form>
+					</td>
 					<td align="right"></td>
 					<td align="right">Tweets from ${firstRow} to ${rowCount}</td>
 				</tr>

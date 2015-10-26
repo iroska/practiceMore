@@ -41,8 +41,18 @@
 			<form action="saveUpdatedTweet" method="POST">
 			<input type="hidden" name="userToEdit" value="${loadedUser.email}"/>
 			<input type="hidden" name="idTweet" value="${idEditedTweet }"/>
-			<input type="text" name="updatedTweet" value="${editedTweet}"/>
-			<input type="submit" value="Save Changes"/>						
+			<div class="input-field col s12">
+				<textarea id="descript" class="materialize-textarea tweet-body"
+						  name="updatedTweet">${editedTweet}</textarea>
+			</div>
+			<div class="row light condensed left-align">
+				<a href="home">
+					<button class="btn waves-effect waves-ligh cyan lighten-3t"
+							id="updateMessage" type="submit" name="submit">
+						Save Changes <i class="material-icons done">done</i>
+					</button>
+				</a>
+			</div>
 			</form>
 		</div>
 	</div>

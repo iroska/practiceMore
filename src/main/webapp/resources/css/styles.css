@@ -39,3 +39,35 @@ footer {
     bottom:0;
     width:100%;
 }
+
+.input-field label[for="descript"] {
+    left: 1.75rem;
+}
+
+.materialize-textarea.tweet-body {
+    border: 1px solid #2196F3;
+    padding: 1em;
+    border-radius: 2px;
+}
+
+textarea.materialize-textarea:focus:not([readonly]) {
+    box-shadow: none;
+    border-bottom: 1px solid #2196F3;
+}
+
+button[id="tweetMessage"],
+button[id="updateMessage"]
+ {
+    margin: 5px 20px;
+}
+
+footer.page-footer {
+    position: fixed;
+    bottom: 0px;
+    z-index: 2;
+}
+
+.input-field label.active {
+    color: #2196F3 !important;
+    top: .5rem;
+}
