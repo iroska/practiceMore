@@ -24,7 +24,7 @@ import com.endava.twitt.services.UserServicesInterface;
 
 @Controller
 public class AdminController {
-	
+
 	private static final Logger logger = LoggerFactory
 			.getLogger(UserController.class);
 
@@ -35,7 +35,7 @@ public class AdminController {
 	public void setUserService(UserServicesInterface userService) {
 		this.userService = userService;
 	}
-	
+
 	private TweetServiceInterface tweetService;
 
 	@Autowired(required = true)
@@ -43,7 +43,7 @@ public class AdminController {
 	public void setTweetService(TweetServiceInterface tweetService) {
 		this.tweetService = tweetService;
 	}
-	
+
 	@RequestMapping(value = "/userstweet_admin", method = RequestMethod.GET)
 	public ModelAndView viweTweetOfUser(HttpSession session,
 			@RequestParam String userEmail) {
@@ -52,8 +52,8 @@ public class AdminController {
 			ModelAndView model = new ModelAndView("redirect:/login");
 			return model;
 		}
-		
-		session.removeAttribute("sizeUserTweetsUser");		
+
+		session.removeAttribute("sizeUserTweetsUser");
 		session.removeAttribute("specialUser");
 		session.removeAttribute("userID");
 		session.removeAttribute("currentUserData");
@@ -65,8 +65,10 @@ public class AdminController {
 		List<Tweets> allUsersTweets = user.getTweet();
 		Integer listSize = allUsersTweets.size();
 		session.setAttribute("numberOfUsersTweetsUser", listSize);
-		
-		Integer numberOfTweetsOnPageUser = new GlobalVariables().tweetsOnPage;
+
+		// Integer numberOfTweetsOnPageUser = new
+		// GlobalVariables().tweetsOnPage;
+		Integer numberOfTweetsOnPageUser = 5;
 		Integer firstrowUser = 0;
 		Integer rowcountUser = 0;
 		if (listSize == 0) {
@@ -85,31 +87,29 @@ public class AdminController {
 			session.setAttribute("firstRowUser", firstrowUser);
 			session.setAttribute("rowCountUser", rowcountUser);
 		}
-		
-		List<Tweets> userSubTweetsUser = allUsersTweets.subList(firstrowUser, rowcountUser);
+
+		List<Tweets> userSubTweetsUser = allUsersTweets.subList(firstrowUser,
+				rowcountUser);
 		session.setAttribute("userTweetsSublistUser", userSubTweetsUser);
-		session.setAttribute("sizeUserTweetsUser", listSize);		
+		session.setAttribute("sizeUserTweetsUser", listSize);
 		session.setAttribute("sessionUser", user);
 		session.setAttribute("userID", user.getEmail());
 
 		return model;
 	}
-	
 
 	@RequestMapping(value = "/delite_user", method = RequestMethod.GET)
-	public String deliteUser(HttpSession session,
-			@RequestParam String userEmail) {
-		if (session.getAttribute("loadedUser") == null) {			
+	public String deliteUser(HttpSession session, @RequestParam String userEmail) {
+		if (session.getAttribute("loadedUser") == null) {
 			return "redirect:/login";
 		}
-		
+
 		this.userService.deleteUser(userEmail);
-		
+
 		return "redirect:/admin";
 
 	}
-		
-	
+
 	@RequestMapping(value = "/delite_user_tweet", method = RequestMethod.GET)
 	public String deleteMyTweet(Model model, HttpSession session,
 			@RequestParam Integer idTweetToDelete,
@@ -126,28 +126,30 @@ public class AdminController {
 		tweets.setDescription(textTodelete);
 		tweets.setPublishedDate(new Date());
 		this.tweetService.deleteUser(tweets);
-		
+
 		session.setAttribute("currentUserData", user1);
 		session.setAttribute("currentUser", user1.getEmail());
-		
+
 		return "redirect:/personTweetsAdmin";
-	}	
-	
+	}
+
 	@RequestMapping(value = "/personTweetsAdmin", method = RequestMethod.GET)
-	public String personMyTweet(Model model, HttpSession session){
-		
+	public String personMyTweet(Model model, HttpSession session) {
+
 		if (session.getAttribute("loadedUser") == null) {
-			
+
 			return "redirect:/login";
 		}
-		
-				
-		User user = userService.getUserByName((String)session.getAttribute("currentUser"));
+
+		User user = userService.getUserByName((String) session
+				.getAttribute("currentUser"));
 		List<Tweets> allUsersTweets = user.getTweet();
 		Integer listSize = allUsersTweets.size();
 		session.setAttribute("numberOfUsersTweetsUser", listSize);
-		
-		Integer numberOfTweetsOnPageUser = new GlobalVariables().tweetsOnPage;
+
+		// Integer numberOfTweetsOnPageUser = new
+		// GlobalVariables().tweetsOnPage;
+		Integer numberOfTweetsOnPageUser = 5;
 		Integer firstrowUser = 0;
 		Integer rowcountUser = 0;
 		if (listSize == 0) {
@@ -166,22 +168,17 @@ public class AdminController {
 			session.setAttribute("firstRowUser", firstrowUser);
 			session.setAttribute("rowCountUser", rowcountUser);
 		}
-		
-		List<Tweets> userSubTweetsUser = allUsersTweets.subList(firstrowUser, rowcountUser);
+
+		List<Tweets> userSubTweetsUser = allUsersTweets.subList(firstrowUser,
+				rowcountUser);
 		session.setAttribute("userTweetsSublistUser", userSubTweetsUser);
 
-		session.setAttribute("sizeUserTweetsUser", listSize);		
+		session.setAttribute("sizeUserTweetsUser", listSize);
 		session.setAttribute("sessionUser", user);
 		session.setAttribute("userID", user.getEmail());
-		
-		
+
 		return "personTweetsAdmin";
-		
-		
+
 	}
-	
-	
-	
-	
-	
+
 }
