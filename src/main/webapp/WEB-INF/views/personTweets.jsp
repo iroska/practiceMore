@@ -46,9 +46,13 @@
 			</h5>
 
 			<table border="1" align="center">
-				<th width="120">User</th>
-				<th width="120">Description</th>
-				<th width="120">Published Date</th>
+				<thead>
+				<tr>
+					<th width="30%">User</th>
+					<th width="50%">Description</th>
+					<th width="20%">Published Date</th>
+				</tr>
+				</thead>
 				<c:forEach items="${userTweetsSublistUser }" var="tweets">
 					<tr>
 						<td>${specialUser.firstName } ${specialUser.lastName }</td>
@@ -62,14 +66,21 @@
 
 			<table>
 				<tr>
-					<td><form action="paginateTweetsUser" method="GET">
-							<input type="hidden" name="firstrowUser" value="${firstRowUser}" />
-							<input type="hidden" name="rowcountUser" value="${rowCountUser}" />
-							<input type="hidden" name="user_email"
-								value="${specialUser.email }" /> <input type="submit"
-								name="pageUser" value="Previous" /> <input type="submit"
-								name="pageUser" value="Next" />
-						</form></td>
+					<td>
+						<form action="paginateTweetsUser" method="GET">
+						<input type="hidden" name="firstrowUser" value="${firstRowUser}" />
+						<input type="hidden" name="rowcountUser" value="${rowCountUser}" />
+						<input type="hidden" name="user_email" value="${specialUser.email }" />
+						<button class="btn waves-effect waves-ligh cyan lighten-3t"
+								id="previous-btn" type="submit" name="pageUser">
+							<i class="material-icons arrow-L">arrow_back</i>
+						</button>
+						<button class="btn waves-effect waves-ligh cyan lighten-3t"
+								id="next-btn" type="submit" name="pageUser">
+							<i class="material-icons arrow-R">arrow_forward</i>
+						</button>
+						</form>
+					</td>
 					<td align="right"></td>
 					<td align="right">Tweets from ${firstRowUser+1} to
 						${rowCountUser}</td>
