@@ -50,7 +50,7 @@
 							<td>${listFollowedUsers.followedUser}</td>
 
 							<td><form action="userstweet" method="get">
-							<input type="hidden" name="userEmail"  value="${persons.email}"/>	
+							<input type="hidden" name="userEmail"  value="${listFollowedUsers.followedUser}"/>
 							<input type="submit" value="View tweets "/>					
 							</form></td>															
 							<td><form action="deletefollowed" method="get">
