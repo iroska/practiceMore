@@ -1,10 +1,10 @@
 package com.endava.twitt;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
+import com.endava.twitt.models.GlobalVariables;
+import com.endava.twitt.models.Tweets;
+import com.endava.twitt.models.User;
+import com.endava.twitt.services.TweetServiceInterface;
+import com.endava.twitt.services.UserServicesInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.endava.twitt.models.GlobalVariables;
-import com.endava.twitt.models.Tweets;
-import com.endava.twitt.models.User;
-import com.endava.twitt.services.TweetServiceInterface;
-import com.endava.twitt.services.UserServicesInterface;
+import javax.servlet.http.HttpSession;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 @Scope("session")
@@ -68,7 +66,6 @@ public class TweetsController {
 			User user = userService.getUserByName(user_email);
 			List<Tweets> allUsersTweets = user.getTweet();
 			Integer listSize = allUsersTweets.size();
-			System.out.println("in tweet post size= "+listSize);
 			Integer numberOfTweetsOnPage = new GlobalVariables().tweetsOnPage;
 			Integer firstrow = 0;
 			Integer rowcount = 0;
@@ -106,7 +103,8 @@ public class TweetsController {
 		User user = userService.getUserByName(user_email);
 		List<Tweets> allUsersTweets = user.getTweet();
 		Integer listSize = allUsersTweets.size();
-		Integer numberOfTweetsOnPage = new GlobalVariables().tweetsOnPage;
+		//Integer numberOfTweetsOnPage = new GlobalVariables().tweetsOnPage;
+		Integer numberOfTweetsOnPage =5;
 		Integer firstrow = 0;
 		Integer rowcount = 0;
 		if (listSize == 0) {
@@ -165,7 +163,8 @@ public class TweetsController {
 		Integer listSize = allUsersTweets.size();
 		session.setAttribute("numberOfUsersTweetsUser", listSize);
 		
-		Integer numberOfTweetsOnPageUser = new GlobalVariables().tweetsOnPage;
+		//Integer numberOfTweetsOnPageUser = new GlobalVariables().tweetsOnPage;
+		Integer numberOfTweetsOnPageUser = 5;
 		Integer firstrowUser = 0;
 		Integer rowcountUser = 0;
 		if (listSize == 0) {
@@ -257,7 +256,8 @@ public class TweetsController {
 		User user = userService.getUserByName(userToEdit);
 		List<Tweets> allUsersTweets = user.getTweet();
 		Integer listSize = allUsersTweets.size();
-		Integer numberOfTweetsOnPage = new GlobalVariables().tweetsOnPage;
+		//Integer numberOfTweetsOnPage = new GlobalVariables().tweetsOnPage;
+		Integer numberOfTweetsOnPage =5;
 		Integer firstrow = 0;
 		Integer rowcount = 0;
 		if (listSize == 0) {
@@ -300,7 +300,8 @@ public class TweetsController {
 		User user = userService.getUserByName(userToDelete);
 		List<Tweets> allUsersTweets = user.getTweet();
 		Integer listSize = allUsersTweets.size();
-		Integer numberOfTweetsOnPage = new GlobalVariables().tweetsOnPage;
+		//Integer numberOfTweetsOnPage = new GlobalVariables().tweetsOnPage;
+		Integer numberOfTweetsOnPage =5;
 		Integer firstrow = 0;
 		Integer rowcount = 0;
 		if (listSize == 0) {
@@ -338,7 +339,8 @@ public class TweetsController {
 			return "redirect:/login";
 		}
 
-		Integer numberOfTweetsOnPageUser = new GlobalVariables().tweetsOnPage;
+		//Integer numberOfTweetsOnPageUser = new GlobalVariables().tweetsOnPage;
+		Integer numberOfTweetsOnPageUser =5;
 
 		if (pageUser.equals("Next")) {
 			Integer sizeTweetsListUser = (Integer) session
