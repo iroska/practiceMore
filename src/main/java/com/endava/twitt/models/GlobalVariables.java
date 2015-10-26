@@ -6,5 +6,9 @@ import org.springframework.stereotype.Component;
 public class GlobalVariables {
 	
 	public Integer tweetsOnPage=5;
+	
+	public void methid(){
+		
+	}
 
 }
