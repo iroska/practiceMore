@@ -2,9 +2,6 @@ package com.endava.twitt.dao;
 
 import java.util.List;
 
-
-
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,6 +16,8 @@ public class UserDaoImplement implements UserDaoInterface {
 
     private static final Logger logger = LoggerFactory
             .getLogger(UserDaoImplement.class);
+    
+    
 
     private SessionFactory sessionFactory;
 

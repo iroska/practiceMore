@@ -36,6 +36,7 @@ public class TweetsController {
 	@Qualifier(value = "tweetService")
 	public void setTweetService(TweetServiceInterface tweetService) {
 		this.tweetService = tweetService;
+		
 	}
 
 	@Autowired
