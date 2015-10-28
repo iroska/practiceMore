@@ -18,6 +18,9 @@
 	href="<c:url value=" resources
 	/css/styles.css" />"
 	media="screen, projection" />
+	<link rel="icon"
+		  type="image/png"
+		  href="<c:url value=" resources/img/logo.png" />" />
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -50,14 +53,20 @@
 							<td>${listFollowedUsers.followedUser}</td>							
 							
 							<td><form action="userstweet" method="get">
-							<input type="hidden" name="userEmail"  value="${listFollowedUsers.followedUser}"/>	
-							<input type="submit" value="View tweets "/>					
-							</form></td>															
+							<input type="hidden" name="userEmail"  value="${listFollowedUsers.followedUser}"/>
+                            <button class="btn waves-effect waves-ligh cyan lighten-3t"
+                                    class="follow-btn" type="submit">
+                                Tweets
+                            </button>
+							</form></td>
 							<td><form action="deletefollowed" method="get">
 							<input type="hidden" name="userToDelete"  value="${loadedUser.email}"/>
 							<input type="hidden" name="followedUser"  value="${listFollowedUsers.followedUser}"/>
-							<input type="hidden" name="idFollowToDelete"  value="${listFollowedUsers.id }"/>	
-							<input type="submit" value="UNFOLLOW"/>					
+							<input type="hidden" name="idFollowToDelete"  value="${listFollowedUsers.id }"/>
+                            <button class="btn waves-effect waves-ligh cyan lighten-3t"
+                                    class="follow-btn" type="submit">
+                                Unfollow
+                            </button>
 							</form></td>
 														
 						</tr>
