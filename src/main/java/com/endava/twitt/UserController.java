@@ -1,9 +1,13 @@
 package com.endava.twitt;
 
-import com.endava.twitt.models.Follow;
-import com.endava.twitt.models.User;
-import com.endava.twitt.services.FollowServiceInterface;
-import com.endava.twitt.services.UserServicesInterface;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
+import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import java.util.Date;
-import java.util.List;
+import com.endava.twitt.models.Follow;
+import com.endava.twitt.models.Tweets;
+import com.endava.twitt.models.User;
+import com.endava.twitt.services.FollowServiceInterface;
+import com.endava.twitt.services.UserServicesInterface;
 
 @Controller
 @Scope("session")
@@ -141,7 +146,7 @@ public class UserController {
 		}
 				
 		User user= userService.getUserByName((String)session.getAttribute("userID"));
-		List<Follow> allUsersFollow = followService.getFollowByUser(user_email);
+		List<Follow> allUsersFollow = followService.getFollowByUser(user_email);		
 		
 		for(Follow foll:allUsersFollow){
 			if(foll.getFollowedUser().equals(followedUser)){

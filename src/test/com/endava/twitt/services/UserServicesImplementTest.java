@@ -48,7 +48,7 @@ public class UserServicesImplementTest {
     public void testGetUser() throws Exception {
         List<User> userList = userServicesInterface.getUser();
         assertNotNull(userList);
-        assertTrue(userList.size() > 0);
+        assertTrue(userList.size() >=0);
     }
 
     @Test
