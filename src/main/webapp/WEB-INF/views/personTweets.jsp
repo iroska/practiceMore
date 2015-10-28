@@ -56,7 +56,13 @@
 				<c:forEach items="${userTweetsSublistUser }" var="tweets">
 					<tr>
 						<td>${specialUser.firstName } ${specialUser.lastName }</td>
-						<td>${tweets.description }</td>
+						<td>
+							<div class="card-panel blue-very-light">
+          								<span class="blue-text text-darken-1">
+									${tweets.description }
+								</span>
+							</div>
+						</td>
 						<td>${tweets.publishedDate }</td>
 					</tr>
 				</c:forEach>

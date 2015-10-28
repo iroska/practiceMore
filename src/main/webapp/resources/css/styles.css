@@ -71,3 +71,19 @@ footer.page-footer {
     color: #2196F3 !important;
     top: .5rem;
 }
+
+.blue-very-light {
+    background-color: #FdFdFF;
+    box-shadow: 0 0px 5px 0 rgba(200,200,200,0.16),0 0px 5px 0 rgba(0,0,0,0.01);
+}
+
+td {
+    padding: 0px 5px;
+}
+
+.row .col {
+    padding: 1rem 0.75rem;
+}
+.input-field label.active {
+    top: 2.5rem;
+}

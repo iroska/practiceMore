@@ -68,6 +68,7 @@
 				</font><br />
 			</h5>
 			<c:set var="counts" value="0" scope="session" />
+
 			<table border="1" align="center">
 
 				<thead>
@@ -85,7 +86,13 @@
 							<tr>
 								
 								<td>${loadedUser.firstName }${loadedUser.lastName }</td>
-								<td>${tweets.description }</td>
+								<td>
+									<div class="card-panel blue-very-light">
+          								<span class="blue-text text-darken-1">
+									${tweets.description }
+								</span>
+										</div>
+								</td>
 								<td>${tweets.publishedDate }</td>
 								<td><form action="editmytweet" method="GET">
 										<input type="hidden" name="userToEdit"
@@ -119,7 +126,13 @@
 							<tr>
 								
 								<td>${loadedUser.firstName }${loadedUser.lastName }</td>
-								<td>${tweets.description }</td>
+								<td>
+									<div class="card-panel blue-very-light">
+          								<span class="blue-text text-darken-1">
+									${tweets.description }
+								</span>
+									</div>
+								</td>
 								<td>${tweets.publishedDate }</td>
 
 								<td>

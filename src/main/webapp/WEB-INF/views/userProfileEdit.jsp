@@ -47,15 +47,31 @@
 			<!-- <h3>Update Your Profile</h3> -->
 			<form action="changeProfile" method="POST">			
 			<input type="hidden" name="role" value="ROLE_USER"/>
-			First Name:<input type="text" name="firstName" value="${loadedUser.firstName }"/><br>
-			<font color="red"><form:errors path="user.firstName"/></font><br/>
-			Last Name:<input type="text" name="lastName" value="${loadedUser.lastName }"/><br>
-			<font color="red"><form:errors path="user.lastName"/></font><br/>
-			<input type="hidden" name="email" value="${loadedUser.email}"/><br>			
-			Password:<input type="password" name="password" value="${loadedUser.password}"/><br>
-			<font color="red"><form:errors path="user.password"/></font><br/>
-			
-			<input type="submit" value="Update My Profile"/>						
+			<div class="input-field col s6 l12">
+				<input id="first_name" name="firstName" type="text"
+					   class="validate" value="${loadedUser.firstName }">
+				<label for="first_name">First Name</label>
+				<font color="red"><form:errors path="user.firstName"/></font>
+			</div>
+			<div class="input-field col s6 l12">
+				<input id="last_name" name="lastName" type="text"
+					   class="validate" value="${loadedUser.lastName }">
+				<label for="last_name">Last Name</label>
+				<font color="red"><form:errors path="user.lastName"/></font>
+			</div>
+			<input type="hidden" name="email" value="${loadedUser.email}"/><br>
+
+			<div class="input-field col s6 l12">
+				<input id="password" name="password" type="password"
+					   class="validate" value="${loadedUser.password}">
+				<label for="password">Password</label>
+				<font color="red"><form:errors path="user.password"/></font>
+			</div>
+
+			<button class="btn waves-effect waves-ligh cyan lighten-3t"
+					class="follow-btn" type="submit">
+				Update My Profile
+			</button>
 			</form>
 		</div>
 	</div>
