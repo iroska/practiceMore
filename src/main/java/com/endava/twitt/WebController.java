@@ -32,6 +32,18 @@ public class WebController {
 		return "redirect:/home";			
 	}
 	
+	@RequestMapping(value = "/error_page", method = RequestMethod.POST)
+	public String errorPagePost() {
+
+		return "error_page";
+	}
+	
+	@RequestMapping(value = "/error_page", method = RequestMethod.GET)
+	public String errorPageGet() {
+
+		return "error_page";
+	}
+	
 	
 
 }

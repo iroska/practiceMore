@@ -336,10 +336,6 @@ public class LoginController {
 		return "login";
 	}
 
-	@RequestMapping(value = "/error_page", method = RequestMethod.POST)
-	public String errorPage() {
-
-		return "error_page";
-	}
+	
 
 }

@@ -51,7 +51,7 @@ public class UserDaoImplement implements UserDaoInterface {
 				logger.debug("User List:" + user.getEmail());
 			}
 			return userList;
-		} catch (HibernateException e) {
+		} catch (NullPointerException e) {
 			logger.error("Couldn't list users: " + e);
 		}
 
@@ -68,7 +68,7 @@ public class UserDaoImplement implements UserDaoInterface {
 			}
 			logger.debug("Person deleted successfully, person details="
 					+ user.getEmail());
-		} catch (HibernateException e) {
+		} catch (NullPointerException e) {
 			logger.error("Couldn't deleted user." + e);
 		}
 
@@ -82,7 +82,7 @@ public class UserDaoImplement implements UserDaoInterface {
 			logger.debug("Person loaded successfully, Person details="
 					+ user.getEmail());
 			return user;
-		} catch (HibernateException e) {
+		} catch (NullPointerException e) {
 			logger.error("Person wasn't loaded with provided name =" + name);
 			return null;
 		}
@@ -93,7 +93,7 @@ public class UserDaoImplement implements UserDaoInterface {
 		this.sessionFactory.getCurrentSession().update(user);
 		logger.debug("Person updated successfully, Person Details="
 				+ user.getEmail());
-		}catch (HibernateException e) {
+		}catch (NullPointerException e) {
 			logger.error("Couldn't update user." + e);
 		}		
 	}
@@ -107,7 +107,7 @@ public class UserDaoImplement implements UserDaoInterface {
 					+ user.getEmail());
 			return user;
 		}
-		}catch (HibernateException e){
+		}catch (NullPointerException e){
 			logger.error("Login credentials validation filed with person's email=" + userEmail);
 		}
 		
