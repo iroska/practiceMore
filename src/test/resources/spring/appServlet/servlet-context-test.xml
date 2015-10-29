@@ -39,7 +39,7 @@
         <beans:property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <beans:property name="url" value="jdbc:mysql://localhost:3306/test"/>
         <beans:property name="username" value="root"/>
-        <beans:property name="password" value="endava"/>
+        <beans:property name="password" value="root"/>
     </beans:bean>
     <!-- Hibernate 4 SessionFactory Bean definition -->
     <beans:bean id="hibernate4AnnotatedSessionFactory"
@@ -61,10 +61,10 @@
 
                 <beans:prop key="hibernate.show_sql">true</beans:prop>
 
-                <beans:prop key="maxwait">10000</beans:prop>
+               <!--  <beans:prop key="maxwait">10000</beans:prop>
                 <beans:prop key="maxidle">25</beans:prop>
                 <beans:prop key="minidle">5</beans:prop>
-
+ -->
             </beans:props>
         </beans:property>
     </beans:bean>
@@ -74,7 +74,8 @@
                         ref="hibernate4AnnotatedSessionFactory"/>
     </beans:bean>
 
-    <beans:bean id="userService" class="com.endava.twitt.services.UserServicesImplement">
+    <beans:bean id="userService"
+                class="com.endava.twitt.services.UserServicesImplement">
         <beans:property name="userDao" ref="usersDao"></beans:property>
     </beans:bean>
 
@@ -86,6 +87,16 @@
     <beans:bean id="tweetService"
                 class="com.endava.twitt.services.TweetServiceImplement">
         <beans:property name="tweetDao" ref="usersTweets"></beans:property>
+    </beans:bean>
+
+    <beans:bean id="usersFollow" class="com.endava.twitt.dao.FollowDaoImplement">
+        <beans:property name="sessionFactory"
+                        ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+
+    <beans:bean id="followService"
+                class="com.endava.twitt.services.FollowServiceImplement">
+        <beans:property name="followDaoInterface" ref="usersFollow"></beans:property>
     </beans:bean>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>

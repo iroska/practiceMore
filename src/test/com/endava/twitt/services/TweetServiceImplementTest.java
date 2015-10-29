@@ -9,11 +9,11 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by ibalanici on 20/10/2015.
@@ -52,8 +52,8 @@ public class TweetServiceImplementTest {
         tweet = (Tweets) applicationContext.getBean("testTweet");
         assertNotNull(tweet);
         log.debug("Get testTweet");
-        user = userServicesInterface.getUserByName("constantin@golan.com");
-        assertNotNull(user);
+        user = userServicesInterface.getUserByName("igor.balanici@gmail.com");
+//        assertNotNull(user);
         log.debug("Loaded user: " + user.getEmail());
         tweet.setUser(user);
         log.debug("Assign tweet to a user");
@@ -72,8 +72,8 @@ public class TweetServiceImplementTest {
 
     @Test
     public void testGetTweetsByUser() throws Exception {
-        User user = userServicesInterface.getUserByName("constantin@golan.com");
-        assertNotNull(user);
+        User user = userServicesInterface.getUserByName("igor.balanici@gmail.com");
+//        assertNotNull(user);
         List<Tweets> tweetsList = tweetServiceInterface.getTweetsByUser(user.getEmail());
         assertNotNull(tweetsList);
         assertTrue(tweetsList.size() > 0);
@@ -81,8 +81,8 @@ public class TweetServiceImplementTest {
 
     @Test
     public void testUpdateTweet() throws Exception {
-        User user = userServicesInterface.getUserByName("constantin@golan.com");
-        assertNotNull(user);
+        User user = userServicesInterface.getUserByName("igor.balanici@gmail.com");
+//        assertNotNull(user);
         /*not ok, but i need at least 1 tweet in DB to test updateTweet*/
         tweet = (Tweets) applicationContext.getBean("testTweet");
         tweet.setUser(user);

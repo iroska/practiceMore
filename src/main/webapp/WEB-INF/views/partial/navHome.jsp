@@ -1,4 +1,4 @@
-<nav class="endava-orange">
+<nav class="blue lighten-5">
     <div class="container">
     <div class="nav-wrapper">
         <a href="#!" class="brand-logo hide-on-med-and-down">
@@ -8,18 +8,18 @@
                 class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
             <li><a href="home" >MyTweets</a></li>
-            <li><a href="users">Tweet Members</a></li>           
+            <li><a href="users">Tweet Members</a></li>
             <li><a href="followedusers">Followers</a></li>
-             <li><a href="editUserProfile">Edit Profile</a></li>
+            <li><a href="editUserProfile">Edit Profile</a></li>
         </ul>
         <a href="#!" class="brand-logo hide-on-large-only right">
             <img id="mobile-logo" src="resources/img/logo.png" alt="Twitter">
         </a>
         <ul class="side-nav" id="mobile-demo">
-           <li><a href="home" >MyTweets</a></li>
-            <li><a href="users">Tweet Members</a></li>           
+            <li><a href="home" >MyTweets</a></li>
+            <li><a href="users">Tweet Members</a></li>
             <li><a href="followedusers">Followers</a></li>
-             <li><a href="editUserProfile">Edit Profile</a></li>
+            <li><a href="editUserProfile">Edit Profile</a></li>
         </ul>
     </div>
     </div>
