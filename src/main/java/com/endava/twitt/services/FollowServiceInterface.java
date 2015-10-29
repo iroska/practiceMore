@@ -14,4 +14,6 @@ public interface FollowServiceInterface {
 	public List<Follow> getFollowByUser(String userEmail);
 
 	public void deleteUserFollow(Follow follow);
+	
+	public void deleteAllUserFollow(String user_email);
 }

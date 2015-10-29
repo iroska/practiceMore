@@ -36,12 +36,7 @@ public class UserController {
 
 	
 	private FollowServiceInterface followService;
-	
-	
-	public static Logger getLogger() {
-		return logger;
-	}
-
+			
 	@Autowired(required = true)
 	@Qualifier(value = "followService")
 	public void setFollowService(FollowServiceInterface followService) {

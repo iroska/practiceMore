@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.endava.twitt.models.Follow;
 import com.endava.twitt.models.GlobalVariables;
 import com.endava.twitt.models.Tweets;
 import com.endava.twitt.models.User;
+import com.endava.twitt.services.FollowServiceInterface;
 import com.endava.twitt.services.TweetServiceInterface;
 import com.endava.twitt.services.UserServicesInterface;
 
@@ -28,6 +30,14 @@ public class AdminController {
 	
 	private static final Logger logger = LoggerFactory
 			.getLogger(AdminController.class);
+	
+	private FollowServiceInterface followService;
+	
+	@Autowired(required = true)
+	@Qualifier(value = "followService")
+	public void setFollowService(FollowServiceInterface followService) {
+		this.followService = followService;
+	}
 
 	private UserServicesInterface userService;
 
@@ -119,11 +129,15 @@ public class AdminController {
 		}
 		
 		User user=userService.getUserByName(userEmail);
+		
 		if(user.getRole().equals("ROLE_ADMIN")){
 			return "redirect:/admin";
 		}
 		try{
-		logger.debug("Try to delete user "+userEmail);
+		logger.debug("Try to delete user "+userEmail);		
+						
+		this.followService.deleteAllUserFollow(userEmail);
+		
 		this.userService.deleteUser(userEmail);		
 		return "redirect:/admin";
 		}catch (HibernateException e){

@@ -42,6 +42,13 @@ public class FollowServiceImplement implements FollowServiceInterface {
 	public void deleteUserFollow(Follow follow) {
 		followDaoInterface.deleteUserFollow(follow);
 	}
+
+	@Override
+	@Transactional
+	public void deleteAllUserFollow(String user_email) {
+		followDaoInterface.deleteAllUserFollow(user_email);
+		
+	}
 	
 	
 
