@@ -69,9 +69,9 @@ public class TweetsController {
 			User user = userService.getUserByName(user_email);
 			List<Tweets> allUsersTweets = user.getTweet();
 			Integer listSize = allUsersTweets.size();
-			System.out.println("in tweet post size= " + listSize);
+			logger.debug("in tweet post size= " + listSize);
 			Integer numberOfTweetsOnPage = new GlobalVariables().tweetsOnPage;
-			
+
 			Integer firstrow = 0;
 			Integer rowcount = 0;
 			if (listSize == 0) {
@@ -94,12 +94,15 @@ public class TweetsController {
 			return "/home";
 		}
 
+		logger.debug("Try to insert tweet");
 		User user1 = userService.getUserByName(user_email);
 		Tweets tweets = new Tweets();
 		tweets.setUser(user1);
 		tweets.setDescription(descript);
 		tweets.setPublishedDate(new Date());
 		this.tweetService.insertTweets(tweets);
+
+		logger.debug("Tweet was inserted succesfully");
 
 		System.out.println("In tweets view = "
 				+ (Integer) session.getAttribute("firstRow") + " "
@@ -128,10 +131,9 @@ public class TweetsController {
 			session.setAttribute("rowCount", rowcount);
 		}
 
-		System.out.println("Size = " + listSize + "In TweetControler = "
+		logger.debug("Size = " + listSize + "In TweetControler = "
 				+ (Integer) session.getAttribute("firstRow") + " "
 				+ (Integer) session.getAttribute("rowCount"));
-
 		return "redirect:/home";
 	}
 
@@ -168,9 +170,7 @@ public class TweetsController {
 		session.setAttribute("numberOfUsersTweetsUser", listSize);
 
 		Integer numberOfTweetsOnPageUser = new GlobalVariables().tweetsOnPage;
-		
-		
-		
+
 		Integer firstrowUser = 0;
 		Integer rowcountUser = 0;
 		if (listSize == 0) {
@@ -190,33 +190,38 @@ public class TweetsController {
 			session.setAttribute("rowCountUser", rowcountUser);
 		}
 
-		List<Tweets> userSubTweetsUser = allUsersTweets.subList(firstrowUser,
-				rowcountUser);
-		
+		try {
+			logger.debug("Try to retrive sublist of users");
+			List<Tweets> userSubTweetsUser = allUsersTweets.subList(
+					firstrowUser, rowcountUser);
+			session.setAttribute("userTweetsSublistUser", userSubTweetsUser);
+		} catch (IndexOutOfBoundsException e) {
+			logger.error("Error to fulfill request with indexes "
+					+ firstrowUser + " " + rowcountUser);
+			return new ModelAndView("redirect:/hame");
+		}
+
 		Integer numberOfTweetsOnPage1 = new GlobalVariables().tweetsOnPage;
 		Integer numberOfPages;
 		Integer selectedPageUser;
-		if (listSize % numberOfTweetsOnPage1 == 0 && numberOfTweetsOnPage1>0) {
-			numberOfPages=listSize/numberOfTweetsOnPage1;
-		}else if(numberOfTweetsOnPage1==0){
-			numberOfPages=0;
-		}else{
-			numberOfPages=Math.abs(listSize/numberOfTweetsOnPage1)+1;
+		if (listSize % numberOfTweetsOnPage1 == 0 && numberOfTweetsOnPage1 > 0) {
+			numberOfPages = listSize / numberOfTweetsOnPage1;
+		} else if (numberOfTweetsOnPage1 == 0) {
+			numberOfPages = 0;
+		} else {
+			numberOfPages = Math.abs(listSize / numberOfTweetsOnPage1) + 1;
 		}
-		
-		if(rowcountUser%numberOfTweetsOnPage1==0 ){
-			selectedPageUser=rowcountUser/numberOfTweetsOnPage1;
-		}else if(rowcountUser%numberOfTweetsOnPage1!=0){
-			selectedPageUser=Math.abs(rowcountUser/numberOfTweetsOnPage1)+1;
-		}else{
-			selectedPageUser=0;
+
+		if (rowcountUser % numberOfTweetsOnPage1 == 0) {
+			selectedPageUser = rowcountUser / numberOfTweetsOnPage1;
+		} else if (rowcountUser % numberOfTweetsOnPage1 != 0) {
+			selectedPageUser = Math.abs(rowcountUser / numberOfTweetsOnPage1) + 1;
+		} else {
+			selectedPageUser = 0;
 		}
-		
+
 		session.setAttribute("selectedRealPageUser", selectedPageUser);
 		session.setAttribute("numberOfRealPagesUser", numberOfPages);
-		
-		session.setAttribute("userTweetsSublistUser", userSubTweetsUser);
-
 		session.setAttribute("sizeUserTweetsUser", listSize);
 		session.setAttribute("specialUser", user);
 		session.setAttribute("userIdTweets", user.getEmail());
@@ -230,7 +235,7 @@ public class TweetsController {
 		if (session.getAttribute("loadedUser") == null) {
 			return "redirect:/login";
 		}
-		
+
 		session.removeAttribute("selectedRealPageUser");
 		session.removeAttribute("numberOfRealPagesUser");
 
@@ -245,30 +250,39 @@ public class TweetsController {
 		System.out.println("Size = " + listSize + " In personTweets = "
 				+ (Integer) session.getAttribute("firstRowUser") + " "
 				+ (Integer) session.getAttribute("rowCountUser"));
+		
+		
+		try {
+			logger.debug("Try to retrive sublist of users");
 		List<Tweets> userSubTweetsUser = allUsersTweets.subList(firstrowUser,
 				rowcountUser);
 		session.setAttribute("userTweetsSublistUser", userSubTweetsUser);
+		} catch (IndexOutOfBoundsException e) {
+			logger.error("Error to fulfill request with indexes "
+					+ firstrowUser + " " + rowcountUser);
+			return "redirect:/home";
+		}
 		
-		
+
 		Integer numberOfTweetsOnPage1 = new GlobalVariables().tweetsOnPage;
 		Integer numberOfPages;
 		Integer selectedPageUser;
-		if (listSize % numberOfTweetsOnPage1 == 0 && numberOfTweetsOnPage1>0) {
-			numberOfPages=listSize/numberOfTweetsOnPage1;
-		}else if(numberOfTweetsOnPage1==0){
-			numberOfPages=0;
-		}else{
-			numberOfPages=Math.abs(listSize/numberOfTweetsOnPage1)+1;
+		if (listSize % numberOfTweetsOnPage1 == 0 && numberOfTweetsOnPage1 > 0) {
+			numberOfPages = listSize / numberOfTweetsOnPage1;
+		} else if (numberOfTweetsOnPage1 == 0) {
+			numberOfPages = 0;
+		} else {
+			numberOfPages = Math.abs(listSize / numberOfTweetsOnPage1) + 1;
 		}
-		
-		if(rowcountUser%numberOfTweetsOnPage1==0 ){
-			selectedPageUser=rowcountUser/numberOfTweetsOnPage1;
-		}else if(rowcountUser%numberOfTweetsOnPage1!=0){
-			selectedPageUser=Math.abs(rowcountUser/numberOfTweetsOnPage1)+1;
-		}else{
-			selectedPageUser=0;
+
+		if (rowcountUser % numberOfTweetsOnPage1 == 0) {
+			selectedPageUser = rowcountUser / numberOfTweetsOnPage1;
+		} else if (rowcountUser % numberOfTweetsOnPage1 != 0) {
+			selectedPageUser = Math.abs(rowcountUser / numberOfTweetsOnPage1) + 1;
+		} else {
+			selectedPageUser = 0;
 		}
-		
+
 		session.setAttribute("selectedRealPageUser", selectedPageUser);
 		session.setAttribute("numberOfRealPagesUser", numberOfPages);
 
@@ -296,7 +310,8 @@ public class TweetsController {
 		if (session.getAttribute("loadedUser") == null) {
 			return "redirect:/login";
 		}
-
+		
+		logger.debug("Try to update tweet");
 		User user1 = userService.getUserByName(userToEdit);
 		Tweets tweets = new Tweets();
 		tweets.setId(idTweet);
@@ -304,8 +319,9 @@ public class TweetsController {
 		tweets.setDescription(updatedTweet);
 		tweets.setPublishedDate(new Date());
 		this.tweetService.updateTweet(tweets);
+		logger.debug("Tweet updated succesfully.");
 
-		System.out.println("In saveUpdatedTweet = "
+		logger.debug("In saveUpdatedTweet = "
 				+ (Integer) session.getAttribute("firstRow") + " "
 				+ (Integer) session.getAttribute("rowCount"));
 
@@ -343,7 +359,9 @@ public class TweetsController {
 		if (session.getAttribute("loadedUser") == null) {
 			return "redirect:/login";
 		}
-
+		
+		
+		logger.debug("Try to delete tweet");
 		User user1 = userService.getUserByName(userToDelete);
 		Tweets tweets = new Tweets();
 		tweets.setId(idTweetToDelete);
@@ -351,6 +369,7 @@ public class TweetsController {
 		tweets.setDescription(textTodelete);
 		tweets.setPublishedDate(new Date());
 		this.tweetService.deleteUser(tweets);
+		logger.debug("Tweet deleted succesfully.");
 
 		User user = userService.getUserByName(userToDelete);
 		List<Tweets> allUsersTweets = user.getTweet();
@@ -375,7 +394,7 @@ public class TweetsController {
 			session.setAttribute("rowCount", rowcount);
 		}
 
-		System.out.println("Size = " + listSize + "In delete Tweet = "
+		logger.debug("Size = " + listSize + "In delete Tweet = "
 				+ (Integer) session.getAttribute("firstRow") + " "
 				+ (Integer) session.getAttribute("rowCount"));
 
@@ -407,7 +426,7 @@ public class TweetsController {
 					rowcountUser = sizeTweetsListUser;
 					session.setAttribute("firstRowUser", firstrowUser);
 					session.setAttribute("rowCountUser", rowcountUser);
-					System.out.println("Size = " + sizeTweetsListUser
+					logger.debug("Size = " + sizeTweetsListUser
 							+ " In Next 1 paginateTweetsUser = "
 							+ (Integer) session.getAttribute("firstRowUser")
 							+ " "
@@ -415,7 +434,7 @@ public class TweetsController {
 				} else {
 					session.setAttribute("firstRowUser", firstrowUser);
 					session.setAttribute("rowCountUser", rowcountUser);
-					System.out.println("Size = " + sizeTweetsListUser
+					logger.debug("Size = " + sizeTweetsListUser
 							+ " In Next 1 ELSE paginateTweetsUser = "
 							+ (Integer) session.getAttribute("firstRowUser")
 							+ " "
@@ -425,7 +444,7 @@ public class TweetsController {
 			} else if (sizeTweetsListUser % numberOfTweetsOnPageUser == 0
 					&& (rowcountUser < numberOfTweetsOnPageUser)) {
 
-				System.out.println("Size = " + sizeTweetsListUser
+				logger.debug("Size = " + sizeTweetsListUser
 						+ " In Next 2 paginateTweetsUser= "
 						+ (Integer) session.getAttribute("firstRowUser") + " "
 						+ (Integer) session.getAttribute("rowCountUser"));
@@ -444,7 +463,7 @@ public class TweetsController {
 					rowcountUser = sizeTweetsListUser;
 					session.setAttribute("firstRowUser", firstrowUser);
 					session.setAttribute("rowCountUser", rowcountUser);
-					System.out.println("Size = " + sizeTweetsListUser
+					logger.debug("Size = " + sizeTweetsListUser
 							+ " In Next 3 paginateTweetsUser= "
 							+ (Integer) session.getAttribute("firstRowUser")
 							+ " "
@@ -452,7 +471,7 @@ public class TweetsController {
 				} else {
 					session.setAttribute("firstRowUser", firstrowUser);
 					session.setAttribute("rowCountUser", rowcountUser);
-					System.out.println("Size = " + sizeTweetsListUser
+					logger.debug("Size = " + sizeTweetsListUser
 							+ " In Next 3 ELSE paginateTweetsUser = "
 							+ (Integer) session.getAttribute("firstRowUser")
 							+ " "
@@ -466,7 +485,7 @@ public class TweetsController {
 				rowcountUser += numberOfTweetsOnPageUser;
 				session.setAttribute("firstRowUser", firstrowUser);
 				session.setAttribute("rowCountUser", rowcountUser);
-				System.out.println("Size = " + sizeTweetsListUser
+				logger.debug("Size = " + sizeTweetsListUser
 						+ " In Next 4 paginateTweetsUser= "
 						+ (Integer) session.getAttribute("firstRowUser") + " "
 						+ (Integer) session.getAttribute("rowCountUser"));
@@ -479,7 +498,7 @@ public class TweetsController {
 				rowcountUser = lastTweets;
 				session.setAttribute("firstRowUser", firstrowUser);
 				session.setAttribute("rowCountUser", rowcountUser);
-				System.out.println("Size = " + sizeTweetsListUser
+				logger.debug("Size = " + sizeTweetsListUser
 						+ " In Next 5 paginateTweetsUser= "
 						+ (Integer) session.getAttribute("firstRowUser") + " "
 						+ (Integer) session.getAttribute("rowCountUser"));
@@ -497,7 +516,7 @@ public class TweetsController {
 				rowcountUser -= lastTweets;
 				session.setAttribute("firstRowUser", firstrowUser);
 				session.setAttribute("rowCountUser", rowcountUser);
-				System.out.println("In Previous 1 paginateTweetsUser= "
+				logger.debug("In Previous 1 paginateTweetsUser= "
 						+ (Integer) session.getAttribute("firstRowUser") + " "
 						+ (Integer) session.getAttribute("rowCountUser"));
 
@@ -509,7 +528,7 @@ public class TweetsController {
 				rowcountUser -= numberOfTweetsOnPageUser;
 				session.setAttribute("firstRowUser", firstrowUser);
 				session.setAttribute("rowCountUser", rowcountUser);
-				System.out.println("In Previous 1_2 paginateTweetsUser= "
+				logger.debug("In Previous 1_2 paginateTweetsUser= "
 						+ (Integer) session.getAttribute("firstRowUser") + " "
 						+ (Integer) session.getAttribute("rowCountUser"));
 
@@ -520,7 +539,7 @@ public class TweetsController {
 				rowcountUser = numberOfTweetsOnPageUser;
 				session.setAttribute("firstRowUser", firstrowUser);
 				session.setAttribute("rowCountUser", rowcountUser);
-				System.out.println("In Previous 1_3 paginateTweetsUser= "
+				logger.debug("In Previous 1_3 paginateTweetsUser= "
 						+ (Integer) session.getAttribute("firstRowUser") + " "
 						+ (Integer) session.getAttribute("rowCountUser"));
 
@@ -531,7 +550,7 @@ public class TweetsController {
 				rowcountUser = lastTweets;
 				session.setAttribute("firstRowUser", firstrowUser);
 				session.setAttribute("rowCountUser", rowcountUser);
-				System.out.println("In Previous 2 paginateTweetsUser= "
+				logger.debug("In Previous 2 paginateTweetsUser= "
 						+ (Integer) session.getAttribute("firstRowUser") + " "
 						+ (Integer) session.getAttribute("rowCountUser"));
 
@@ -541,7 +560,7 @@ public class TweetsController {
 				rowcountUser -= numberOfTweetsOnPageUser;
 				session.setAttribute("firstRowUser", firstrowUser);
 				session.setAttribute("rowCountUser", rowcountUser);
-				System.out.println("In Previous 3 paginateTweetsUser= "
+				logger.debug("In Previous 3 paginateTweetsUser= "
 						+ (Integer) session.getAttribute("firstRowUser") + " "
 						+ (Integer) session.getAttribute("rowCountUser"));
 			} else if ((firstrowUser < numberOfTweetsOnPageUser && sizeTweetsList < numberOfTweetsOnPageUser)
@@ -551,7 +570,7 @@ public class TweetsController {
 				rowcountUser = lastTweets;
 				session.setAttribute("firstRowUser", firstrowUser);
 				session.setAttribute("rowCountUser", rowcountUser);
-				System.out.println("In Previous 4 paginateTweetsUser= "
+				logger.debug("In Previous 4 paginateTweetsUser= "
 						+ (Integer) session.getAttribute("firstRowUser") + " "
 						+ (Integer) session.getAttribute("rowCountUser"));
 			}

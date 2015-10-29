@@ -22,7 +22,7 @@
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>HomeLogPage</title>
+<title>Uset's tweets</title>
 </head>
 <body>
 
@@ -31,13 +31,13 @@
 	<div class="container">
 		<div class="row">
 
-			<p align="right">
+			<p align="left">
 				Hello ${loadedUser.firstName } ${loadedUser.lastName }! &nbsp; <a
 					href="logout">Log Out</a>
 			</p>
 			<br /> <br /> <br /> <br />
 
-			<h3 align="center">${specialUser.firstName }'sTWEETS</h3>
+			<h3 align="center">${specialUser.firstName }'s &nbsp;TWEETS</h3>
 			<h5 align="center">
 				<font color="#0080FF">- ${numberOfUsersTweetsUser } - </font><br />
 			</h5>
@@ -48,7 +48,7 @@
 				<th width="120">Published Date</th>
 				<c:forEach items="${userTweetsSublistUser }" var="tweets">
 					<tr>
-						<td>${specialUser.firstName }${specialUser.lastName }</td>
+						<td>${specialUser.firstName }&nbsp;${specialUser.lastName }</td>
 						<td>${tweets.description }</td>
 						<td>${tweets.publishedDate }</td>
 					</tr>

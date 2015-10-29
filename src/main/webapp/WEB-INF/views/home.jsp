@@ -22,7 +22,7 @@
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>HomeLogPage</title>
+<title>Home Log Page</title>
 </head>
 <body>
 
@@ -31,7 +31,7 @@
 	<div class="container">
 		<div class="row">
 
-			<p align="right">
+			<p align="left">
 				Hello ${loadedUser.firstName } ${loadedUser.lastName }! &nbsp; <a
 					href="logout">Log Out</a>
 			</p>
@@ -81,7 +81,7 @@
 						<c:forEach items="${userTweetsSublist }" var="tweets">
 							<tr>
 
-								<td>${loadedUser.firstName }${loadedUser.lastName }</td>
+								<td>${loadedUser.firstName }&nbsp;${loadedUser.lastName }</td>
 								<td>${tweets.description }</td>
 								<td>${tweets.publishedDate }</td>
 								<td><form action="editmytweet" method="GET">

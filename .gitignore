@@ -1,3 +1,6 @@
+#Log files
+*.log
+
 #intellij idea"
 .idea
 *.iml
@@ -46,7 +49,6 @@ local.properties
 
 ### Java ###
 *.class
-
 
 # Package Files #
 *.jar

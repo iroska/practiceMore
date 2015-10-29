@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.endava.twitt.models.Follow;
 import com.endava.twitt.models.GlobalVariables;
 import com.endava.twitt.models.Tweets;
 import com.endava.twitt.models.User;
@@ -27,12 +26,12 @@ import com.endava.twitt.services.UserServicesInterface;
 
 @Controller
 public class AdminController {
-	
+
 	private static final Logger logger = LoggerFactory
 			.getLogger(AdminController.class);
-	
+
 	private FollowServiceInterface followService;
-	
+
 	@Autowired(required = true)
 	@Qualifier(value = "followService")
 	public void setFollowService(FollowServiceInterface followService) {
@@ -46,7 +45,7 @@ public class AdminController {
 	public void setUserService(UserServicesInterface userService) {
 		this.userService = userService;
 	}
-	
+
 	private TweetServiceInterface tweetService;
 
 	@Autowired(required = true)
@@ -54,7 +53,7 @@ public class AdminController {
 	public void setTweetService(TweetServiceInterface tweetService) {
 		this.tweetService = tweetService;
 	}
-	
+
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String admin(HttpSession session, Model model) {
 
@@ -67,7 +66,7 @@ public class AdminController {
 
 		return "admin";
 	}
-	
+
 	@RequestMapping(value = "/userstweet_admin", method = RequestMethod.GET)
 	public ModelAndView viweTweetOfUser(HttpSession session,
 			@RequestParam String userEmail) {
@@ -76,8 +75,8 @@ public class AdminController {
 			ModelAndView model = new ModelAndView("redirect:/login");
 			return model;
 		}
-		
-		session.removeAttribute("sizeUserTweetsUser");		
+
+		session.removeAttribute("sizeUserTweetsUser");
 		session.removeAttribute("specialUser");
 		session.removeAttribute("userID");
 		session.removeAttribute("currentUserData");
@@ -85,12 +84,12 @@ public class AdminController {
 
 		ModelAndView model = new ModelAndView("personTweetsAdmin");
 		logger.debug("List user's tweets in admin mode.");
-		
+
 		User user = userService.getUserByName(userEmail);
 		List<Tweets> allUsersTweets = user.getTweet();
 		Integer listSize = allUsersTweets.size();
 		session.setAttribute("numberOfUsersTweetsUser", listSize);
-		
+
 		Integer numberOfTweetsOnPageUser = new GlobalVariables().tweetsOnPage;
 		Integer firstrowUser = 0;
 		Integer rowcountUser = 0;
@@ -110,45 +109,48 @@ public class AdminController {
 			session.setAttribute("firstRowUser", firstrowUser);
 			session.setAttribute("rowCountUser", rowcountUser);
 		}
-		
-		List<Tweets> userSubTweetsUser = allUsersTweets.subList(firstrowUser, rowcountUser);
-		session.setAttribute("userTweetsSublistUser", userSubTweetsUser);
-		session.setAttribute("sizeUserTweetsUser", listSize);		
+
+		try {
+			logger.debug("Try to retrive sublist of users");
+			List<Tweets> userSubTweetsUser = allUsersTweets.subList(
+					firstrowUser, rowcountUser);
+			session.setAttribute("userTweetsSublistUser", userSubTweetsUser);
+		} catch (IndexOutOfBoundsException e) {
+			logger.error("Error to fulfill request with indexes "
+					+ firstrowUser + " " + rowcountUser);
+			return new ModelAndView("redirect:/admin");
+		}
+		session.setAttribute("sizeUserTweetsUser", listSize);
 		session.setAttribute("sessionUser", user);
 		session.setAttribute("userID", user.getEmail());
 
 		return model;
 	}
-	
 
 	@RequestMapping(value = "/delite_user", method = RequestMethod.GET)
-	public String deliteUser(HttpSession session,
-			@RequestParam String userEmail) {
-		if (session.getAttribute("loadedUser") == null) {			
+	public String deliteUser(HttpSession session, @RequestParam String userEmail) {
+		if (session.getAttribute("loadedUser") == null) {
 			return "redirect:/login";
 		}
-		
-		User user=userService.getUserByName(userEmail);
-		
-		if(user.getRole().equals("ROLE_ADMIN")){
-			return "redirect:/admin";
-		}
-		try{
-		logger.debug("Try to delete user "+userEmail);		
-						
-		this.followService.deleteAllUserFollow(userEmail);
-		
-		this.userService.deleteUser(userEmail);		
-		return "redirect:/admin";
-		}catch (HibernateException e){
-			logger.error("Couldn't delete user. "+userEmail);
-			return "redirect:/admin";
-		}
-		
 
+		User user = userService.getUserByName(userEmail);
+
+		if (user.getRole().equals("ROLE_ADMIN")) {
+			return "redirect:/admin";
+		}
+		try {
+			logger.debug("Try to delete user " + userEmail);
+
+			this.followService.deleteAllUserFollow(userEmail);
+
+			this.userService.deleteUser(userEmail);
+			return "redirect:/admin";
+		} catch (HibernateException e) {
+			logger.error("Couldn't delete user. " + userEmail);
+			return "redirect:/admin";
+		}
 	}
-		
-	
+
 	@RequestMapping(value = "/delite_user_tweet", method = RequestMethod.GET)
 	public String deleteMyTweet(Model model, HttpSession session,
 			@RequestParam Integer idTweetToDelete,
@@ -157,7 +159,7 @@ public class AdminController {
 		if (session.getAttribute("loadedUser") == null) {
 			return "redirect:/login";
 		}
-
+		logger.debug("Try to delete user's tweet");
 		User user1 = userService.getUserByName(userToDelete);
 		Tweets tweets = new Tweets();
 		tweets.setId(idTweetToDelete);
@@ -165,27 +167,27 @@ public class AdminController {
 		tweets.setDescription(textTodelete);
 		tweets.setPublishedDate(new Date());
 		this.tweetService.deleteUser(tweets);
-		
+		logger.debug("User's tweet was delited");
 		session.setAttribute("currentUserData", user1);
 		session.setAttribute("currentUser", user1.getEmail());
-		
+
 		return "redirect:/personTweetsAdmin";
-	}	
-	
+	}
+
 	@RequestMapping(value = "/personTweetsAdmin", method = RequestMethod.GET)
-	public String personMyTweet(Model model, HttpSession session){
-		
+	public String personMyTweet(Model model, HttpSession session) {
+
 		if (session.getAttribute("loadedUser") == null) {
-			
+
 			return "redirect:/login";
 		}
-		
-				
-		User user = userService.getUserByName((String)session.getAttribute("currentUser"));
+
+		User user = userService.getUserByName((String) session
+				.getAttribute("currentUser"));
 		List<Tweets> allUsersTweets = user.getTweet();
 		Integer listSize = allUsersTweets.size();
 		session.setAttribute("numberOfUsersTweetsUser", listSize);
-		
+
 		Integer numberOfTweetsOnPageUser = new GlobalVariables().tweetsOnPage;
 		Integer firstrowUser = 0;
 		Integer rowcountUser = 0;
@@ -205,22 +207,24 @@ public class AdminController {
 			session.setAttribute("firstRowUser", firstrowUser);
 			session.setAttribute("rowCountUser", rowcountUser);
 		}
-		
-		List<Tweets> userSubTweetsUser = allUsersTweets.subList(firstrowUser, rowcountUser);
-		session.setAttribute("userTweetsSublistUser", userSubTweetsUser);
 
-		session.setAttribute("sizeUserTweetsUser", listSize);		
+		try {
+			logger.debug("Try to retrive sublist of users");
+			List<Tweets> userSubTweetsUser = allUsersTweets.subList(
+					firstrowUser, rowcountUser);
+			session.setAttribute("userTweetsSublistUser", userSubTweetsUser);
+		} catch (IndexOutOfBoundsException e) {
+			logger.error("Error to fulfill request with indexes "
+					+ firstrowUser + " " + rowcountUser);
+			return "redirect:/admin";
+		}
+
+		session.setAttribute("sizeUserTweetsUser", listSize);
 		session.setAttribute("sessionUser", user);
 		session.setAttribute("userID", user.getEmail());
-		
-		
+
 		return "personTweetsAdmin";
-		
-		
+
 	}
-	
-	
-	
-	
-	
+
 }

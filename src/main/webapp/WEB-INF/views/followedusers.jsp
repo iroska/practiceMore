@@ -21,7 +21,7 @@
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Users page</title>
+<title>Followed Users page</title>
 </head>
 <body>
 
@@ -29,8 +29,8 @@
 
 	<div class="container">
 		<div class="row">
-			<p align="right">
-				Hello ${loadedUser.firstName } ${loadedUser.lastName }! &nbsp; <a
+			<p align="left">
+				Hello ${loadedUser.firstName }&nbsp;${loadedUser.lastName }! &nbsp; <a
 					href="logout">Log Out</a>
 			</p><br/>
 
@@ -45,7 +45,7 @@
 					</tr>
 					<c:forEach items="${followedUsers}" var="listFollowedUsers">
 						<tr>
-							<td>${loadedUser.firstName } ${loadedUser.lastName }</td>
+							<td>${loadedUser.firstName }&nbsp;${loadedUser.lastName }</td>
 							<td>${listFollowedUsers.userFollowed}</td>
 							<td>${listFollowedUsers.followedUser}</td>							
 							

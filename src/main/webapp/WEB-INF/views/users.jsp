@@ -29,7 +29,7 @@
 
 	<div class="container">
 		<div class="row">
-			<p align="right">
+			<p align="left">
 				Hello ${loadedUser.firstName } ${loadedUser.lastName }! &nbsp; <a
 					href="logout">Log Out</a>
 			</p><br/>
@@ -43,7 +43,7 @@
 						<th width="120">Email</th>
 					</tr>
 					<c:forEach items="${userList}" var="person">
-						<tr>
+						<tr><c:if test="${loadedUser.email !=person.email}">
 							<td>${person.firstName}</td>
 							<td>${person.lastName}</td>
 							<td>${person.email}</td>
@@ -55,7 +55,8 @@
 							<input type="hidden" name="user_email"  value="${loadedUser.email}"/>
 							<input type="hidden" name="followedUser"  value="${person.email}"/>	
 							<input type="submit" value="FOLLOW "/>					
-							</form></td>																			
+							</form></td>
+							</c:if>																			
 						</tr>
 					</c:forEach>
 				</table>

@@ -21,7 +21,7 @@
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Users page</title>
+<title>Admin page</title>
 </head>
 <body>
 
@@ -29,7 +29,7 @@
 
 	<div class="container">
 		<div class="row">
-			<p align="right">
+			<p align="left">
 				Hello ${loadedUser.firstName } ${loadedUser.lastName }! &nbsp; <a
 					href="logout">Log Out</a>
 			</p><br/>

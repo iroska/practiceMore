@@ -91,7 +91,7 @@ public class FollowDaoImplement implements FollowDaoInterface {
 
 	public void deleteAllUserFollow(String user_email) {
 		try {
-			logger.info("Try to delete one user's follow");
+			logger.info("Try to delete ALL user's follow");
 			Session session = this.sessionFactory.getCurrentSession();
 			String stringQuery = "DELETE FROM Follow where User_Follow='"
 					+ user_email + "'";
@@ -100,7 +100,7 @@ public class FollowDaoImplement implements FollowDaoInterface {
 		} catch (HibernateException e) {
 			logger.error("Couldn't delete all follow." + e);
 		}
-		logger.info("All followed users by user deleted successfully.");
+		logger.info("All followed users by user was deleted successfully.");
 	}
 
 }

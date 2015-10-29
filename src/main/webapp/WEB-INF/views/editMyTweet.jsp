@@ -29,7 +29,7 @@
 
 	<div class="container">
 		<div class="row">
-			<p align="right">
+			<p align="left">
 				Hello ${loadedUser.firstName } ${loadedUser.lastName }! &nbsp; <a
 					href="logout">Log Out</a>
 			</p><br/>

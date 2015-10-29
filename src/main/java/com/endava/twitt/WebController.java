@@ -34,13 +34,13 @@ public class WebController {
 	
 	@RequestMapping(value = "/error_page", method = RequestMethod.POST)
 	public String errorPagePost() {
-
+		logger.info("Returning error page grom post.");
 		return "error_page";
 	}
 	
 	@RequestMapping(value = "/error_page", method = RequestMethod.GET)
 	public String errorPageGet() {
-
+		logger.info("Returning error page grom get.");
 		return "error_page";
 	}
 	
