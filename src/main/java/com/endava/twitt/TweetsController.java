@@ -72,15 +72,6 @@ public class TweetsController {
 			System.out.println("in tweet post size= " + listSize);
 			Integer numberOfTweetsOnPage = new GlobalVariables().tweetsOnPage;
 			
-			/*Integer numberOfPages;
-			if (listSize % numberOfTweetsOnPage == 0 && numberOfTweetsOnPage>0) {
-				numberOfPages=listSize/numberOfTweetsOnPage;
-			}else if(numberOfTweetsOnPage==0){
-				numberOfPages=0;
-			}else{
-				numberOfPages=Math.abs(listSize/numberOfTweetsOnPage)+1;
-			}*/
-
 			Integer firstrow = 0;
 			Integer rowcount = 0;
 			if (listSize == 0) {
@@ -177,6 +168,9 @@ public class TweetsController {
 		session.setAttribute("numberOfUsersTweetsUser", listSize);
 
 		Integer numberOfTweetsOnPageUser = new GlobalVariables().tweetsOnPage;
+		
+		
+		
 		Integer firstrowUser = 0;
 		Integer rowcountUser = 0;
 		if (listSize == 0) {
@@ -198,6 +192,29 @@ public class TweetsController {
 
 		List<Tweets> userSubTweetsUser = allUsersTweets.subList(firstrowUser,
 				rowcountUser);
+		
+		Integer numberOfTweetsOnPage1 = new GlobalVariables().tweetsOnPage;
+		Integer numberOfPages;
+		Integer selectedPageUser;
+		if (listSize % numberOfTweetsOnPage1 == 0 && numberOfTweetsOnPage1>0) {
+			numberOfPages=listSize/numberOfTweetsOnPage1;
+		}else if(numberOfTweetsOnPage1==0){
+			numberOfPages=0;
+		}else{
+			numberOfPages=Math.abs(listSize/numberOfTweetsOnPage1)+1;
+		}
+		
+		if(rowcountUser%numberOfTweetsOnPage1==0 ){
+			selectedPageUser=rowcountUser/numberOfTweetsOnPage1;
+		}else if(rowcountUser%numberOfTweetsOnPage1!=0){
+			selectedPageUser=Math.abs(rowcountUser/numberOfTweetsOnPage1)+1;
+		}else{
+			selectedPageUser=0;
+		}
+		
+		session.setAttribute("selectedRealPageUser", selectedPageUser);
+		session.setAttribute("numberOfRealPagesUser", numberOfPages);
+		
 		session.setAttribute("userTweetsSublistUser", userSubTweetsUser);
 
 		session.setAttribute("sizeUserTweetsUser", listSize);
@@ -213,6 +230,9 @@ public class TweetsController {
 		if (session.getAttribute("loadedUser") == null) {
 			return "redirect:/login";
 		}
+		
+		session.removeAttribute("selectedRealPageUser");
+		session.removeAttribute("numberOfRealPagesUser");
 
 		User user1 = userService.getUserByName((String) session
 				.getAttribute("userIdTweets"));
@@ -228,6 +248,29 @@ public class TweetsController {
 		List<Tweets> userSubTweetsUser = allUsersTweets.subList(firstrowUser,
 				rowcountUser);
 		session.setAttribute("userTweetsSublistUser", userSubTweetsUser);
+		
+		
+		Integer numberOfTweetsOnPage1 = new GlobalVariables().tweetsOnPage;
+		Integer numberOfPages;
+		Integer selectedPageUser;
+		if (listSize % numberOfTweetsOnPage1 == 0 && numberOfTweetsOnPage1>0) {
+			numberOfPages=listSize/numberOfTweetsOnPage1;
+		}else if(numberOfTweetsOnPage1==0){
+			numberOfPages=0;
+		}else{
+			numberOfPages=Math.abs(listSize/numberOfTweetsOnPage1)+1;
+		}
+		
+		if(rowcountUser%numberOfTweetsOnPage1==0 ){
+			selectedPageUser=rowcountUser/numberOfTweetsOnPage1;
+		}else if(rowcountUser%numberOfTweetsOnPage1!=0){
+			selectedPageUser=Math.abs(rowcountUser/numberOfTweetsOnPage1)+1;
+		}else{
+			selectedPageUser=0;
+		}
+		
+		session.setAttribute("selectedRealPageUser", selectedPageUser);
+		session.setAttribute("numberOfRealPagesUser", numberOfPages);
 
 		return "personTweets";
 	}

@@ -152,19 +152,13 @@
 			</table>
 			<br />			
 			<p align="center"><b><c:forEach begin="1" end="${numberOfRealPages }" varStatus="loop">
-
 				<c:if test="${selectedRealPage == loop.index }">
-
 					<th><font color="#0080FF" size="6">${loop.index} 
 							&nbsp; </font></th>
 				</c:if>
-
 				<c:if test="${selectedRealPage != loop.index }">
-
 					<th><font size="5">${loop.index}&nbsp; &nbsp; &nbsp;</font></th>
-
 				</c:if>
-
 			</c:forEach></b></p>
 			<br />
 		</div>

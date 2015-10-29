@@ -48,7 +48,7 @@
 				<th width="120">Published Date</th>
 				<c:forEach items="${userTweetsSublistUser }" var="tweets">
 					<tr>
-						<td>${specialUser.firstName } ${specialUser.lastName }</td>
+						<td>${specialUser.firstName }${specialUser.lastName }</td>
 						<td>${tweets.description }</td>
 						<td>${tweets.publishedDate }</td>
 					</tr>
@@ -68,16 +68,27 @@
 								name="pageUser" value="Next" />
 						</form></td>
 					<td align="right"></td>
-					<td align="right">Tweets from ${firstRowUser+1} to
-						${rowCountUser}</td>
+					<td align="right"><%-- Tweets from ${firstRowUser+1} to
+						${rowCountUser} --%></td>
 				</tr>
 			</table>
+			<br />
+			<p align="center">
+				<b><c:forEach begin="1" end="${numberOfRealPagesUser }"
+						varStatus="loop">
+						<c:if test="${selectedRealPageUser == loop.index }">
+							<th><font color="#0080FF" size="6">${loop.index}
+									&nbsp; </font></th>
+						</c:if>
+						<c:if test="${selectedRealPageUser != loop.index }">
+							<th><font size="5">${loop.index}&nbsp; &nbsp; &nbsp;</font></th>
+						</c:if>
+					</c:forEach></b>
+			</p>
 			<br />
 		</div>
 	</div>
 	<%@include file="partial/footer.jsp"%>
-
-
 	<!--Import jQuery before materialize.js-->
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

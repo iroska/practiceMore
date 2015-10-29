@@ -367,6 +367,10 @@ public class LoginController {
 		session.removeAttribute("currentUser");
 		session.removeAttribute("sessionUser");
 		session.removeAttribute("followedUsers");
+		session.removeAttribute("selectedRealPage");
+		session.removeAttribute("selectedRealPageUser");
+		session.removeAttribute("numberOfRealPagesUser");
+		session.removeAttribute("numberOfRealPages");
 		logger.info("urer logout succesfully");
 		return "login";
 	}
