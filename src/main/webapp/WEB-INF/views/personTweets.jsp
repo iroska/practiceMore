@@ -19,6 +19,9 @@
 	href="<c:url value=" resources
 	/css/styles.css" />"
 	media="screen, projection" />
+	<link rel="icon"
+		  type="image/png"
+		  href="<c:url value=" resources/img/logo.png" />" />
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -43,12 +46,16 @@
 			</h5>
 
 			<table border="1" align="center">
-				<th width="120">User</th>
-				<th width="120">Description</th>
-				<th width="120">Published Date</th>
+				<thead>
+				<tr>
+					<th width="30%">User</th>
+					<th width="50%">Description</th>
+					<th width="20%">Published Date</th>
+				</tr>
+				</thead>
 				<c:forEach items="${userTweetsSublistUser }" var="tweets">
 					<tr>
-						<td>${specialUser.firstName }${specialUser.lastName }</td>
+						<td>${specialUser.firstName } ${specialUser.lastName }</td>
 						<td>${tweets.description }</td>
 						<td>${tweets.publishedDate }</td>
 					</tr>
@@ -59,14 +66,21 @@
 
 			<table>
 				<tr>
-					<td><form action="paginateTweetsUser" method="GET">
-							<input type="hidden" name="firstrowUser" value="${firstRowUser}" />
-							<input type="hidden" name="rowcountUser" value="${rowCountUser}" />
-							<input type="hidden" name="user_email"
-								value="${specialUser.email }" /> <input type="submit"
-								name="pageUser" value="Previous" /> <input type="submit"
-								name="pageUser" value="Next" />
-						</form></td>
+					<td>
+						<form action="paginateTweetsUser" method="GET">
+						<input type="hidden" name="firstrowUser" value="${firstRowUser}" />
+						<input type="hidden" name="rowcountUser" value="${rowCountUser}" />
+						<input type="hidden" name="user_email" value="${specialUser.email }" />
+						<button class="btn waves-effect waves-ligh cyan lighten-3t"
+								id="previous-btn" type="submit" name="pageUser">
+							<i class="material-icons arrow-L" value="Previous">arrow_back</i>
+						</button>
+						<button class="btn waves-effect waves-ligh cyan lighten-3t"
+								id="next-btn" type="submit" name="pageUser">
+							<i class="material-icons arrow-R" value="Next">arrow_forward</i>
+						</button>
+						</form>
+					</td>
 					<td align="right"></td>
 					<td align="right"><%-- Tweets from ${firstRowUser+1} to
 						${rowCountUser} --%></td>

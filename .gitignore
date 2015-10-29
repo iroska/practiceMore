@@ -1,3 +1,6 @@
+src/main/resources/logging.log
+src/main/resources/*.log
+
 #intellij idea"
 .idea
 *.iml
