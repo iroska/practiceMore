@@ -65,22 +65,22 @@
 
 			</form>
 			<h5 align="center">
-				<font color="#0080FF">TWEETS <br>- ${sizeUserTweets } -
+				<font color="#0B58BE">TWEETS <br>- ${sizeUserTweets } -
 				</font><br />
 			</h5>
-			<c:set var="counts" value="0" scope="session" />
+			<%-- <c:set var="counts" value="0" scope="session" /> --%>
 			<table border="1" align="center">
 				<tr>
-					
+
 					<th width="120">User</th>
 					<th width="120">Description</th>
 					<th width="120">Published Date</th>
 				</tr>
 				<c:choose>
 					<c:when test="${empty existingUser}">
-						<c:forEach items="${userTweetsSublist }" var="tweets">							
+						<c:forEach items="${userTweetsSublist }" var="tweets">
 							<tr>
-								
+
 								<td>${loadedUser.firstName }${loadedUser.lastName }</td>
 								<td>${tweets.description }</td>
 								<td>${tweets.publishedDate }</td>
@@ -104,9 +104,9 @@
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
-						<c:forEach items="${existingUser }" var="tweets">							
+						<c:forEach items="${existingUser }" var="tweets">
 							<tr>
-								
+
 								<td>${loadedUser.firstName }${loadedUser.lastName }</td>
 								<td>${tweets.description }</td>
 								<td>${tweets.publishedDate }</td>
@@ -135,7 +135,7 @@
 			</table>
 			<br />
 			<table>
-				<tr>
+				<tr align="center">
 					<td><form action="paginateTweets" method="GET">
 							<input type="hidden" name="firstrow" value="${firstRow}" /> <input
 								type="hidden" name="rowcount" value="${rowCount}" /> <input
@@ -143,10 +143,29 @@
 							<input type="submit" name="page" value="Previous" /> <input
 								type="submit" name="page" value="Next" />
 						</form></td>
+
+					<td align="center">
+						<%-- Tweets from ${firstRow} to ${rowCount} --%>
+					</td>
 					<td align="right"></td>
-					<td align="right">Tweets from ${firstRow} to ${rowCount}</td>
 				</tr>
 			</table>
+			<br />			
+			<p align="center"><b><c:forEach begin="1" end="${numberOfRealPages }" varStatus="loop">
+
+				<c:if test="${selectedRealPage == loop.index }">
+
+					<th><font color="#0080FF" size="6">${loop.index} 
+							&nbsp; </font></th>
+				</c:if>
+
+				<c:if test="${selectedRealPage != loop.index }">
+
+					<th><font size="5">${loop.index}&nbsp; &nbsp; &nbsp;</font></th>
+
+				</c:if>
+
+			</c:forEach></b></p>
 			<br />
 		</div>
 	</div>

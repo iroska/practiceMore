@@ -76,6 +76,19 @@ public class LoginController {
 		Integer rowcount = 0;
 		List<Tweets> allUsersTweets = user1.getTweet();
 		Integer listSize = allUsersTweets.size();
+		
+		Integer numberOfPages;
+		if (listSize % numberOfTweetsOnPage == 0 && numberOfTweetsOnPage>0) {
+			numberOfPages=listSize/numberOfTweetsOnPage;
+		}else if(numberOfTweetsOnPage==0){
+			numberOfPages=0;
+		}else{
+			numberOfPages=Math.abs(listSize/numberOfTweetsOnPage)+1;
+		}
+		
+		session.setAttribute("numberOfRealPages", numberOfPages);
+		
+			
 		System.out.println("in login size= " + listSize);
 		if (listSize == 0) {
 			firstrow = 0;
@@ -126,7 +139,29 @@ public class LoginController {
 				+ (Integer) session.getAttribute("rowCount"));
 		List<Tweets> userSubTweets = allUsersTweets.subList(firstrow, rowcount);
 		session.setAttribute("userTweetsSublist", userSubTweets);
+		
+		Integer numberOfTweetsOnPage1 = new GlobalVariables().tweetsOnPage;
+		Integer numberOfPages;
+		Integer selectedPage;
+		if (listSize % numberOfTweetsOnPage1 == 0 && numberOfTweetsOnPage1>0) {
+			numberOfPages=listSize/numberOfTweetsOnPage1;
+		}else if(numberOfTweetsOnPage1==0){
+			numberOfPages=0;
+		}else{
+			numberOfPages=Math.abs(listSize/numberOfTweetsOnPage1)+1;
+		}
+		
+		if(rowcount%numberOfTweetsOnPage1==0 ){
+			selectedPage=rowcount/numberOfTweetsOnPage1;
+		}else if(rowcount%numberOfTweetsOnPage1!=0){
+			selectedPage=Math.abs(rowcount/numberOfTweetsOnPage1)+1;
+		}else{
+			selectedPage=0;
+		}
+		
+		session.setAttribute("selectedRealPage", selectedPage);
 
+		session.setAttribute("numberOfRealPages", numberOfPages);
 		return "home";
 	}
 

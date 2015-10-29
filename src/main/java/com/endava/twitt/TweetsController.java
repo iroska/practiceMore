@@ -36,7 +36,7 @@ public class TweetsController {
 	@Qualifier(value = "tweetService")
 	public void setTweetService(TweetServiceInterface tweetService) {
 		this.tweetService = tweetService;
-		
+
 	}
 
 	@Autowired
@@ -69,8 +69,18 @@ public class TweetsController {
 			User user = userService.getUserByName(user_email);
 			List<Tweets> allUsersTweets = user.getTweet();
 			Integer listSize = allUsersTweets.size();
-			System.out.println("in tweet post size= "+listSize);
+			System.out.println("in tweet post size= " + listSize);
 			Integer numberOfTweetsOnPage = new GlobalVariables().tweetsOnPage;
+			
+			/*Integer numberOfPages;
+			if (listSize % numberOfTweetsOnPage == 0 && numberOfTweetsOnPage>0) {
+				numberOfPages=listSize/numberOfTweetsOnPage;
+			}else if(numberOfTweetsOnPage==0){
+				numberOfPages=0;
+			}else{
+				numberOfPages=Math.abs(listSize/numberOfTweetsOnPage)+1;
+			}*/
+
 			Integer firstrow = 0;
 			Integer rowcount = 0;
 			if (listSize == 0) {
@@ -154,8 +164,8 @@ public class TweetsController {
 			ModelAndView model = new ModelAndView("redirect:/login");
 			return model;
 		}
-		
-		session.removeAttribute("sizeUserTweetsUser");		
+
+		session.removeAttribute("sizeUserTweetsUser");
 		session.removeAttribute("specialUser");
 		session.removeAttribute("userIdTweets");
 
@@ -165,7 +175,7 @@ public class TweetsController {
 		List<Tweets> allUsersTweets = user.getTweet();
 		Integer listSize = allUsersTweets.size();
 		session.setAttribute("numberOfUsersTweetsUser", listSize);
-		
+
 		Integer numberOfTweetsOnPageUser = new GlobalVariables().tweetsOnPage;
 		Integer firstrowUser = 0;
 		Integer rowcountUser = 0;
@@ -185,41 +195,42 @@ public class TweetsController {
 			session.setAttribute("firstRowUser", firstrowUser);
 			session.setAttribute("rowCountUser", rowcountUser);
 		}
-		
-		List<Tweets> userSubTweetsUser = allUsersTweets.subList(firstrowUser, rowcountUser);
+
+		List<Tweets> userSubTweetsUser = allUsersTweets.subList(firstrowUser,
+				rowcountUser);
 		session.setAttribute("userTweetsSublistUser", userSubTweetsUser);
 
-		session.setAttribute("sizeUserTweetsUser", listSize);		
+		session.setAttribute("sizeUserTweetsUser", listSize);
 		session.setAttribute("specialUser", user);
 		session.setAttribute("userIdTweets", user.getEmail());
 
 		return model;
 	}
 
-	
 	@RequestMapping(value = "/personTweets", method = RequestMethod.GET)
 	public String ListOfUsersTweets(Model model, HttpSession session) {
-		
+
 		if (session.getAttribute("loadedUser") == null) {
 			return "redirect:/login";
 		}
-		
+
 		User user1 = userService.getUserByName((String) session
 				.getAttribute("userIdTweets"));
 		List<Tweets> allUsersTweets = user1.getTweet();
-		Integer listSize = allUsersTweets.size();				
+		Integer listSize = allUsersTweets.size();
 		session.setAttribute("sizeUserTweetsUser", listSize);
-		
+
 		Integer firstrowUser = (Integer) session.getAttribute("firstRowUser");
 		Integer rowcountUser = (Integer) session.getAttribute("rowCountUser");
-		System.out.println("Size = "+listSize +" In personTweets = "
+		System.out.println("Size = " + listSize + " In personTweets = "
 				+ (Integer) session.getAttribute("firstRowUser") + " "
 				+ (Integer) session.getAttribute("rowCountUser"));
-		List<Tweets> userSubTweetsUser = allUsersTweets.subList(firstrowUser, rowcountUser);
-		session.setAttribute("userTweetsSublistUser", userSubTweetsUser);	
-		
+		List<Tweets> userSubTweetsUser = allUsersTweets.subList(firstrowUser,
+				rowcountUser);
+		session.setAttribute("userTweetsSublistUser", userSubTweetsUser);
+
 		return "personTweets";
-	}	
+	}
 
 	@RequestMapping(value = "/editmytweet", method = RequestMethod.GET)
 	public String editTweet(Model model, HttpSession session,
@@ -375,7 +386,7 @@ public class TweetsController {
 						+ " In Next 2 paginateTweetsUser= "
 						+ (Integer) session.getAttribute("firstRowUser") + " "
 						+ (Integer) session.getAttribute("rowCountUser"));
-				
+
 				return "redirect:/personTweets";
 
 			} else if ((sizeTweetsListUser % numberOfTweetsOnPageUser != 0 && rowcountUser >= numberOfTweetsOnPageUser)
