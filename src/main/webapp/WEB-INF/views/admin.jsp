@@ -55,10 +55,14 @@
 							<input type="hidden" name="userEmail"  value="${person.email}"/>	
 							<input type="submit" value="Edit "/>					
 							</form></td>	 --%>
-							<td><form action="delite_user" method="get">
+							<td>
+							<c:if test="${loadedRole != person.role}">
+							<form action="delite_user" method="get">
 							<input type="hidden" name="userEmail"  value="${person.email}"/>	
 							<input type="submit" value="Delite User From Database"/>					
-							</form></td>							
+							</form>
+							</c:if>
+							</td>							
 						</tr>
 					</c:forEach>
 				</table>

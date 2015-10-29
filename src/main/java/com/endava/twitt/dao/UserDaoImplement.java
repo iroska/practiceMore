@@ -63,7 +63,7 @@ public class UserDaoImplement implements UserDaoInterface {
 
 		try {
 			User user = getUserByName(userEmail);
-			if (null != user) {
+			if (null != user) {				
 				sessionFactory.getCurrentSession().delete(user);
 			}
 			logger.debug("Person deleted successfully, person details="

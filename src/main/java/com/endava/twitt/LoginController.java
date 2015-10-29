@@ -66,8 +66,11 @@ public class LoginController {
 					"Please provide correct email and password!");
 			return "login";
 		} else if (user1.getRole().equals("ROLE_ADMIN")) {
+			User user2 = userService.getUserByName(userEmail);
 			session.setAttribute("loadedUser", user);
 			session.setAttribute("loadedAdmin", user);
+			session.setAttribute("loadedRole", user.getRole());
+			session.setAttribute("state", "ROLE_USER");
 			return "redirect:/admin";
 		}
 		Integer numberOfTweetsOnPage = new GlobalVariables().tweetsOnPage;
@@ -332,18 +335,7 @@ public class LoginController {
 		return "redirect:/home";
 	}
 
-	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public String admin(HttpSession session, Model model) {
-
-		if (session.getAttribute("loadedUser") == null) {
-			return "redirect:/login";
-		}
-
-		model.addAttribute("user", new User());
-		model.addAttribute("userList", this.userService.getUser());
-
-		return "admin";
-	}
+	
 
 	@RequestMapping(value = "/loginTest", method = RequestMethod.POST)
 	public String loginTest() {

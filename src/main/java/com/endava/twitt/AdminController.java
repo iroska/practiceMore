@@ -45,6 +45,19 @@ public class AdminController {
 		this.tweetService = tweetService;
 	}
 	
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	public String admin(HttpSession session, Model model) {
+
+		if (session.getAttribute("loadedUser") == null) {
+			return "redirect:/login";
+		}
+
+		model.addAttribute("user", new User());
+		model.addAttribute("userList", this.userService.getUser());
+
+		return "admin";
+	}
+	
 	@RequestMapping(value = "/userstweet_admin", method = RequestMethod.GET)
 	public ModelAndView viweTweetOfUser(HttpSession session,
 			@RequestParam String userEmail) {
@@ -105,6 +118,10 @@ public class AdminController {
 			return "redirect:/login";
 		}
 		
+		User user=userService.getUserByName(userEmail);
+		if(user.getRole().equals("ROLE_ADMIN")){
+			return "redirect:/admin";
+		}
 		try{
 		logger.debug("Try to delete user "+userEmail);
 		this.userService.deleteUser(userEmail);		
