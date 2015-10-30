@@ -41,9 +41,11 @@
 			<c:if test="${!empty userList}">
 				<table class="tg" border="1">
 					<tr>
-						<th width="80">First Name</th>
-						<th width="120">Last Name</th>
-						<th width="120">Email</th>
+						<th width="12%">First Name</th>
+						<th width="12%">Last Name</th>
+						<th width="16%">Email</th>
+						<th width="30"></th>
+						<th width="30"></th>
 					</tr>
 					<c:forEach items="${userList}" var="person">
 						<tr>
@@ -51,8 +53,12 @@
 							<td>${person.lastName}</td>
 							<td>${person.email}</td>
 							<td><form action="userstweet_admin" method="get">
-							<input type="hidden" name="userEmail"  value="${person.email}"/>	
-							<input type="submit" value="View tweets "/>					
+							<input type="hidden" name="userEmail"  value="${person.email}"/>
+							
+							<button class="btn waves-effect waves-ligh cyan lighten-3t"
+											id="View tweets-btn" type="submit" value="View tweets">View Tweets</button>
+								
+							<!-- <input type="submit" value="View tweets "/>		 -->			
 							</form></td>	
 							<%-- <td><form action="#" method="get">
 							<input type="hidden" name="userEmail"  value="${person.email}"/>	
@@ -62,7 +68,11 @@
 							<c:if test="${loadedRole != person.role}">
 							<form action="delite_user" method="get">
 							<input type="hidden" name="userEmail"  value="${person.email}"/>	
-							<input type="submit" value="Delite User From Database"/>					
+							
+							<button class="btn waves-effect waves-ligh cyan lighten-3t"
+											id="DeliteUserFromDatabase-btn" type="submit" value="Delite User From Database">Delite User From Database</button>
+							
+						<!-- 	<input type="submit" value="Delite User From Database"/>	 -->				
 							</form>
 							</c:if>
 							</td>							
@@ -72,6 +82,8 @@
 			</c:if>
 		</div>
 	</div>
+	<br/>
+	<br/>
 
 	<%@include file="partial/footer.jsp"%>
 

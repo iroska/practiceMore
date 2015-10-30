@@ -33,14 +33,54 @@ public class WebController {
 	}
 	
 	@RequestMapping(value = "/error_page", method = RequestMethod.POST)
-	public String errorPagePost() {
-		logger.info("Returning error page grom post.");
+	public String errorPagePost(HttpSession session) {
+		logger.info("Returning error page grom post.");		
+		session.removeAttribute("loadedUser");
+		session.removeAttribute("newloadedUser");
+		session.removeAttribute("existingUser");
+		session.removeAttribute("firstRow");
+		session.removeAttribute("rowCount");
+		session.removeAttribute("specialUser");
+		session.removeAttribute("firstRowUser");
+		session.removeAttribute("rowCountUser");
+		session.removeAttribute("sizeUserTweetsUser");
+		session.removeAttribute("specialUser");
+		session.removeAttribute("userID");
+		session.removeAttribute("currentUserData");
+		session.removeAttribute("currentUser");
+		session.removeAttribute("sessionUser");
+		session.removeAttribute("followedUsers");
+		session.removeAttribute("selectedRealPage");
+		session.removeAttribute("selectedRealPageUser");
+		session.removeAttribute("numberOfRealPagesUser");
+		session.removeAttribute("numberOfRealPages");
 		return "error_page";
 	}
 	
 	@RequestMapping(value = "/error_page", method = RequestMethod.GET)
-	public String errorPageGet() {
+	public String errorPageGet(HttpSession session) {
 		logger.info("Returning error page grom get.");
+		session.removeAttribute("loadedUser");
+		session.removeAttribute("newloadedUser");
+		session.removeAttribute("existingUser");
+		session.removeAttribute("firstRow");
+		session.removeAttribute("rowCount");
+		session.removeAttribute("specialUser");
+		session.removeAttribute("firstRowUser");
+		session.removeAttribute("rowCountUser");
+		session.removeAttribute("sizeUserTweetsUser");
+		session.removeAttribute("specialUser");
+		session.removeAttribute("userID");
+		session.removeAttribute("currentUserData");
+		session.removeAttribute("currentUser");
+		session.removeAttribute("sessionUser");
+		session.removeAttribute("followedUsers");
+		session.removeAttribute("selectedRealPage");
+		session.removeAttribute("selectedRealPageUser");
+		session.removeAttribute("numberOfRealPagesUser");
+		session.removeAttribute("numberOfRealPages");
+		
+		
 		return "error_page";
 	}
 	
