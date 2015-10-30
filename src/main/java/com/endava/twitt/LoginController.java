@@ -71,7 +71,10 @@ public class LoginController {
 			session.setAttribute("loadedUser", user);
 			session.setAttribute("loadedAdmin", user);
 			session.setAttribute("loadedRole", user.getRole());
-			/*session.setAttribute("state", "ROLE_USER");*/
+
+			session.setAttribute("loadedAdminEmail", user.getEmail());
+			session.setAttribute("state", "ROLE_ADMIN");
+
 			return "redirect:/admin";
 		}
 		logger.debug("User was autentificated succesfully.");
@@ -114,6 +117,7 @@ public class LoginController {
 
 		session.setAttribute("loadedUser", user);
 		session.setAttribute("userID", user.getEmail());
+		session.setAttribute("state", "ROLE_USER");
 
 		return "redirect:/home";
 	}
@@ -172,6 +176,7 @@ public class LoginController {
 			selectedPage=0;
 		}
 		
+		session.setAttribute("loadedRole", user1.getRole());
 		session.setAttribute("selectedRealPage", selectedPage);
 		session.setAttribute("numberOfRealPages", numberOfPages);
 		return "home";
