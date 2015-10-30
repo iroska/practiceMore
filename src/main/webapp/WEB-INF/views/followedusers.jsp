@@ -36,33 +36,54 @@
 
 			<h3>Followed Users</h3>
 			<%-- <c:if test="${!empty followedUsers}"> --%>
-				<table class="tg" border="1">
+			<c:if test="${checkSize!=0}">
+			<h5 align="center">
+				<font color="#0080FF">FOLLOWING <br>- ${checkSize } -
+				</font><br />
+			</h5>
+			
+				<table class="tg" border="1">				
+				<thead>
 					<tr>
-						<th width="80">User Name</th>
+							<th width="40%">Current User</th>
+							<th width="40%">Followed Users</th>
+							<th width="5%"></th>
+							<th width="5%"></th>
+						<!-- <th width="120">Current User</th>
 						<th width="120">User Email</th>
-						<th width="120">Followed Users</th>
+						<th width="120">Followed Users</th> -->
 						
 					</tr>
+					</thead>					
 					<c:forEach items="${followedUsers}" var="listFollowedUsers">
 						<tr>
 							<td>${loadedUser.firstName }&nbsp;${loadedUser.lastName }</td>
-							<td>${listFollowedUsers.userFollowed}</td>
+							<%-- <td>${listFollowedUsers.userFollowed}</td> --%>
 							<td>${listFollowedUsers.followedUser}</td>							
 							
 							<td><form action="userstweet" method="get">
-							<input type="hidden" name="userEmail"  value="${listFollowedUsers.followedUser}"/>	
-							<input type="submit" value="View tweets "/>					
+							<input type="hidden" name="userEmail"  value="${listFollowedUsers.followedUser}"/>
+							<button class="btn waves-effect waves-ligh cyan lighten-3t"
+											id="tweets-btn" type="submit">Tweets</button>	
+							<!-- <input type="submit" value="View tweets "/>	 -->				
 							</form></td>															
 							<td><form action="deletefollowed" method="get">
 							<input type="hidden" name="userToDelete"  value="${loadedUser.email}"/>
 							<input type="hidden" name="followedUser"  value="${listFollowedUsers.followedUser}"/>
-							<input type="hidden" name="idFollowToDelete"  value="${listFollowedUsers.id }"/>	
-							<input type="submit" value="UNFOLLOW"/>					
+							<input type="hidden" name="idFollowToDelete"  value="${listFollowedUsers.id }"/>
+							<button class="btn waves-effect waves-ligh cyan lighten-3t"
+											id="unfollow-btn" type="submit" value="UNFOLLOW">Unfollow</button>	
+							<!-- <input type="submit" value="UNFOLLOW"/>	 -->				
 							</form></td>
 														
 						</tr>
 					</c:forEach>
 				</table>
+				</c:if>
+				<br/><br/>
+				<c:if test="${checkSize==0}">
+							<h4 align="center">You don't have followed users.</h4><h4 align="center"> To follow an user access <a href="users"><u>"Tweet Members"</u></a> menu and select users to follow.</h4>
+							</c:if>
 			<%-- </c:if> --%>
 		</div>
 	</div>

@@ -8,6 +8,13 @@
 
 <html>
 <head>
+
+<script src="scripts.js"></script>
+<script>
+	countChar(val);
+</script>
+
+
 <!--Import Google Icon Font-->
 <link href="http://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
@@ -15,10 +22,11 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css"
 	media="screen,projection" />
-<link rel="stylesheet" href="<c:url value=" resources/css/styles.css" />" media="screen, projection" />
-	<link rel="icon"
-		  type="image/png"
-		  href="<c:url value=" resources/img/logo.png" />" />
+<link rel="stylesheet"
+	href="<c:url value=" resources/css/styles.css" />"
+	media="screen, projection" />
+<link rel="icon" type="image/png"
+	href="<c:url value=" resources/img/logo.png" />" />
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -47,11 +55,13 @@
 			<form action="tweets" method="POST">
 				<input type="hidden" name="user_email" value="${loadedUser.email }" />
 				<input type="hidden" name="publishedDate" value="new Date()" />
-				<!--<input type="text" name="descript" height="100px" width="100" size="140" />-->
+				<!-- <input type="text" name="descript" height="100px" width="100" size="140" /> -->
+
+				
 				<div class="input-field col s12">
-					<textarea id="descript" class="materialize-textarea tweet-body"
+					<textarea id="descript"  class="materialize-textarea tweet-body"
 						name="descript"></textarea>
-					<label for="descript">Tweet here</label>
+					<label for="descript">Tweet here</label>					
 				</div>
 				<div class="row light condensed left-align">
 					<a href="home">
@@ -59,6 +69,10 @@
 							id="tweetMessage" type="submit" name="submit">
 							Tweet Message <i class="material-icons done">done</i>
 						</button>
+						
+					<!-- 	<input class="btn waves-effect waves-ligh cyan lighten-3t" id="text-remaining" class="input-medium uneditable-input"
+					placeholder="140 Chars Remaining" readonly /> -->
+						
 					</a>
 				</div>
 
@@ -71,13 +85,13 @@
 			<table border="1" align="center">
 
 				<thead>
-				<tr>
-					<th width="13%" data-field="id">User</th>
-					<th width="62%" data-field="name">Description</th>
-					<th width="15%" data-field="price">Published Date</th>
-					<th width="5%" ></th>
-					<th width="5%" ></th>
-				</tr>
+					<tr>
+						<th width="20%" data-field="id">User</th>
+						<th width="62%" data-field="name">Description</th>
+						<th width="65%" data-field="price">Published Date</th>
+						<th width="5%"></th>
+						<th width="5%"></th>
+					</tr>
 				</thead>
 				<c:choose>
 					<c:when test="${empty existingUser}">
@@ -93,10 +107,10 @@
 											name="idTweetToEdit" value="${tweets.id }" /> <input
 											type="hidden" name="textToEdit"
 											value="${tweets.description }" />
-									<button class="btn waves-effect waves-ligh cyan lighten-3t"
-											id="edit-btn" type="submit" name="page"  value="EDIT Tweet">
-										<i class="material-icons">mode_edit</i>
-									</button>
+										<button class="btn waves-effect waves-ligh cyan lighten-3t"
+											id="edit-btn" type="submit" name="page" value="EDIT Tweet">
+											<i class="material-icons">mode_edit</i>
+										</button>
 									</form></td>
 								<td>
 									<form action="deletemytweet" method="GET">
@@ -106,7 +120,8 @@
 											type="hidden" name="textTodelete"
 											value="${tweets.description }" />
 										<button class="btn waves-effect waves-ligh cyan lighten-3t"
-												id="delete-btn" type="submit" name="page"  value="Delete Tweet">
+											id="delete-btn" type="submit" name="page"
+											value="Delete Tweet">
 											<i class="material-icons delete">delete</i>
 										</button>
 									</form>
@@ -129,21 +144,21 @@
 											type="hidden" name="textToEdit"
 											value="${tweets.description }" />
 										<button class="btn waves-effect waves-ligh cyan lighten-3t"
-												id="edit-btn" type="submit" name="page"  value="EDIT Tweet">
+											id="edit-btn" type="submit" name="page" value="EDIT Tweet">
 											<i class="material-icons">mode_edit</i>
 										</button>
-									</form>
-								</td>
+									</form></td>
 								<td>
 									<form action="deletemytweet" method="GET">
 										<input type="hidden" name="userToDelete"
 											value="${loadedUser.email }" /> <input type="hidden"
-											name="idTweetToDelete" value="${tweets.id }" />
-										<input type="hidden" name="textTodelete"
-											   value="${tweets.description }" />
+											name="idTweetToDelete" value="${tweets.id }" /> <input
+											type="hidden" name="textTodelete"
+											value="${tweets.description }" />
 
 										<button class="btn waves-effect waves-ligh cyan lighten-3t"
-												id="delete-btn" type="submit" name="page"  value="Delete Tweet">
+											id="delete-btn" type="submit" name="page"
+											value="Delete Tweet">
 											<i class="material-icons">mode_delete</i>
 										</button>
 									</form>
@@ -159,15 +174,15 @@
 				<tr>
 					<td>
 						<form action="paginateTweets" method="GET">
-							<input type="hidden" name="firstrow" value="${firstRow}"/> <input
-								type="hidden" name="rowcount" value="${rowCount}"/> <input
-								type="hidden" name="user_email" value="${loadedUser.email }"/>
+							<input type="hidden" name="firstrow" value="${firstRow}" /> <input
+								type="hidden" name="rowcount" value="${rowCount}" /> <input
+								type="hidden" name="user_email" value="${loadedUser.email }" />
 							<button class="btn waves-effect waves-ligh cyan lighten-3t"
-									id="previous-btn" type="submit" name="page" value="Previous">
+								id="previous-btn" type="submit" name="page" value="Previous">
 								<i class="material-icons arrow-L">arrow_back</i>
 							</button>
 							<button class="btn waves-effect waves-ligh cyan lighten-3t"
-									id="next-btn" type="submit" name="page" value="Next">
+								id="next-btn" type="submit" name="page" value="Next">
 								<i class="material-icons arrow-R">arrow_forward</i>
 							</button>
 
@@ -176,16 +191,19 @@
 					<td align="right"></td>
 				</tr>
 			</table>
-			<br />			
-			<p align="center"><b><c:forEach begin="1" end="${numberOfRealPages }" varStatus="loop">
-				<c:if test="${selectedRealPage == loop.index }">
-					<th><font color="#0080FF" size="6">${loop.index} 
-							&nbsp; </font></th>
-				</c:if>
-				<c:if test="${selectedRealPage != loop.index }">
-					<th><font size="5">${loop.index}&nbsp; &nbsp; &nbsp;</font></th>
-				</c:if>
-			</c:forEach></b></p>
+			<br />
+			<p align="center">
+				<b><c:forEach begin="1" end="${numberOfRealPages }"
+						varStatus="loop">
+						<c:if test="${selectedRealPage == loop.index }">
+							<th><font color="#0080FF" size="6">${loop.index}
+									&nbsp; </font></th>
+						</c:if>
+						<c:if test="${selectedRealPage != loop.index }">
+							<th><font size="5">${loop.index}&nbsp; &nbsp; &nbsp;</font></th>
+						</c:if>
+					</c:forEach></b>
+			</p>
 			<br />
 		</div>
 	</div>

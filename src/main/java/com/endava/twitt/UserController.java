@@ -82,14 +82,23 @@ public class UserController {
 	}
 
 	@RequestMapping("/delete")
-	public String deleteUser(@ModelAttribute("email") String userEmail) {
+	public String deleteUser(@ModelAttribute("email") String userEmail, HttpSession session) {
+		
+		if (session.getAttribute("loadedUser") == null) {
+			return "redirect:/login";
+		}
+		
 		this.userService.deleteUser(userEmail);
 
 		return "admin";
 	}
 
 	@RequestMapping("/editUserProfile")
-	public String editUserProfile(@ModelAttribute("email") String userEmail) {
+	public String editUserProfile(@ModelAttribute("email") String userEmail, HttpSession session) {
+		if (session.getAttribute("loadedUser") == null) {
+			return "redirect:/login";
+		}
+		
 		return "userProfileEdit";
 	}
 
@@ -181,6 +190,8 @@ public class UserController {
 
 		List<Follow> listFollowed = this.followService
 				.getFollowByUser((String) session.getAttribute("userID"));
+		Integer checkSize=listFollowed.size();
+		session.setAttribute("checkSize", checkSize);
 		session.setAttribute("followedUsers", listFollowed);
 
 		return "followedusers";

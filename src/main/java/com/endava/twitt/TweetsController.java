@@ -50,6 +50,10 @@ public class TweetsController {
 	@RequestMapping(value = "/tweets", method = RequestMethod.POST)
 	public String addTweet(@RequestParam String user_email,
 			@RequestParam String descript, HttpSession session, Model model) {
+		
+		if (session.getAttribute("loadedUser") == null) {
+			return "redirect:/login";
+		}
 
 		if (session.equals(null)) {
 			return "redirect:/login";

@@ -73,12 +73,12 @@
 						<input type="hidden" name="rowcountUser" value="${rowCountUser}" />
 						<input type="hidden" name="user_email" value="${specialUser.email }" />
 						<button class="btn waves-effect waves-ligh cyan lighten-3t"
-								id="previous-btn" type="submit" name="pageUser">
-							<i class="material-icons arrow-L" value="Previous">arrow_back</i>
+								id="previous-btn" type="submit" name="pageUser" value="Previous">
+							<i class="material-icons arrow-L" >arrow_back</i>
 						</button>
 						<button class="btn waves-effect waves-ligh cyan lighten-3t"
-								id="next-btn" type="submit" name="pageUser">
-							<i class="material-icons arrow-R" value="Next">arrow_forward</i>
+								id="next-btn" type="submit" name="pageUser" value="Next">
+							<i class="material-icons arrow-R" >arrow_forward</i>
 						</button>
 						</form>
 					</td>

@@ -44,7 +44,6 @@
 			</h5><br/>
 			<h3>Your actual profile data are:</h3><br/>
 
-			<!-- <h3>Update Your Profile</h3> -->
 			<form action="changeProfile" method="POST">			
 			<input type="hidden" name="role" value="ROLE_USER"/>
 			First Name:<input type="text" name="firstName" value="${loadedUser.firstName }"/><br>
@@ -54,103 +53,14 @@
 			<input type="hidden" name="email" value="${loadedUser.email}"/><br>			
 			Password:<input type="password" name="password" value="${loadedUser.password}"/><br>
 			<font color="red"><form:errors path="user.password"/></font><br/>
-			
-			<input type="submit" value="Update My Profile"/>						
+			<button class="btn waves-effect waves-ligh cyan lighten-3t"
+											id="Update My Profile-btn" type="submit" value="Update My Profile">Update My Profile</button>
+			<!-- <input type="submit" value="Update My Profile"/> -->						
 			</form>
 		</div>
 	</div>
-
-
-
-	<%-- <div class="container">
-		<div class="row">
-
-			
-
-			<h3 align="center">Change your ${loadedUser.firstName }</h3>
-
-			<h3>Your actual Profile Data are:</h3>
-			<br />
-			<p>First Name: ${loadedUser.firstName }</p>
-			<br>
-			<p>Last Name: ${loadedUser.lastName }</p>
-			<br>
-			<p>Email: ${loadedUser.email }</p>
-			<br>
-			<p>Password: ${loadedUser.password }</p>
-			<br> <br /> <br />
-
-
-			
-
-			<div class="row">
-				<div class="col s12 m6 l4 offset-l4 offset-m3 amber lighten-5">
-					<div class="center promo promo-example">
-						<h5 class="light condensed">New to Endava Twitter? Sign up</h5>
-					</div>
-
-					<form action="changeProfile" method="post">
-					<div class="row">
-							<div class="input-field col s6">
-								<input id="role"  name="role" value="USER_ROLE" type="hidden"
-									> <label for="role">First
-									Name</label>
-								<form:errors path="user.firstName" />
-							</div>							
-						</div>						
-						<div class="row">
-							<div class="input-field col s6">
-								<input id="first_name" name="firstName" type="text"
-									class="validate"> <label for="first_name">First
-									Name</label>
-								<form:errors path="user.firstName" />
-							</div>
-							<div class="input-field col s6">
-								<input id="last_name" name="lastName" type="text"
-									class="validate"> <label for="last_name">Last
-									Name</label>
-								<form:errors path="user.lastName" />
-							</div>
-						</div>
-						<div class="row">
-							<div class="input-field col s12">
-								<input id="email" name="email" type="email" class="validate">
-								<label for="email" data-error="wrong" data-success="">Email</label>
-								<form:errors path="user.email" />
-							</div>
-						</div>
-						<!-- <div class="row">
-                <div class="input-field col s12">
-                    <input id="avatar" name="avatar" type="text" class="validate">
-                    <label for="password">avatar</label>
-                </div>
-            </div> -->
-						<div class="row">
-							<div class="input-field col s12">
-								<input id="password" name="password" type="password"
-									class="validate" /> <label for="password">Password</label>
-								<form:errors path="user.password" />
-							</div>
-						</div>
-						<div class="row light condensed center-align">
-							<p align="center">
-								<font color="green">${userAlreadyExists }</font>
-							</p>
-							<button class="btn waves-effect waves-ligh cyan lighten-3t"
-								type="submit" name="submit">
-								Update My Profile <i class="material-icons right">send</i>
-							</button>
-						</div>
-					</form>
-				</div>
-			</div>
-
-
-			<br />
-		</div>
-	</div> --%>
+	
 	<%@include file="partial/footer.jsp"%>
-
 
 	<!--Import jQuery before materialize.js-->
 	<script type="text/javascript"
