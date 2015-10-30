@@ -71,7 +71,7 @@ public class LoginController {
 			session.setAttribute("loadedUser", user);
 			session.setAttribute("loadedAdmin", user);
 			session.setAttribute("loadedRole", user.getRole());
-			session.setAttribute("state", "ROLE_USER");
+			/*session.setAttribute("state", "ROLE_USER");*/
 			return "redirect:/admin";
 		}
 		logger.debug("User was autentificated succesfully.");

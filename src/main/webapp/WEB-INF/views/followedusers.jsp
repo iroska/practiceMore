@@ -29,6 +29,7 @@
 
 	<div class="container">
 		<div class="row">
+		<br/>
 			<p align="left">
 				Hello ${loadedUser.firstName }&nbsp;${loadedUser.lastName }! &nbsp; <a
 					href="logout">Log Out</a>
