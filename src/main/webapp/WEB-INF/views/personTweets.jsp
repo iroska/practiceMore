@@ -39,7 +39,7 @@
 					href="logout">Log Out</a>
 			</p>
 			<br /> <br /> <br /> <br />
-
+			<c:if test="${numberOfUsersTweetsUser!=0}">
 			<h3 align="center">${specialUser.firstName }'s &nbsp;TWEETS</h3>
 			<h5 align="center">
 				<font color="#0080FF">- ${numberOfUsersTweetsUser } - </font><br />
@@ -100,6 +100,10 @@
 						</c:if>
 					</c:forEach></b>
 			</p>
+			</c:if>
+			<c:if test="${numberOfUsersTweetsUser==0}">
+							<h5 align="center">That user doesn't have Tweets.</h5><h5 align="center"><a href="users"><u>Back to list of users.</u></a> </h5>
+							</c:if>
 			<br />
 		</div>
 	</div>

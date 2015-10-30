@@ -51,6 +51,7 @@
 					<c:forEach items="${userList}" var="person">
 						<tr>
 							<c:if test="${loadedUser.email !=person.email}">
+							<c:if test="${state ==person.role}">
 								<td>${person.firstName}&nbsp;${person.lastName}</td>
 								<td>${person.email}</td>
 								<td><form action="userstweet" method="get">
@@ -67,7 +68,7 @@
 											id="follow-btn" type="submit">Follow</button>
 									</form>
 								</td>
-							</c:if>
+							</c:if></c:if>
 						</tr>
 					</c:forEach>
 				</table>

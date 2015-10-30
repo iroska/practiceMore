@@ -71,3 +71,13 @@ footer.page-footer {
     color: #2196F3 !important;
     top: .5rem;
 }
+
+table tr {
+	
+	border-bottom: 1px solid #CFE3F3;
+}
+
+table tr:last-child{
+	
+	border-bottom: none;
+}

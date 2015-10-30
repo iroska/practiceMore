@@ -30,14 +30,14 @@
 
 	<div class="container">
 		<div class="row">
-
+			<br/>
 			<p align="left">
 				Hello ${loadedUser.firstName } ${loadedUser.lastName }! &nbsp; <a
 					href="logout">Log Out</a>
 			</p>
 			<br /> <br /> <br /> <br />
-
-			<h3 align="center">${sessionUser.firstName }'sTWEETS</h3>
+			<c:if test="${numberOfUsersTweetsUser!=0}">
+			<h3 align="center">${sessionUser.firstName }'s&nbsp; TWEETS</h3>
 			<h5 align="center">
 				<font color="#0080FF">- ${numberOfUsersTweetsUser } - </font><br />
 			</h5>
@@ -76,7 +76,7 @@
 							<input type="hidden" name="firstrowUser" value="${firstRowUser}" />
 							<input type="hidden" name="rowcountUser" value="${rowCountUser}" />
 							<%-- <input type="hidden" name="sessionUser"  value="${loadedUser.email}"/>--%>
-							<input type="hidden" name="user_email" value="${specialUser.email }" />
+							<input type="hidden" name="user_email" value="${sessionUser.email }" />
 							
 							
 							<button class="btn waves-effect waves-ligh cyan lighten-3t"
@@ -93,10 +93,29 @@
 							  <input type="submit" name="pageUser" value="Next" /> -->
 						</form></td>
 					<td align="right"></td>
-					<td align="right">Tweets from ${firstRowUser} to
-						${rowCountUser}</td>
+					<%-- <td align="right">Tweets from ${firstRowUser} to
+						${rowCountUser}</td> --%>
 				</tr>
 			</table>
+			<br />
+			<p align="center">
+				<b><c:forEach begin="1" end="${numberOfRealPagesUserAdmin }"
+						varStatus="loop">
+						<c:if test="${selectedRealPageUserAdmin == loop.index }">
+							<th><font color="#0080FF" size="6">${loop.index}
+									&nbsp; </font></th>
+						</c:if>
+						<c:if test="${selectedRealPageUserAdmin != loop.index }">
+							<th><font size="5">${loop.index}&nbsp; &nbsp; &nbsp;</font></th>
+						</c:if>
+					</c:forEach></b>
+			</p>
+			</c:if>
+			<c:if test="${numberOfUsersTweetsUser==0}">
+							<h5 align="center">That user doesn't have Tweets.</h5><h5 align="center"><a href="admin"><u>Back to list of users.</u></a> </h5>
+							</c:if>
+			<br />
+			
 			<br />
 		</div>
 	</div>

@@ -91,6 +91,7 @@ public class AdminController {
 		session.setAttribute("numberOfUsersTweetsUser", listSize);
 
 		Integer numberOfTweetsOnPageUser = new GlobalVariables().tweetsOnPage;
+		
 		Integer firstrowUser = 0;
 		Integer rowcountUser = 0;
 		if (listSize == 0) {
@@ -120,9 +121,31 @@ public class AdminController {
 					+ firstrowUser + " " + rowcountUser);
 			return new ModelAndView("redirect:/admin");
 		}
+		
+		Integer numberOfTweetsOnPage1 = new GlobalVariables().tweetsOnPage;
+		Integer numberOfPages;
+		Integer selectedPageUser;
+		if (listSize % numberOfTweetsOnPage1 == 0 && numberOfTweetsOnPage1 > 0) {
+			numberOfPages = listSize / numberOfTweetsOnPage1;
+		} else if (numberOfTweetsOnPage1 == 0) {
+			numberOfPages = 0;
+		} else {
+			numberOfPages = Math.abs(listSize / numberOfTweetsOnPage1) + 1;
+		}
+
+		if (rowcountUser % numberOfTweetsOnPage1 == 0) {
+			selectedPageUser = rowcountUser / numberOfTweetsOnPage1;
+		} else if (rowcountUser % numberOfTweetsOnPage1 != 0) {
+			selectedPageUser = Math.abs(rowcountUser / numberOfTweetsOnPage1) + 1;
+		} else {
+			selectedPageUser = 0;
+		}
+		
+		session.setAttribute("selectedRealPageUserAdmin", selectedPageUser);
+		session.setAttribute("numberOfRealPagesUserAdmin", numberOfPages);
 		session.setAttribute("sizeUserTweetsUser", listSize);
 		session.setAttribute("sessionUser", user);
-		session.setAttribute("userID", user.getEmail());
+		session.setAttribute("userIDAdmin", user.getEmail());
 
 		return model;
 	}
@@ -168,6 +191,35 @@ public class AdminController {
 		tweets.setPublishedDate(new Date());
 		this.tweetService.deleteUser(tweets);
 		logger.debug("User's tweet was delited");
+		
+		
+		User user = userService.getUserByName(userToDelete);
+		List<Tweets> allUsersTweets = user.getTweet();
+		Integer listSize = allUsersTweets.size();
+		Integer numberOfTweetsOnPage = new GlobalVariables().tweetsOnPage;
+		Integer firstRowUser = 0;
+		Integer rowCountUser = 0;
+		if (listSize == 0) {
+			firstRowUser = 0;
+			rowCountUser = 0;
+			session.setAttribute("firstRowUser", firstRowUser);
+			session.setAttribute("rowCountUser", rowCountUser);
+		} else if (listSize > 0 && listSize < numberOfTweetsOnPage) {
+			firstRowUser = 0;
+			rowCountUser = listSize;
+			session.setAttribute("firstRowUser", firstRowUser);
+			session.setAttribute("rowCountUser", rowCountUser);
+		} else if (listSize >= numberOfTweetsOnPage) {
+			firstRowUser = 0;
+			rowCountUser = numberOfTweetsOnPage;
+			session.setAttribute("firstRowUser", firstRowUser);
+			session.setAttribute("rowCountUser", rowCountUser);
+		}
+
+		logger.debug("Size = " + listSize + "In delete Tweet = "
+				+ (Integer) session.getAttribute("firstRowUser") + " "
+				+ (Integer) session.getAttribute("rowCountUser"));
+		
 		session.setAttribute("currentUserData", user1);
 		session.setAttribute("currentUser", user1.getEmail());
 
@@ -182,46 +234,59 @@ public class AdminController {
 			return "redirect:/login";
 		}
 
-		User user = userService.getUserByName((String) session
-				.getAttribute("currentUser"));
-		List<Tweets> allUsersTweets = user.getTweet();
+		session.removeAttribute("selectedRealPageUserAdmin");
+		session.removeAttribute("numberOfRealPagesUserAdmin");
+
+		User user1 = userService.getUserByName((String) session
+				.getAttribute("userIDAdmin"));
+		List<Tweets> allUsersTweets = user1.getTweet();
 		Integer listSize = allUsersTweets.size();
+		session.setAttribute("sizeUserTweetsUser", listSize);
 		session.setAttribute("numberOfUsersTweetsUser", listSize);
 
-		Integer numberOfTweetsOnPageUser = new GlobalVariables().tweetsOnPage;
-		Integer firstrowUser = 0;
-		Integer rowcountUser = 0;
-		if (listSize == 0) {
-			firstrowUser = 0;
-			rowcountUser = 0;
-			session.setAttribute("firstRowUser", firstrowUser);
-			session.setAttribute("rowCountUser", rowcountUser);
-		} else if (listSize > 0 && listSize < numberOfTweetsOnPageUser) {
-			firstrowUser = 0;
-			rowcountUser = listSize;
-			session.setAttribute("firstRowUser", firstrowUser);
-			session.setAttribute("rowCountUser", rowcountUser);
-		} else if (listSize >= numberOfTweetsOnPageUser) {
-			firstrowUser = 0;
-			rowcountUser = numberOfTweetsOnPageUser;
-			session.setAttribute("firstRowUser", firstrowUser);
-			session.setAttribute("rowCountUser", rowcountUser);
-		}
-
+		Integer firstrowUser = (Integer) session.getAttribute("firstRowUser");
+		Integer rowcountUser = (Integer) session.getAttribute("rowCountUser");
+		System.out.println("Size = " + listSize + " In personTweets = "
+				+ (Integer) session.getAttribute("firstRowUser") + " "
+				+ (Integer) session.getAttribute("rowCountUser"));
+		
+		
 		try {
 			logger.debug("Try to retrive sublist of users");
-			List<Tweets> userSubTweetsUser = allUsersTweets.subList(
-					firstrowUser, rowcountUser);
-			session.setAttribute("userTweetsSublistUser", userSubTweetsUser);
+		List<Tweets> userSubTweetsUser = allUsersTweets.subList(firstrowUser,
+				rowcountUser);
+		session.setAttribute("userTweetsSublistUser", userSubTweetsUser);
 		} catch (IndexOutOfBoundsException e) {
 			logger.error("Error to fulfill request with indexes "
 					+ firstrowUser + " " + rowcountUser);
-			return "redirect:/admin";
+			return "redirect:/home";
+		}
+		
+
+		Integer numberOfTweetsOnPage1 = new GlobalVariables().tweetsOnPage;
+		Integer numberOfPages;
+		Integer selectedPageUser;
+		if (listSize % numberOfTweetsOnPage1 == 0 && numberOfTweetsOnPage1 > 0) {
+			numberOfPages = listSize / numberOfTweetsOnPage1;
+		} else if (numberOfTweetsOnPage1 == 0) {
+			numberOfPages = 0;
+		} else {
+			numberOfPages = Math.abs(listSize / numberOfTweetsOnPage1) + 1;
 		}
 
-		session.setAttribute("sizeUserTweetsUser", listSize);
+		if (rowcountUser % numberOfTweetsOnPage1 == 0) {
+			selectedPageUser = rowcountUser / numberOfTweetsOnPage1;
+		} else if (rowcountUser % numberOfTweetsOnPage1 != 0) {
+			selectedPageUser = Math.abs(rowcountUser / numberOfTweetsOnPage1) + 1;
+		} else {
+			selectedPageUser = 0;
+		}
+
+		session.setAttribute("selectedRealPageUserAdmin", selectedPageUser);
+		session.setAttribute("numberOfRealPagesUserAdmin", numberOfPages);
+		/*session.setAttribute("sizeUserTweetsUser", listSize);
 		session.setAttribute("sessionUser", user);
-		session.setAttribute("userID", user.getEmail());
+		session.setAttribute("userID", user.getEmail());*/
 
 		return "personTweetsAdmin";
 

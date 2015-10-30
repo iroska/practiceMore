@@ -82,7 +82,7 @@
 				</c:if>
 				<br/><br/>
 				<c:if test="${checkSize==0}">
-							<h4 align="center">You don't have followed users.</h4><h4 align="center"> To follow an user access <a href="users"><u>"Tweet Members"</u></a> menu and select users to follow.</h4>
+							<h5 align="center">You don't have followed users.</h5><h5 align="center"> To follow an user access <a href="users"><u>"Tweet Members"</u></a> menu and select users to follow.</h5>
 							</c:if>
 			<%-- </c:if> --%>
 		</div>

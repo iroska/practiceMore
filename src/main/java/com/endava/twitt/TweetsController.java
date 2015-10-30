@@ -167,6 +167,7 @@ public class TweetsController {
 		session.removeAttribute("userIdTweets");
 
 		ModelAndView model = new ModelAndView("personTweets");
+		logger.debug("List user's tweets in user mode.");
 
 		User user = userService.getUserByName(userEmail);
 		List<Tweets> allUsersTweets = user.getTweet();
@@ -202,7 +203,7 @@ public class TweetsController {
 		} catch (IndexOutOfBoundsException e) {
 			logger.error("Error to fulfill request with indexes "
 					+ firstrowUser + " " + rowcountUser);
-			return new ModelAndView("redirect:/hame");
+			return new ModelAndView("redirect:/home");
 		}
 
 		Integer numberOfTweetsOnPage1 = new GlobalVariables().tweetsOnPage;
@@ -415,7 +416,10 @@ public class TweetsController {
 		if (session.getAttribute("loadedUser") == null) {
 			return "redirect:/login";
 		}
-
+		
+		
+	/*	User user2=userService.getUserByName((String)session.getAttribute("loadedRole"));*/
+		
 		Integer numberOfTweetsOnPageUser = new GlobalVariables().tweetsOnPage;
 
 		if (pageUser.equals("Next")) {
@@ -452,6 +456,10 @@ public class TweetsController {
 						+ " In Next 2 paginateTweetsUser= "
 						+ (Integer) session.getAttribute("firstRowUser") + " "
 						+ (Integer) session.getAttribute("rowCountUser"));
+				String s=(String)session.getAttribute("state");
+				if(s.equals("ROLE_ADMIN")){
+					return "redirect:/personTweetsAdmin";
+				}
 
 				return "redirect:/personTweets";
 
@@ -581,6 +589,10 @@ public class TweetsController {
 		}
 		session.removeAttribute("sizeUserTweetsUser");
 
+		String s=(String)session.getAttribute("state");
+		if(s.equals("ROLE_ADMIN")){
+			return "redirect:/personTweetsAdmin";
+		}
 		return "redirect:/personTweets";
 	}
 }
