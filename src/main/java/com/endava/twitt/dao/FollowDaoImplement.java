@@ -20,18 +20,8 @@ public class FollowDaoImplement implements FollowDaoInterface {
 
 	private SessionFactory sessionFactory;
 
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		// logger.info("Try to connect to database FollowDaoImplement class.");
-
-		this.sessionFactory = sessionFactory;
-		/*
-		 * if(this.sessionFactory==null){
-		 * logger.error("Connection to database failed. FollowDaoImplement class."
-		 * ); }else{ logger.info(
-		 * "Succesful connection to database done in FollowDaoImplement class."
-		 * ); }
-		 */
-
+	public void setSessionFactory(SessionFactory sessionFactory) {		
+		this.sessionFactory = sessionFactory;		
 	}
 
 	@Override

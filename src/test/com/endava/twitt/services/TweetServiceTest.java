@@ -60,15 +60,8 @@ public class TweetServiceTest {
         assertNotNull(userService);
         user = userService.getUserByName("testInsertTweet@testTweet.com");
         
-        String oldTweet = null;
-        List <Tweets> lisetOfUserTweets=( List <Tweets>)user.getTweet();		 
-	        for (Tweets tweet:lisetOfUserTweets){
-	        	if(tweet.getId()==465){
-	        		oldTweet=tweet.getDescription();	
-	        	}
-	        }	
-                
-        String updatedTweet="new descriptiont  3";
+                       
+        String updatedTweet="new descriptiont 354";
 		Tweets tweets = new Tweets();		
 		tweets.setId(465);
 		tweets.setUser(user);
@@ -76,17 +69,15 @@ public class TweetServiceTest {
 		tweets.setPublishedDate(new Date());
 		tweetService.updateTweet(tweets);
 		
-		
-		/*List <Tweets> lisetOfUserTweets1=( List <Tweets>)user.getTweet();	*/
-		boolean testUapdate=true;
-	        for (Tweets tweet:lisetOfUserTweets){
+		User user2=userService.getUserByName("testInsertTweet@testTweet.com");
+	    List <Tweets> lisetOfUserTweets=( List <Tweets>)user2.getTweet();	       
+		String newTweet ="";		
+	    for (Tweets tweet:lisetOfUserTweets){
 	        	if(tweet.getId()==465){
-	        		testUapdate=updatedTweet.equals(tweet.getDescription());
-	        		System.out.println(testUapdate);
-	        		      		
+	        		newTweet=tweet.getDescription();
 	        	}
 	        }		
-	        assertTrue(testUapdate==false); 	      
+	        assertTrue(newTweet.equals(updatedTweet)==true); 	      
     }
     
     @Test
