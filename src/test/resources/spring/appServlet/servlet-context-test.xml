@@ -139,7 +139,7 @@
     </beans:bean>
 
     <beans:bean name="testTweet" class="com.endava.twitt.models.Tweets">
-        <!--<beans:property name="user" ref="testUser" />-->
+        <beans:property name="user" ref="testUser" />
         <beans:property name="description" value="test Tweet Description value here" />
     </beans:bean>
 
