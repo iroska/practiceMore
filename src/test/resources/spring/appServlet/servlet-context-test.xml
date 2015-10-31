@@ -39,7 +39,7 @@
         <beans:property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <beans:property name="url" value="jdbc:mysql://localhost:3306/test"/>
         <beans:property name="username" value="root"/>
-        <beans:property name="password" value="root"/>
+        <beans:property name="password" value="endava"/>
     </beans:bean>
     <!-- Hibernate 4 SessionFactory Bean definition -->
     <beans:bean id="hibernate4AnnotatedSessionFactory"
@@ -135,7 +135,7 @@
         <beans:property name="lastName" value="Test LastName" />
         <beans:property name="role" value="ROLE_USER" />
         <beans:property name="email" value="test@test.com" />
-        <beans:property name="password" value="qweqweqwe" />
+        <beans:property name="password" value="testtest" />
     </beans:bean>
 
     <beans:bean name="testTweet" class="com.endava.twitt.models.Tweets">

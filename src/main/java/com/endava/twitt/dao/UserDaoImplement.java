@@ -2,6 +2,8 @@ package com.endava.twitt.dao;
 
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -21,24 +23,24 @@ public class UserDaoImplement implements UserDaoInterface {
 	private SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
-		// logger.info("Try to connect to database.");
+		
 		this.sessionFactory = sessionFactory;
-
-		/*
-		 * if (this.sessionFactory.openSession() == null) {
-		 * logger.info("Cnnection to database failed."); } else {
-		 * logger.info("Succesfull connection to database done."); }
-		 */
+	
 	}
-
+		
 	public void insertUser(User user) {
 		try {
+			String email=user.getEmail();		
+			User user1 = getUserByName(email);
+			if (null == user1) {	
+			logger.debug("Try to save user." + user.getEmail());
 			this.sessionFactory.getCurrentSession().persist(user);
-		} catch (HibernateException e) {
-			logger.error("Person wasn't saved." + e);
+			}
+		} catch (ConstraintViolationException e) {
+			logger.error("Person wasn't saved." + e);		
 		}
 		logger.debug("Person saved successfully, Person Details="
-				+ user.getEmail());
+				+ user.getEmail());		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -53,9 +55,10 @@ public class UserDaoImplement implements UserDaoInterface {
 			return userList;
 		} catch (NullPointerException e) {
 			logger.error("Couldn't list users: " + e);
+			return null;
 		}
 
-		return null;
+		/*return null;*/
 
 	}
 
@@ -70,8 +73,8 @@ public class UserDaoImplement implements UserDaoInterface {
 					+ user.getEmail());
 		} catch (NullPointerException e) {
 			logger.error("Couldn't deleted user." + e);
+			return;
 		}
-
 	}
 
 	public User getUserByName(String name) {
@@ -85,16 +88,16 @@ public class UserDaoImplement implements UserDaoInterface {
 		} catch (NullPointerException e) {
 			logger.error("Person wasn't loaded with provided name =" + name);
 			return null;
-		}
+		}		
 	}
 
 	public void updateUser(User user) {
-		try{
+		try{						
 		this.sessionFactory.getCurrentSession().update(user);
 		logger.debug("Person updated successfully, Person Details="
 				+ user.getEmail());
 		}catch (NullPointerException e) {
-			logger.error("Couldn't update user." + e);
+			logger.error("Couldn't update user." + e);			
 		}		
 	}
 
@@ -109,10 +112,11 @@ public class UserDaoImplement implements UserDaoInterface {
 		}
 		}catch (NullPointerException e){
 			logger.error("Login credentials validation filed with person's email=" + userEmail);
+			return null;
 		}
 		
-		
 		return null;
+		
 	}
 
 }

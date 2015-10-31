@@ -33,7 +33,7 @@ public class UserServicesTest {
         user = (User) applicationContext.getBean("testUser");
     }
 
-    @Test
+   /* @Test
     public void crudUserServicesTest() {
         userService.insertUser(user);
         assertEquals(userService.getUserByName("test@test.com").getEmail(), user.getEmail());
@@ -47,6 +47,37 @@ public class UserServicesTest {
         userService.deleteUser("test@test.com");
         assertNull(userService.getUserByName("test@test.com"));
 
+    }*/
+    
+    @Test
+    public void insertUserTest() {
+        userService.insertUser(user);
+        assertEquals(userService.getUserByName("test@test.com").getEmail(), user.getEmail());      
+
+    }
+    
+    @Test
+    public void updateUserTest() {  
+    	
+        User user1 = userService.getUserByName("ion@rosca.com");
+        user1.setFirstName("Vasea");
+        userService.updateUser(user1);
+        assertEquals(userService.getUserByName("ion@rosca.com").getFirstName(), user1.getFirstName());    
+    }
+        
+    @Test
+    public void insertDeliteUserTest() {
+        userService.insertUser(user);
+        assertEquals(userService.getUserByName("test@test.com").getEmail(), user.getEmail());
+
+        userService.deleteUser("test@test.com");
+        assertNull(userService.getUserByName("test@test.com"));
+    }
+    
+    @Test
+    public void deliteUserTest() {       
+        userService.deleteUser("inexistent@user.com");
+        assertNull(userService.getUserByName("inexistent@user.com"));
     }
 
 }

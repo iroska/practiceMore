@@ -54,7 +54,7 @@
 				<c:forEach items="${userTweetsSublistUser }" var="tweets">
 
 					<tr>
-						<td>${sessionUser.firstName }${sessionUser.lastName }</td>
+						<td>${sessionUser.firstName } ${sessionUser.lastName }</td>
 						<td>${tweets.description }</td>
 						<td>${tweets.publishedDate }</td>
 						<td><form action="delite_user_tweet" method="GET">
@@ -81,16 +81,11 @@
 							<input type="hidden" name="firstrowUser" value="${firstRowUser}" />
 							<input type="hidden" name="rowcountUser" value="${rowCountUser}" />
 							<%-- <input type="hidden" name="sessionUser"  value="${loadedUser.email}"/>--%>
-<<<<<<< HEAD
-							<input type="hidden" name="user_email"
-								value="${specialUser.email }" />
 
-
-=======
 							<input type="hidden" name="user_email" value="${sessionUser.email }" />
 							
 							
->>>>>>> adminTest
+
 							<button class="btn waves-effect waves-ligh cyan lighten-3t"
 								id="previous-btn" type="submit" name="pageUser" value="Previous">
 								<i class="material-icons arrow-L">arrow_back</i>
