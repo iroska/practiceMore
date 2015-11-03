@@ -115,10 +115,7 @@
         <beans:property name="basename" value="/WEB-INF/views/formMessages"/>
     </beans:bean>
 
-    <!--Security Configuration -->
-
-
-    <!-- <beans:import resource="C:/Users/Acer AO725/workspaceEE2/TweetEndavaProject/src/main/webapp/WEB-INF/spring/security-config.xml"/> -->
+    <!--Security Configuration -->   
 
     <beans:bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
         <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>

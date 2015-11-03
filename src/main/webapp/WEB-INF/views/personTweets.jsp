@@ -38,7 +38,7 @@
 					href="logout">Log Out</a>
 			</p>
 			<br /> <br /> <br /> <br />
-
+			<c:if test="${!empty forNullUser}">
 			<c:if test="${numberOfUsersTweetsUser!=0}">
 			<h3 align="center">${specialUser.firstName }'s &nbsp;TWEETS</h3>
 
@@ -104,6 +104,10 @@
 						</c:if>
 					</c:forEach></b>
 			</p>
+			</c:if>
+			</c:if>
+			<c:if test="${empty forNullUser}">
+				<h5 align="center">${userNotExist }</h5><h5 align="center"><a href="followedusers"><u>Back to followed users.</u></a> </h5>
 			</c:if>
 			<c:if test="${numberOfUsersTweetsUser==0}">
 							<h5 align="center">That user doesn't have Tweets.</h5><h5 align="center"><a href="users"><u>Back to list of users.</u></a> </h5>

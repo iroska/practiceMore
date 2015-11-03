@@ -1,10 +1,13 @@
 package com.endava.twitt.services;
 
 import com.endava.twitt.models.User;
+
 import junit.framework.Assert;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -33,7 +36,8 @@ public class UserServicesTest {
         user = (User) applicationContext.getBean("testUser");
     }
 
-   /* @Test
+    @Test
+    @Ignore("that test uses all operations")
     public void crudUserServicesTest() {
         userService.insertUser(user);
         assertEquals(userService.getUserByName("test@test.com").getEmail(), user.getEmail());
@@ -47,20 +51,19 @@ public class UserServicesTest {
         userService.deleteUser("test@test.com");
         assertNull(userService.getUserByName("test@test.com"));
 
-    }*/
+    }
     
     @Test
     public void insertUserTest() {
         userService.insertUser(user);
-        assertEquals(userService.getUserByName("test@test.com").getEmail(), user.getEmail());      
-
+        assertEquals(userService.getUserByName("test@test.com").getEmail(), user.getEmail());   
     }
     
     @Test
     public void updateUserTest() {  
     	
         User user1 = userService.getUserByName("ion@rosca.com");
-        user1.setFirstName("Vasea");
+        user1.setFirstName("Ion");
         userService.updateUser(user1);
         assertEquals(userService.getUserByName("ion@rosca.com").getFirstName(), user1.getFirstName());    
     }
@@ -75,9 +78,9 @@ public class UserServicesTest {
     }
     
     @Test
-    public void deliteUserTest() {       
-        userService.deleteUser("inexistent@user.com");
-        assertNull(userService.getUserByName("inexistent@user.com"));
+    public void deleteUserTest() {       
+        userService.deleteUser("test@test.com");
+        assertNull(userService.getUserByName("test@test.com"));
     }
 
 }

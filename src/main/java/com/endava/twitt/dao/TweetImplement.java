@@ -77,12 +77,17 @@ public class TweetImplement implements TweetInterface {
 	@Override
 	public void deleteUser(Tweets tweet) {
 		try{
-		this.sessionFactory.getCurrentSession().delete(tweet);
+			
+			if(null!=tweet){
+			logger.error("Try to delete tweet: " +tweet);
+			this.sessionFactory.getCurrentSession().delete(tweet);
+			logger.debug("Tweet deleted successfully, Tweet Details="
+					+ tweet.getDescription());
+		}		
 		}catch (HibernateException e) {
 			logger.error("Couldn't delete tweet: " +tweet+" "+ e);
 		}
-		logger.debug("Tweet deleted successfully, Tweet Details="
-				+ tweet.getDescription());
+		
 	}
 
 }

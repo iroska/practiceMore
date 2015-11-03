@@ -77,7 +77,7 @@ public class UserController {
 		}
 
 		model.addAttribute("successfulRegistration",
-				"<center>Congratualtions.<br/> Succesful Registration!</center>");
+				"<center>Congratualtions.<br/> Successful Registration!</center>");
 		return "loginTest";
 	}
 

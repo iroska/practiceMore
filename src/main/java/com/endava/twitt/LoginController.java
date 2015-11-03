@@ -77,7 +77,7 @@ public class LoginController {
 
 			return "redirect:/admin";
 		}
-		logger.debug("User was autentificated succesfully.");
+		logger.debug("User was autentificated successfully.");
 		Integer numberOfTweetsOnPage = new GlobalVariables().tweetsOnPage;
 
 		Integer firstrow = 0;

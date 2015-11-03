@@ -47,12 +47,12 @@
 
 			<form action="changeProfile" method="POST">			
 			<input type="hidden" name="role" value="ROLE_USER"/>
-			First Name:<input type="text" name="firstName" value="${loadedUser.firstName }"/><br>
+			<b>First Name:</b><input type="text" name="firstName" value="${loadedUser.firstName }"/><br>
 			<font color="red"><form:errors path="user.firstName"/></font><br/>
-			Last Name:<input type="text" name="lastName" value="${loadedUser.lastName }"/><br>
+			<b>Last Name:</b><input type="text" name="lastName" value="${loadedUser.lastName }"/><br>
 			<font color="red"><form:errors path="user.lastName"/></font><br/>
 			<input type="hidden" name="email" value="${loadedUser.email}"/><br>			
-			Password:<input type="password" name="password" value="${loadedUser.password}"/><br>
+			<b>Password:</b><input type="password" name="password" value="${loadedUser.password}"/><br>
 			<font color="red"><form:errors path="user.password"/></font><br/>
 			<button class="btn waves-effect waves-ligh cyan lighten-3t"
 											id="Update My Profile-btn" type="submit" value="Update My Profile">Update My Profile</button>

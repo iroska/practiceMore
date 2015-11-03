@@ -169,7 +169,15 @@ public class TweetsController {
 		ModelAndView model = new ModelAndView("personTweets");
 		logger.debug("List user's tweets in user mode.");
 
+		
+		
 		User user = userService.getUserByName(userEmail);
+		session.setAttribute("forNullUser", user);
+		if(user==null){
+			model.addObject("userNotExist", "Unforurnatly followed user delited his account!");
+			return model;
+		}
+		
 		List<Tweets> allUsersTweets = user.getTweet();
 		Integer listSize = allUsersTweets.size();
 		session.setAttribute("numberOfUsersTweetsUser", listSize);

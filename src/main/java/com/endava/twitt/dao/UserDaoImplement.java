@@ -111,7 +111,7 @@ public class UserDaoImplement implements UserDaoInterface {
 			return user;
 		}
 		}catch (NullPointerException e){
-			logger.error("Login credentials validation filed with person's email=" + userEmail);
+			logger.error("Login credentials validation failed with person's email=" + userEmail);
 			return null;
 		}
 		
