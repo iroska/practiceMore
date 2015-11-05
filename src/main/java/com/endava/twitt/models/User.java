@@ -6,6 +6,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -18,6 +20,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name = "users")
 public class User {
+
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_user", unique = true, nullable = false, insertable = false, updatable = false)
+	private int id;	
 
 	@Size(min = 1, max = 254)
 	@Column(name = "FirstName")
@@ -51,13 +57,21 @@ public class User {
 
 	/*----------------------------------------------------*/
 	
-	/*public Set<Follow> getFollowed() {
-		return followed;
+	public String toString() {
+	    return "[" + getEmail() 
+	        + ", " + getFirstName()
+	        + ", " + getLastName()
+	        + ", " + getId()
+	        + "]";
+	  }
+	
+	public int getId() {
+		return id;
 	}
 
-	public void setFollowed(Set<Follow> followed) {
-		this.followed = followed;
-	}*/
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public List<Tweets> getTweet() {
 		return tweet;

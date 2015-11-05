@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class GlobalVariables {
 	
-	public Integer tweetsOnPage=4;
+	public Integer tweetsOnPage=5;
 	
 	
 }
