@@ -15,7 +15,7 @@ routes:
 		* password - input password, 
 		* confirm password - input password
 		* submit button "register"
-
+sddfsdds
 	- start page content
 		lorem ipsum
 		
