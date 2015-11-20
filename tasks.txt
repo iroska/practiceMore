@@ -18,7 +18,7 @@ routes:
 
 	- start page content
 		lorem ipsum
-		
+xcvxcvcxvxcvxcvxcvxcvxcv		
 /user/signin - POST
 /user/signup - POST
 /user/profile{username} - GET afisheaza view profile, daca este username, atunci arata profilul lui
