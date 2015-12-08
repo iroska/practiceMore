@@ -5,3 +5,5 @@ Word
 fsdfsdfsdfsdfsfsfsdfsfdddddddddddddddddddddddeeeeeeeee123456eeeeeee
 World
 Second insertion Vim
+
+This is a new line to test
